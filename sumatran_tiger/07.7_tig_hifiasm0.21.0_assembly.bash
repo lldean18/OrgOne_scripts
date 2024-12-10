@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=96
 #SBATCH --mem=1495g
 #SBATCH --time=168:00:00
-#SBATCH --job-name=tig_hifiasm10
+#SBATCH --job-name=tig_hifiasm4
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 source $HOME/.bash_profile
@@ -26,9 +26,11 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/$species # set the working directory
 attempt=1 # set the attempt number for naming out output directory
 attempt=2
 attempt=3
+attempt=4
 reads=$wkdir/basecalls/SUPlatest_simp_and_simp_from_dup.fastq.gz
 reads=$wkdir/basecalls/all_simplex_simplex_preprocessed.fastq.gz # set the fastq file containing the reads
 reads=$wkdir/basecalls/all_simplex_simplex_herro_corrected.fa.gz # Need fastq not fasta
+reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz
 
 
 # make directory for the assembly & move to it
