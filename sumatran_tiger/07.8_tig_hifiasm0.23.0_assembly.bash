@@ -31,7 +31,7 @@ attempt=5
 reads=$wkdir/basecalls/SUPlatest_simp_and_simp_from_dup.fastq.gz
 reads=$wkdir/basecalls/all_simplex_simplex_preprocessed.fastq.gz # set the fastq file containing the reads
 reads=$wkdir/basecalls/all_simplex_simplex_herro_corrected.fa.gz # Need fastq not fasta
-reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz
+reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz # merged fastq file of all simplex reads from the 4 normal promethion runs
 
 
 # make directory for the assembly & move to it
