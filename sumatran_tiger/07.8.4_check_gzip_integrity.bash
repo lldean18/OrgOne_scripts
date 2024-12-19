@@ -24,3 +24,6 @@ gzip -v -t /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tig
 gzip -v -t /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P3/20230309_1159_2G_PAK98873_d39c7c8c/pod5_fail/SUPlatest_calls_simplex.fastq.gz
 gzip -v -t /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P3/20230309_1159_2G_PAK98873_d39c7c8c/pod5_pass/SUPlatest_calls_simplex.fastq.gz
 
+# this confirmed all fastq.gz files are properly gzip compressed
+# proceeded to rerun the concatenation by re-running file 07.8.1_tig_cat_fastqs.bash 
+
