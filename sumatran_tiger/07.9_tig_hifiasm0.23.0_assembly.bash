@@ -1,6 +1,6 @@
 #!/bin/bash
 # Laura Dean
-# 13/12/24
+# 19/12/24
 # for running on Ada
 
 #SBATCH --partition=hmemq
@@ -23,17 +23,27 @@ conda activate hifiasm_new_new
 # set environment variables
 species=sumatran_tiger # set the species
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/$species # set the working directory
-attempt=1 # set the attempt number for naming out output directory
+# set the attempt number for naming the output directory of each try
+# then set the reads file that was used in that attempt
+attempt=1
+reads=$wkdir/basecalls/SUPlatest_simp_and_simp_from_dup.fastq.gz # Trying to run with ALL simplex both from simplex and those extracted from the duplex runs but I think this file was a bad merge of some gzipped and some not gzipped fastqs
 attempt=2
+reads=$wkdir/basecalls/all_simplex_simplex_preprocessed.fastq.gz # Trying with the simplex only but I accidentally used the herro preprocessed file
 attempt=3
+reads=$wkdir/basecalls/all_simplex_simplex_herro_corrected.fa.gz # Need fastq not fasta so this run didn't work!
 attempt=4
+# I think I used the fastq file from attempt 1 again here
 attempt=5
-attempt=6
-reads=$wkdir/basecalls/SUPlatest_simp_and_simp_from_dup.fastq.gz
-reads=$wkdir/basecalls/all_simplex_simplex_preprocessed.fastq.gz # set the fastq file containing the reads
-reads=$wkdir/basecalls/all_simplex_simplex_herro_corrected.fa.gz # Need fastq not fasta
 reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz # merged fastq file of all simplex reads from the 4 normal promethion runs
+# (this made a good assembly, but the file was not actually gzipped
+attempt=6
 reads=$wkdir/basecalls/ALL_simplex.fastq.gz # new larger merged file of all simplex reads from 4 normal promethion runs and the simplex extracted from all duplex runs
+# This didn't work because one of the files that I merged was not actually gzip compressed
+# will try again after proper compressing and re-merging
+attempt=7
+reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz # repeating with simplex only simplex now that this file is gzipped to check the output is identical
+
+
 
 # make directory for the assembly & move to it
 mkdir -p $wkdir/hifiasm_asm$attempt
@@ -45,8 +55,6 @@ hifiasm \
 --ont \
 -o ONTasm \
 $reads
-
-
 
 # convert the final assembly to fasta format
 awk '/^S/{print ">"$2;print $3}' ONTasm.bp.p_ctg.gfa > ONTasm.bp.p_ctg.fasta
