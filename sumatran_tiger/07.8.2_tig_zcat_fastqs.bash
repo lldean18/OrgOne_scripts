@@ -26,7 +26,7 @@ zcat \
 /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P2/20230307_1702_1G_PAK99084_16f44a88/pod5_fail/SUPlatest_calls_simplex.fastq.gz \
 /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P2/20230307_1702_1G_PAK99084_16f44a88/pod5_pass/SUPlatest_calls_simplex.fastq.gz \
 /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P3/20230309_1159_2G_PAK98873_d39c7c8c/pod5_fail/SUPlatest_calls_simplex.fastq.gz \
-/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P3/20230309_1159_2G_PAK98873_d39c7c8c/pod5_pass/SUPlatest_calls_simplex.fastq.gz | gzip > /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/ALL_simplex.fastq.gz
+/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/sumatran_tiger_duplex_P3/20230309_1159_2G_PAK98873_d39c7c8c/pod5_pass/SUPlatest_calls_simplex.fastq.gz | gzip > /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/ALL_simplex_zcat.fastq.gz
 
 
 

@@ -42,7 +42,8 @@ reads=$wkdir/basecalls/ALL_simplex.fastq.gz # new larger merged file of all simp
 # will try again after proper compressing and re-merging
 attempt=7
 reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz # repeating with simplex only simplex now that this file is gzipped to check the output is identical
-
+attempt=8
+reads=$wkdir/basecalls/ALL_simplex.fastq.gz # trying again with the newly merged file - it has a different md5 sum to the old one even though sizes are the same
 
 
 # make directory for the assembly & move to it
