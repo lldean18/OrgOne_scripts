@@ -38,7 +38,7 @@ conda activate gfatools
 
 
 # remove sequences shorter than 100kb from the gfa file
-gfatools view -l 100000 $assembly.gfa > ${assembly}_100kb.gfa
+gfatools view -l 100000 -d $assembly.gfa > ${assembly}_100kb.gfa
 
 
 # unload software
