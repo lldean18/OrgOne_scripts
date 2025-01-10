@@ -1,0 +1,4 @@
+# files to ignore
+busco_*.log
+busco_downloads
+
