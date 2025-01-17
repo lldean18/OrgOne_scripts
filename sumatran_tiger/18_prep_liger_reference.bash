@@ -23,4 +23,10 @@ seqtk subseq $fasta $headers | gzip > $output
 
 conda deactivate
 
+conda activate seqkit
+
+seqkit rmdup -s $output > ${output%.*.*}_uniq.fasta.gz
+
+conda deactivate
+
 
