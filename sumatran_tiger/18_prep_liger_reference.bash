@@ -29,4 +29,7 @@ seqkit rmdup -s $output > ${output%.*.*}_uniq.fasta.gz
 
 conda deactivate
 
+# rename the chromosomes in the fasta file to remove everything but the actual chromosome number
+# (so that the names of the chrs are visible in the dotplot)
+sed "s/^.*chromosome/>/;s/, whole genome shotgun sequence.//" ${output%.*.*}_uniq.fasta.gz > ${output%.*.*}_uniq.fasta_names.gz
 
