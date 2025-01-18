@@ -23,12 +23,7 @@ conda activate last
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10
 assembly=ONTasm.bp.p_ctg.fasta
-reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2.fasta.gz
-
-## unzip the reference (rolls eyes)
-#gunzip $wkdir/liger_reference/$reference
-#
-#reference=GCA_018350195.2.fasta
+reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta.gz
 
 # Create database from the reference genome
 # -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
