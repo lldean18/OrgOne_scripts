@@ -22,22 +22,24 @@ conda activate last
 
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10
-assembly=ONTasm.bp.p_ctg.fasta
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
+#assembly=ONTasm.bp.p_ctg.fasta
+assembly=ONTasm.bp.p_ctg_100kb.fasta
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta.gz
 
-# Create database from the reference genome
-# -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
-# -uRY16 seemed to work well
-uRY=128
-lastdb \
-	-P24 \
-	-c \
-	-uRY$uRY \
-	${reference%.*.*}_db \
-	$reference
-echo "database created from reference genome with -uRY$uRY"
-# -c
-# -uRY128
+## Create database from the reference genome
+## -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
+## -uRY16 seemed to work well
+#uRY=128
+#lastdb \
+#	-P24 \
+#	-c \
+#	-uRY$uRY \
+#	${reference%.*.*}_db \
+#	$reference
+#echo "database created from reference genome with -uRY$uRY"
+## -c
+## -uRY128
 
 # find score parameters for aligning the assembly to the reference
 last-train \
@@ -45,7 +47,7 @@ last-train \
 	--revsym \
 	-C2 \
 	${reference%.*.*}_db \
-	$wkdir/$assembly > $wkdir/hc.train
+	$wkdir/$assembly > $wkdir/${assembly%.*}hc.train
 echo "score parameters written"
 
 # find and align similar sequences
@@ -54,20 +56,20 @@ lastal \
 	-D1e9 \
 	-C2 \
 	--split-f=MAF+ \
-	-p $wkdir/hc.train \
-	${reference%.*.*}_db $wkdir/$assembly > $wkdir/many-to-one.maf
+	-p $wkdir/${assembly%.*}hc.train \
+	${reference%.*.*}_db $wkdir/$assembly > $wkdir/${assembly%.*}many-to-one.maf
 echo "many to one alignments written"
 
 # get one to one alignments
 last-split \
 	-r \
-	$wkdir/many-to-one.maf > $wkdir/one-to-one.maf
+	$wkdir/${assembly%.*}many-to-one.maf > $wkdir/${assembly%.*}one-to-one.maf
 echo "one to one alignments written"
 
 # make a dotplot
 last-dotplot \
-	$wkdir/one-to-one.maf \
-	$wkdir/dotplot.png
+	$wkdir/${assembly%.*}one-to-one.maf \
+	$wkdir/${assembly%.*}dotplot.png
 echo "dotplot written"
 
 # -P = number of threads
