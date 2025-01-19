@@ -9,7 +9,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=24
 #SBATCH --mem=100g
-#SBATCH --time=150:00:00
+#SBATCH --time=5:00:00
 #SBATCH --job-name=map_to_liger
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -27,13 +27,15 @@ reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018
 
 # Create database from the reference genome
 # -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
+# -uRY16 seemed to work well
+uRY=128
 lastdb \
 	-P24 \
 	-c \
-	-uRY16 \
+	-uRY$uRY \
 	${reference%.*.*}_db \
 	$reference
-echo "database created from reference genome"
+echo "database created from reference genome with -uRY$uRY"
 # -c
 # -uRY128
 
