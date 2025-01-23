@@ -20,7 +20,7 @@ source $HOME/.bash_profile
 # added the path /gpfs01/home/mbzlld/software_bin/quarTeT to my path in .bashrc
 #conda create -n quartet Python Minimap2 MUMmer4 trf CD-hit BLAST tidk R R-RIdeogram R-ggplot2 gnuplot -y
 conda activate quartet
-
+#conda install conda-forge::r-jpeg
 
 # set environmental variables
 wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm10
