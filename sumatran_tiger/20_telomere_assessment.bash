@@ -7,8 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=10g
-#SBATCH --time=3:00:00
+#SBATCH --mem=15g
+#SBATCH --time=1:00:00
 #SBATCH --job-name=telo_explorer
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -23,11 +23,42 @@ conda activate quartet
 #conda install conda-forge::r-jpeg
 
 # set environmental variables
-wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm10
-genome=ONTasm.bp.p_ctg_100kb.fasta
+#wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm10
+#genome=ONTasm.bp.p_ctg_100kb.fasta
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference
+genome=GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
+#wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm9
+#genome=ONTasm.bp.p_ctg_100kb.fasta
 
 # move to working directory
 cd $wkdir
+
+
+# unzip the input fasta file if it is gzipped and reassign its name
+if [[ "$genome" == *.gz ]]; then
+    gunzip -k $genome
+    echo "Unzipped: $genome"
+    genome=${genome%.*}
+else
+    echo "The input genome does not have a .gz extension so it won't be decompressed."
+fi
+
+
+
+# Check if the file contains multiline sequences and convert them to single line if it does
+if awk '/^>/ {if (seqlen > 1) exit 0; seqlen=0} !/^>/ {seqlen++} END {if (seqlen > 1) exit 0; exit 1}' "$genome"; then
+    echo "The FASTA file contains multiline sequences, converting to single line..."
+    conda activate seqkit
+    seqkit seq -w 0 $genome -o tmp.fasta && mv tmp.fasta $genome
+    conda deactivate
+    echo "Conversion to single line fasta format complete."
+else
+    echo "The FASTA file already contains single-line sequences. No conversion needed."
+fi
+
+
+
+
 
 # run the telomere explorer
 python ~/software_bin/quarTeT/quartet.py TeloExplorer \
