@@ -26,54 +26,54 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #### assign our fragments to chromosomes ####
 #############################################
 
-# # generate a regions file for filtering
-# #conda create --name bioawk bioawk -y
-# conda activate bioawk
-# bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
-# conda deactivate
+# generate a regions file for filtering
+#conda create --name bioawk bioawk -y
+conda activate bioawk
+bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
+conda deactivate
 
-# # align our assembly to the reference
-# conda activate minimap2
-# minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
-# conda deactivate
+# align our assembly to the reference
+conda activate minimap2
+minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
+conda deactivate
 
-# # identify the best matching chromosomes for each of our fragments
-# awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
-# sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
-# sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
+# identify the best matching chromosomes for each of our fragments
+awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
+sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
+sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
 
-# # rename contigs in our assembly based on their assignments
-# conda activate seqkit
-# seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
-# conda deactivate
+# rename contigs in our assembly based on their assignments
+conda activate seqkit
+seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
+conda deactivate
 
-# ###########################################
-# #### map our assembly to the reference ####
-# ###########################################
+###########################################
+#### map our assembly to the reference ####
+###########################################
 
-# conda activate minimap2
+conda activate minimap2
 
-# # align the genomes
-# #asm=asm5
-# asm=asm10
-# #asm=asm20
+# align the genomes
+#asm=asm5
+asm=asm10
+#asm=asm20
 
-# # should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
-# minimap2 \
-# -ax $asm \
-# -t 16 \
-# --eqx $asm1 $reference \
-# -o $wkdir/tmp.sam
-# samtools sort $wkdir/tmp.sam \
-# -o $wkdir/$(basename ${asm1%.*})_$asm.bam
-# rm $wkdir/tmp.sam
-# conda deactivate
+# should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
+minimap2 \
+-ax $asm \
+-t 16 \
+--eqx $asm1 $reference \
+-o $wkdir/tmp.sam
+samtools sort $wkdir/tmp.sam \
+-o $wkdir/$(basename ${asm1%.*})_$asm.bam
+rm $wkdir/tmp.sam
+conda deactivate
 
-# # write the names of the assemblies to a file for use by plotsr
-# echo -e ""$asm1"\tHifiasm10
-# "$reference"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
+# write the names of the assemblies to a file for use by plotsr
+echo -e ""$asm1"\tHifiasm10
+"$reference"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
 
-# module unload samtools-uoneasy/1.18-GCC-12.3.0
+module unload samtools-uoneasy/1.18-GCC-12.3.0
 
 
 ###############################################################
