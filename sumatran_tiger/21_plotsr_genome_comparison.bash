@@ -47,55 +47,66 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 # seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
 # conda deactivate
 
-###########################################
-#### map our assembly to the reference ####
-###########################################
+# ###########################################
+# #### map our assembly to the reference ####
+# ###########################################
 
-conda activate minimap2
+# conda activate minimap2
 
-# align the genomes
-#asm=asm5
-asm=asm10
-#asm=asm20
+# # align the genomes
+# #asm=asm5
+# asm=asm10
+# #asm=asm20
 
-# should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
-minimap2 \
--ax $asm \
--t 16 \
---eqx $asm1 $reference \
--o $wkdir/tmp.sam
-samtools sort $wkdir/tmp.sam \
--o $wkdir/$(basename ${asm%.*})_$asm.bam
-rm $wkdir/tmp.sam
+# # should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
+# minimap2 \
+# -ax $asm \
+# -t 16 \
+# --eqx $asm1 $reference \
+# -o $wkdir/tmp.sam
+# samtools sort $wkdir/tmp.sam \
+# -o $wkdir/$(basename ${asm1%.*})_$asm.bam
+# rm $wkdir/tmp.sam
+# conda deactivate
+
+# # write the names of the assemblies to a file for use by plotsr
+# echo -e ""$asm1"\tHifiasm10
+# "$reference"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
+
+# module unload samtools-uoneasy/1.18-GCC-12.3.0
+
+
+###############################################################
+#### Identify structural rearrangements between assemblies ####
+###############################################################
+
+# create your syri environment
+#conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
+conda activate syri
+
+# Run syri to find structural rearrangements between your assemblies
+syri \
+-c $wkdir/$(basename ${asm1%.*})_$asm.bam \
+-r $asm1 \
+-q $reference \
+-F B \
+--dir $wkdir \
+--prefix $(basename ${asm1%.*})_${asm}_syri
+
 conda deactivate
 
-# write the names of the assemblies to a file for use by plotsr
-echo -e ""$asm1"\tHifiasm10
-"$reference"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
 
-module unload samtools-uoneasy/1.12-GCC-9.3.0
-
+############################
+#### create plotsr plot ####
+############################
 
 
-# # create your syri environment (only have to do this once)
-# #conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
+conda activate plotsr
 
-# # activate your syri environment and output the environment info...
-# conda activate syri
-# conda info
+plotsr \
+--sr $(basename ${asm1%.*})_${asm}_syri.out \
+--genomes $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt \
+-o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
 
-# # Run syri to find structural rearrangements between your assemblies
-# syri -c $working_dir/duin_scad_$asm.bam -r $working_dir/$duin_assembly -q $working_dir/$scad_assembly -F B --dir $working_dir --prefix duin_scad_$asm\_
-
-# conda deactivate
-
-
-# conda activate plotsr
-
-# plotsr \
-# --sr $working_dir/duin_scad_$asm\_syri.out \
-# --genomes /gpfs01/home/mbzlld/code_and_scripts/File_lists/plotsr_assemblies_list.txt \
-# -o $working_dir/duin_scad_$asm\_plot.png
-
-# conda deactivate
+conda deactivate
 
