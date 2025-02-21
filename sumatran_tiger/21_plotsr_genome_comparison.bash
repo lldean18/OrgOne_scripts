@@ -26,31 +26,46 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #### assign our fragments to chromosomes ####
 #############################################
 
-# generate a regions file for filtering
-#conda create --name bioawk bioawk -y
-conda activate bioawk
-bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
-conda deactivate
+## generate a regions file for filtering
+#echo "generating a regions file for filtering..."
+##conda create --name bioawk bioawk -y
+#conda activate bioawk
+#bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
+#conda deactivate
+#echo "Done"
 
-# align our assembly to the reference
-conda activate minimap2
-minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
-conda deactivate
+## align our assembly to the reference
+#echo "aligning our assembly to the reference..."
+#conda activate minimap2
+#minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
+#conda deactivate
+#echo "Done"
 
-# identify the best matching chromosomes for each of our fragments
-awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
-sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
-sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
+## identify the best matching chromosomes for each of our fragments
+#echo "identifying the best matching chromosomes for each of our fragments..."
+#awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
+#sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
+#sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
+#echo "Done"
 
-# rename contigs in our assembly based on their assignments
-conda activate seqkit
-seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
+## rename contigs in our assembly based on their assignments
+#echo "renaming contigs in our assembly based on their assignments relative to the reference..."
+#conda activate seqkit
+#seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
+#echo "Done"
+
+# filter so that only the longest contig for each match to the reference is retained
+echo "retaining only the longest contig for each match to the reference..."
+#seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit sort -l -r | seqkit rmdup -n > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
+awk '/^>/ {header=$0} !/^>/ {seq[header]=length(seq[header]) > length($0) ? seq[header] : $0} END {for (h in seq) print h "\n" seq[h]}' ${asm1%.*}_ref_renamed_contigs.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
 conda deactivate
+echo "Done"
 
 ###########################################
 #### map our assembly to the reference ####
 ###########################################
 
+echo "Mapping our assembly to the reference..."
 conda activate minimap2
 
 # align the genomes
@@ -62,24 +77,28 @@ asm=asm10
 minimap2 \
 -ax $asm \
 -t 16 \
---eqx $asm1 $reference \
+--eqx ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta $reference \
 -o $wkdir/tmp.sam
 samtools sort $wkdir/tmp.sam \
 -o $wkdir/$(basename ${asm1%.*})_$asm.bam
 rm $wkdir/tmp.sam
 conda deactivate
 
+# index the bam file
+samtools index -bc $wkdir/$(basename ${asm1%.*})_$asm.bam
+
 # write the names of the assemblies to a file for use by plotsr
-echo -e ""$asm1"\tHifiasm10
+echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta"\tHifiasm10
 "$reference"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
 
 module unload samtools-uoneasy/1.18-GCC-12.3.0
-
+echo "Done"
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
 ###############################################################
 
+echo "identifying structural rearrangements between assemblies with syri..."
 # create your syri environment
 #conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
 conda activate syri
@@ -87,20 +106,20 @@ conda activate syri
 # Run syri to find structural rearrangements between your assemblies
 syri \
 -c $wkdir/$(basename ${asm1%.*})_$asm.bam \
--r $asm1 \
--q $reference \
+-r $reference \
+-q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
 -F B \
 --dir $wkdir \
 --prefix $(basename ${asm1%.*})_${asm}_syri
 
 conda deactivate
-
+echo "Done"
 
 ############################
 #### create plotsr plot ####
 ############################
 
-
+echo "plotting structural rearrangements with plotsr..."
 conda activate plotsr
 
 plotsr \
@@ -109,4 +128,7 @@ plotsr \
 -o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
 
 conda deactivate
+echo "Done"
+
+
 
