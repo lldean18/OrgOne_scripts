@@ -54,12 +54,11 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
 #echo "Done"
 
-# filter so that only the longest contig for each match to the reference is retained
-echo "retaining only the longest contig for each match to the reference..."
-#seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit sort -l -r | seqkit rmdup -n > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
-awk '/^>/ {header=$0} !/^>/ {seq[header]=length(seq[header]) > length($0) ? seq[header] : $0} END {for (h in seq) print h "\n" seq[h]}' ${asm1%.*}_ref_renamed_contigs.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
-conda deactivate
-echo "Done"
+## filter so that only the longest contig for each match to the reference is retained
+#echo "retaining only the longest contig for each match to the reference..."
+#seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit rename | seqkit sort -l -r | sed 's/_[0-9][0-9]*//' | seqkit rmdup > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
+#conda deactivate
+#echo "Done"
 
 ###########################################
 #### map our assembly to the reference ####
