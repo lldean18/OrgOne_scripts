@@ -7,9 +7,9 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
-#SBATCH --mem=80g
-#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=96
+#SBATCH --mem=360g
+#SBATCH --time=48:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # set variables
@@ -24,7 +24,7 @@ conda activate quast
 
 # compare genomes
 python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
-	--threads 64 \
+	--threads 96 \
 	--eukaryote \
 	-r $reference \
 	-o $wkdir/quast $wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm8/ONTasm.bp.p_ctg.fasta $wkdir/hifiasm_asm1/ONTasm.bp.p_ctg.fasta
