@@ -24,26 +24,30 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 
 # first I fixed the fact that there were no spaces between > symbol and fasta headers with this line
 #sed -i 's/>/> /' GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
+# decided this was how it should be so set it back to have no space
+#sed -i 's/> />/' GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
 # then proceeded
 
 #############################################
 #### assign our fragments to chromosomes ####
 #############################################
 
-# generate a regions file for filtering
-echo "generating a regions file for filtering..."
-#conda create --name bioawk bioawk -y
-conda activate bioawk
-bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
-conda deactivate
-echo "Done"
-
-# align our assembly to the reference
-echo "aligning our assembly to the reference..."
-conda activate minimap2
-minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
-conda deactivate
-echo "Done"
+## generate a regions file for filtering
+#echo "generating a regions file for filtering..."
+###conda create --name bioawk bioawk -y
+##conda activate bioawk
+##bioawk -c fastx '{print $name ":" 1 "-" length($seq)}' $reference > ${reference%.*}_regions_file.txt
+##conda deactivate
+## Bioawk was no longer working after fixing the issue of no space between > and the fasta header so use normal awk
+#awk '/^>/ {header=substr($0,2); next} {seq[header]=seq[header] $0} END {for (h in seq) print h ":1-" length(seq[h])}' "$reference" > ${reference%.*}_regions_file.txt
+#echo "Done"
+#
+## align our assembly to the reference
+#echo "aligning our assembly to the reference..."
+#conda activate minimap2
+#minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
+#conda deactivate
+#echo "Done"
 
 # identify the best matching chromosomes for each of our fragments
 echo "identifying the best matching chromosomes for each of our fragments..."
@@ -105,41 +109,41 @@ echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta"\tHifiasm10
 module unload samtools-uoneasy/1.18-GCC-12.3.0
 echo "Done"
 
-###############################################################
-#### Identify structural rearrangements between assemblies ####
-###############################################################
-
-echo "identifying structural rearrangements between assemblies with syri..."
-# create your syri environment
-#conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
-conda activate syri
-
-# Run syri to find structural rearrangements between your assemblies
-syri \
--c $wkdir/$(basename ${asm1%.*})_$asm.bam \
--r ${reference%.*}_contigfilt.fasta \
--q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
--F B \
---dir $wkdir \
---prefix $(basename ${asm1%.*})_${asm}_syri
-
-conda deactivate
-echo "Done"
-
-############################
-#### create plotsr plot ####
-############################
-
-echo "plotting structural rearrangements with plotsr..."
-conda activate plotsr
-
-plotsr \
---sr $(basename ${asm1%.*})_${asm}_syri.out \
---genomes $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt \
--o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
-
-conda deactivate
-echo "Done"
+################################################################
+##### Identify structural rearrangements between assemblies ####
+################################################################
+#
+#echo "identifying structural rearrangements between assemblies with syri..."
+## create your syri environment
+##conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
+#conda activate syri
+#
+## Run syri to find structural rearrangements between your assemblies
+#syri \
+#-c $wkdir/$(basename ${asm1%.*})_$asm.bam \
+#-r ${reference%.*}_contigfilt.fasta \
+#-q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
+#-F B \
+#--dir $wkdir \
+#--prefix $(basename ${asm1%.*})_${asm}_syri
+#
+#conda deactivate
+#echo "Done"
+#
+#############################
+##### create plotsr plot ####
+#############################
+#
+#echo "plotting structural rearrangements with plotsr..."
+#conda activate plotsr
+#
+#plotsr \
+#--sr $(basename ${asm1%.*})_${asm}_syri.out \
+#--genomes $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt \
+#-o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
+#
+#conda deactivate
+#echo "Done"
 
 
 
