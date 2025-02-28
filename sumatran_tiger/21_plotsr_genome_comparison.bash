@@ -77,7 +77,7 @@ sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
 # filter the reference with this file
 echo "filtering the reference so that it only contains sequences that are in our assembly..."
 conda activate seqkit
-seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
+seqkit grep --by-name -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
 conda deactivate
 echo "Done"
 
