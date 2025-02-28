@@ -49,30 +49,35 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #conda deactivate
 #echo "Done"
 
-# identify the best matching chromosomes for each of our fragments
-echo "identifying the best matching chromosomes for each of our fragments..."
-awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
-sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
-sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
-echo "Done"
-
-# rename contigs in our assembly based on their assignments
-echo "renaming contigs in our assembly based on their assignments relative to the reference..."
-conda activate seqkit
-seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
-echo "Done"
-
-# filter so that only the longest contig for each match to the reference is retained
-echo "retaining only the longest contig for each match to the reference..."
-seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit rename | seqkit sort -l -r | sed 's/_[0-9][0-9]*//' | seqkit rmdup > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
-conda deactivate
-echo "Done"
+## identify the best matching chromosomes for each of our fragments
+#echo "identifying the best matching chromosomes for each of our fragments..."
+#awk '{print $1, $6, $8-$7}' ${asm1%.*}_alignment.paf | sort -k1,1 -k3nr | awk '!seen[$1]++' > ${asm1%.*}_contig_assignments.txt
+#sed -i -r 's/[^ ]*$//' ${asm1%.*}_contig_assignments.txt # get rid of the contig lengths at the ends of the lines
+#sed -i -r 's/ /\t/' ${asm1%.*}_contig_assignments.txt # replace spaces with tabs
+#echo "Done"
+#
+## rename contigs in our assembly based on their assignments
+#echo "renaming contigs in our assembly based on their assignments relative to the reference..."
+#conda activate seqkit
+#seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
+#echo "Done"
+#
+## filter so that only the longest contig for each match to the reference is retained
+#echo "retaining only the longest contig for each match to the reference..."
+#seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit rename | seqkit sort -l -r | sed 's/_[0-9][0-9]*//' | seqkit rmdup > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
+#conda deactivate
+#echo "Done"
 
 # Filter so that only contigs that are in our assembly are in a new version of the reference
 # because syri won't work with differing numbers of chromosomes in the same assembly
+echo "making a list of the fasta headers to filter with..."
+# make a text file of the headers to search for
+grep ">" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
+sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txti
+# filter the reference with this file
 echo "filtering the reference so that it only contains sequences that are in our assembly..."
 conda activate seqkit
-seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta $reference > ${reference%.*}_contigfilt.fasta
+seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
 conda deactivate
 echo "Done"
 
