@@ -74,10 +74,11 @@ echo "making a list of the fasta headers to filter with..."
 # make a text file of the headers to search for
 grep ">" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
 sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
+sed -i 's/[[:space:]]*$//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
 # filter the reference with this file
 echo "filtering the reference so that it only contains sequences that are in our assembly..."
 conda activate seqkit
-seqkit grep --by-name -r -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
+seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
 conda deactivate
 echo "Done"
 
