@@ -73,7 +73,7 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 echo "making a list of the fasta headers to filter with..."
 # make a text file of the headers to search for
 grep ">" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
-sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txti
+sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
 # filter the reference with this file
 echo "filtering the reference so that it only contains sequences that are in our assembly..."
 conda activate seqkit
