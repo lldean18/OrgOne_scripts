@@ -68,88 +68,88 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #conda deactivate
 #echo "Done"
 
-# Filter so that only contigs that are in our assembly are in a new version of the reference
-# because syri won't work with differing numbers of chromosomes in the same assembly
-echo "making a list of the fasta headers to filter with..."
-# make a text file of the headers to search for
-grep ">" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
-sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
-sed -i 's/[[:space:]]*$//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
-# filter the reference with this file
-echo "filtering the reference so that it only contains sequences that are in our assembly..."
-conda activate seqkit
-seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
-conda deactivate
-echo "Done"
-
-###########################################
-#### map our assembly to the reference ####
-###########################################
-
-echo "Mapping our assembly to the reference..."
-conda activate minimap2
-
-# align the genomes
-#asm=asm5
-asm=asm10
-#asm=asm20
-
-# should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
-minimap2 \
--ax $asm \
--t 16 \
---eqx ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta ${reference%.*}_contigfilt.fasta \
--o $wkdir/tmp.sam
-samtools sort $wkdir/tmp.sam \
--o $wkdir/$(basename ${asm1%.*})_$asm.bam
-rm $wkdir/tmp.sam
-conda deactivate
-
-# index the bam file
-samtools index -bc $wkdir/$(basename ${asm1%.*})_$asm.bam
-
-# write the names of the assemblies to a file for use by plotsr
-echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta"\tHifiasm10
-"${reference%.*}_contigfilt.fasta"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
-
-module unload samtools-uoneasy/1.18-GCC-12.3.0
-echo "Done"
-
-################################################################
-##### Identify structural rearrangements between assemblies ####
-################################################################
-#
-#echo "identifying structural rearrangements between assemblies with syri..."
-## create your syri environment
-##conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
-#conda activate syri
-#
-## Run syri to find structural rearrangements between your assemblies
-#syri \
-#-c $wkdir/$(basename ${asm1%.*})_$asm.bam \
-#-r ${reference%.*}_contigfilt.fasta \
-#-q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
-#-F B \
-#--dir $wkdir \
-#--prefix $(basename ${asm1%.*})_${asm}_syri
-#
+## Filter so that only contigs that are in our assembly are in a new version of the reference
+## because syri won't work with differing numbers of chromosomes in the same assembly
+#echo "making a list of the fasta headers to filter with..."
+## make a text file of the headers to search for
+#grep ">" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta > ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
+#sed -i 's/>//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
+#sed -i 's/[[:space:]]*$//' ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt
+## filter the reference with this file
+#echo "filtering the reference so that it only contains sequences that are in our assembly..."
+#conda activate seqkit
+#seqkit grep -f ${asm1%.*}_ref_renamed_contigs_longest_sequences_headers.txt $reference > ${reference%.*}_contigfilt.fasta
 #conda deactivate
 #echo "Done"
 #
-#############################
-##### create plotsr plot ####
-#############################
+############################################
+##### map our assembly to the reference ####
+############################################
 #
-#echo "plotting structural rearrangements with plotsr..."
-#conda activate plotsr
+#echo "Mapping our assembly to the reference..."
+#conda activate minimap2
 #
-#plotsr \
-#--sr $(basename ${asm1%.*})_${asm}_syri.out \
-#--genomes $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt \
-#-o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
+## align the genomes
+##asm=asm5
+#asm=asm10
+##asm=asm20
 #
+## should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
+#minimap2 \
+#-ax $asm \
+#-t 16 \
+#--eqx ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta ${reference%.*}_contigfilt.fasta \
+#-o $wkdir/tmp.sam
+#samtools sort $wkdir/tmp.sam \
+#-o $wkdir/$(basename ${asm1%.*})_$asm.bam
+#rm $wkdir/tmp.sam
 #conda deactivate
+#
+## index the bam file
+#samtools index -bc $wkdir/$(basename ${asm1%.*})_$asm.bam
+#
+## write the names of the assemblies to a file for use by plotsr
+#echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta"\tHifiasm10
+#"${reference%.*}_contigfilt.fasta"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
+#
+#module unload samtools-uoneasy/1.18-GCC-12.3.0
 #echo "Done"
+
+###############################################################
+#### Identify structural rearrangements between assemblies ####
+###############################################################
+
+echo "identifying structural rearrangements between assemblies with syri..."
+# create your syri environment
+#conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
+conda activate syri
+
+# Run syri to find structural rearrangements between your assemblies
+syri \
+-c $wkdir/$(basename ${asm1%.*})_$asm.bam \
+-r ${reference%.*}_contigfilt.fasta \
+-q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
+-F B \
+--dir $wkdir \
+--prefix $(basename ${asm1%.*})_${asm}_syri
+
+conda deactivate
+echo "Done"
+
+############################
+#### create plotsr plot ####
+############################
+
+echo "plotting structural rearrangements with plotsr..."
+conda activate plotsr
+
+plotsr \
+--sr $(basename ${asm1%.*})_${asm}_syri.out \
+--genomes $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt \
+-o $wkdir/$(basename ${asm1%.*})_${asm}_plot.png
+
+conda deactivate
+echo "Done"
 
 
 
