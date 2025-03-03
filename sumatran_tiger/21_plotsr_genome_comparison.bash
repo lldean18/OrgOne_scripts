@@ -91,7 +91,7 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #
 ## align the genomes
 ##asm=asm5
-#asm=asm10
+asm=asm10
 ##asm=asm20
 #
 ## should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
