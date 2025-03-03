@@ -17,6 +17,10 @@
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/plotsr
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
 asm1=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta
+# set mapping variable (select level based on estimated sequence divergence)
+#asm=asm5 # 0.5% sequence divergence
+asm=asm10 # 1% sequence divergence
+#asm=asm20 # 5% sequence divergence
 
 # load software
 source $HOME/.bash_profile
@@ -90,9 +94,6 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #conda activate minimap2
 #
 ## align the genomes
-##asm=asm5
-asm=asm10
-##asm=asm20
 #
 ## should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
 #minimap2 \
