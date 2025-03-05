@@ -47,7 +47,7 @@ module load samtools-uoneasy/1.18-GCC-12.3.0
 #echo "Done"
 #
 ## align our assembly to the reference
-#echo "aligning our assembly to the reference..."
+#echo "aligning our assembly to the reference for naming our chrs the same as theirs..."
 #conda activate minimap2
 #minimap2 -x asm5 -t 16 $reference $asm1 > ${asm1%.*}_alignment.paf
 #conda deactivate
