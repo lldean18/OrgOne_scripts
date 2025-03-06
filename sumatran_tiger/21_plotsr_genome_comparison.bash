@@ -93,7 +93,40 @@ echo "Done"
 
 # flip the orientation of our sequences that are on the wrong strand
 echo "flipping the orientation of our sequences so that they match the reference..."
+conda activate seqkit
+# define output
+touch ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta
 
+# Loop through sequences in our assembly fasta file
+seqkit seq -n ${asm1%.*}_ref_renamed_contigs_longest_sequences.txt | while read name; do
+    # Extract sequences
+    seq1=$(seqkit grep -p "$name" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta | seqkit seq --seq)
+    seq2=$(seqkit grep -p "$name" ${reference%.*}_contigfilt.fasta | seqkit seq --seq)
+
+    # Save sequences to temporary files
+    echo -e ">$name\n$seq1" > seq1.fasta
+    echo -e ">$name\n$seq2" > seq2.fasta
+    echo -e ">$name\n$(seqkit seq --reverse --complement seq2.fasta | seqkit seq --seq)" > seq2_rc.fasta
+
+    # Align both orientations with MAFFT
+    mafft --quiet --auto seq1.fasta seq2.fasta > aligned1.fasta
+    mafft --quiet --auto seq1.fasta seq2_rc.fasta > aligned2.fasta
+
+    # Calculate alignment scores
+    score1=$(awk '/identity/ {print $3}' <(seqkit fx2tab --all -n -i -p aligned1.fasta | seqkit stats))
+    score2=$(awk '/identity/ {print $3}' <(seqkit fx2tab --all -n -i -p aligned2.fasta | seqkit stats))
+
+    # Choose best orientation
+    if (( $(echo "$score1 >= $score2" | bc -l) )); then
+        cat seq2.fasta >> ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta
+    else
+        seqkit seq --reverse --complement seq2.fasta >> ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta
+    fi
+done
+
+# Cleanup
+rm seq1.fasta seq2.fasta seq2_rc.fasta aligned1.fasta aligned2.fasta
+conda deactivate
 echo "Done"
 
 ###########################################
@@ -109,7 +142,7 @@ conda activate minimap2
 minimap2 \
 -ax $asm \
 -t 16 \
---eqx ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta ${reference%.*}_contigfilt.fasta \
+--eqx ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta ${reference%.*}_contigfilt.fasta \
 -o $wkdir/tmp.sam
 samtools sort $wkdir/tmp.sam \
 -o $wkdir/$(basename ${asm1%.*})_$asm.bam
@@ -120,7 +153,7 @@ conda deactivate
 samtools index -bc $wkdir/$(basename ${asm1%.*})_$asm.bam
 
 # write the names of the assemblies to a file for use by plotsr
-echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta"\tHifiasm10
+echo -e ""${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta"\tHifiasm10
 "${reference%.*}_contigfilt.fasta"\tReference" > $wkdir/$(basename ${asm1%.*})_plotsr_assemblies_list.txt
 
 module unload samtools-uoneasy/1.18-GCC-12.3.0
@@ -140,7 +173,7 @@ conda activate syri
 syri \
 -c $wkdir/$(basename ${asm1%.*})_$asm.bam \
 -r ${reference%.*}_contigfilt.fasta \
--q ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta \
+-q ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta \
 -F B \
 --dir $wkdir \
 --prefix $(basename ${asm1%.*})_${asm}_syri
