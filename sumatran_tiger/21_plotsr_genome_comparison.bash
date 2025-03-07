@@ -100,7 +100,7 @@ conda activate seqkit
 touch ${asm1%.*}_ref_renamed_contigs_longest_sequences_orient.fasta
 
 # Loop through sequences in our assembly fasta file
-seqkit seq -n ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta | while read name; do
+seqkit seq --seq-type dna -n ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta | while read name; do
     # Extract sequences
     seq1=$(seqkit grep -p "$name" ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta | seqkit seq --seq)
     seq2=$(seqkit grep -p "$name" ${reference%.*}_contigfilt.fasta | seqkit seq --seq)
@@ -108,11 +108,11 @@ seqkit seq -n ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta | while rea
     # Save sequences to temporary files
     echo -e ">$name\n$seq1" > ~/seq1.fasta
     echo -e ">$name\n$seq2" > ~/seq2.fasta
-    echo -e ">$name\n$(seqkit seq --reverse --complement seq2.fasta | seqkit seq --seq)" > ~/seq2_rc.fasta
+    echo -e ">$name\n$(seqkit seq --seq-type dna --reverse --complement ~/seq2.fasta | seqkit seq --seq)" > ~/seq2_rc.fasta
 
     # Align both orientations with MAFFT
-    mafft --quiet --seq-type dna ~/seq1.fasta ~/seq2.fasta > ~/aligned1.fasta
-    mafft --quiet --seq-type dna ~/seq1.fasta ~/seq2_rc.fasta > ~/aligned2.fasta
+    mafft --quiet ~/seq1.fasta ~/seq2.fasta > ~/aligned1.fasta
+    mafft --quiet ~/seq1.fasta ~/seq2_rc.fasta > ~/aligned2.fasta
 
     # Calculate alignment scores
     score1=$(awk '/identity/ {print $3}' <(seqkit fx2tab -n -i -p ~/aligned1.fasta | seqkit stats))
