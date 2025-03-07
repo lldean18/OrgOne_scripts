@@ -1,6 +1,7 @@
 #!/bin/bash
 # Laura Dean
 # 10/1/25
+# 7/3/25
 # For running on the UoN HPC Ada
 
 
@@ -23,8 +24,13 @@ conda activate last
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
+# 7/3/25 ran again on the assembly named with the contigs matched to the reference
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10
+
 #assembly=ONTasm.bp.p_ctg.fasta
 assembly=ONTasm.bp.p_ctg_100kb.fasta
+assembly=ONTasm.bp.p_ctg_100kb_ref_renamed_contigs.fasta
+
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta.gz
 
 ## Create database from the reference genome
