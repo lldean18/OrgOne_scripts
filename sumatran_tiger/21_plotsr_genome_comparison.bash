@@ -18,7 +18,8 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/plotsr
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
 asm1=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta
 # set mapping variable (select level based on estimated sequence divergence)
-#asm=asm5 # 0.5% sequence divergence
+# for reference asm5/asm10/asm20 = 0.1%/1%/5% sequence divergence
+#asm=asm5 # 0.1% sequence divergence
 asm=asm10 # 1% sequence divergence
 #asm=asm20 # 5% sequence divergence
 
@@ -140,7 +141,7 @@ conda activate minimap2
 
 # align the genomes
 
-# should also try -asm10 and -asm20 for up to 1% / 5% sequence divergence
+# for reference asm5/asm10/asm20 = 0.1%/1%/5% sequence divergence
 minimap2 \
 -ax $asm \
 -t 16 \
