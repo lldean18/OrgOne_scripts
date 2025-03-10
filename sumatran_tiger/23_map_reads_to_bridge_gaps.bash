@@ -7,8 +7,8 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=48
-#SBATCH --mem=150g
+#SBATCH --cpus-per-task=64
+#SBATCH --mem=300g
 #SBATCH --time=36:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -24,10 +24,9 @@ assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.
 minimap2 \
 -a \
 -x map-ont \
--t 48 \
+-t 64 \
 $reads $assembly |
-samtools sort - \
--o ${assembly%.*}.bam
+samtools sort -o ${assembly%.*}.bam -
 
 # index the bam file
 samtools index -bc ${assembly%.*}.bam
