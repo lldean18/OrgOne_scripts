@@ -14,7 +14,7 @@
 
 
 # set variables
-assembly= /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # has to be in uncompressed fasta format
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # has to be in uncompressed fasta format
 
 
 
