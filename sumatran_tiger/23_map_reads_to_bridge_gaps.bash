@@ -26,7 +26,7 @@ minimap2 \
 -x map-ont \
 -t 64 \
 $reads $assembly |
-samtools sort -o ${assembly%.*}.bam -
+samtools sort --threads 63 -o ${assembly%.*}.bam
 
 # index the bam file
 samtools index -bc ${assembly%.*}.bam
