@@ -14,6 +14,13 @@ cd ~/data/OrgOne/sumatran_tiger/domestic_cat_reference
 # the website for downloading the genome and its associated files is here: https://cat.annotation.jp/download/AnAms1.0/
 wget https://cat.annotation.jp/download/AnAms1.0/AnAms1.0.genome.fa.gz
 
+# check whether the compression is with gzip
+gzip -t AnAms1.0.genome.fa.gz
+
+# unzip the genome
+gunzip AnAms1.0.genome.fa.gz
+
+
 
 
 # download the annotation file to go with the assembly
