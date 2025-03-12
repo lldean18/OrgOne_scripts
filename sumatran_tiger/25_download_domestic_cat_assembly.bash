@@ -15,7 +15,7 @@ cd ~/data/OrgOne/sumatran_tiger/domestic_cat_reference
 wget https://cat.annotation.jp/download/AnAms1.0/AnAms1.0.genome.fa.gz
 
 # check whether the compression is with gzip
-gzip -t AnAms1.0.genome.fa.gz
+gzip -t -v AnAms1.0.genome.fa.gz
 
 # unzip the genome
 gunzip AnAms1.0.genome.fa.gz
