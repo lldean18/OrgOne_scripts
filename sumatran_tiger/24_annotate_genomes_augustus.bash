@@ -14,8 +14,8 @@
 
 
 # set variables
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # has to be in uncompressed fasta format
-
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # has to be in uncompressed fasta format
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta
 
 
 # load software
@@ -28,15 +28,16 @@ conda activate augustus
 # run augustus to annotate the genome assembly
 # human is the nearest species for mammals and should work reasonably well according to my research
 augustus \
-	--cds=on \
-	--introns=on \
-	--start=on \
-	--stop=on \
 	--species=human \
-	--protein=off \
 	$assembly > ${assembly%.*}.gff
 
 
+
+#        --cds=on \
+#        --introns=on \
+#        --start=on \
+#        --stop=on \
+#	 --protein=off \
 
 
 conda deactivate
