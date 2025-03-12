@@ -18,11 +18,17 @@ wget https://cat.annotation.jp/download/AnAms1.0/AnAms1.0.genome.fa.gz
 gzip -t -v AnAms1.0.genome.fa.gz
 
 # unzip the genome
-gunzip AnAms1.0.genome.fa.gz
-
+gzip -d AnAms1.0.genome.fa.gz
 
 
 
 # download the annotation file to go with the assembly
 wget https://cat.annotation.jp/download/AnAms1.0/AnAms1.0r1.0.2.gff.gz
+
+# check whether this file is also compressed with gzip (although presumably it is)
+gzip -t -v AnAms1.0r1.0.2.gff.gz
+
+# unzip the annotation
+gzip -d AnAms1.0r1.0.2.gff.gz
+
 
