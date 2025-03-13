@@ -17,24 +17,30 @@
 source $HOME/.bash_profile
 conda activate minimap2
 
+
 reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/simplex_simplex_and_duplex.fastq.gz
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta
+
 
 # map the raw reads back to our assembly
 minimap2 \
 -a \
 -x map-ont \
 -t 64 \
-$reads $assembly |
-samtools sort --threads 63 -o ${assembly%.*}.bam
-
-# index the bam file
-samtools index -bc ${assembly%.*}.bam
+-o ${assembly%.*}.sam \
+$reads $assembly
 
 
+# sort and index the sam file and convert to bam format
+samtools sort \
+	--threads 63 \
+	--write-index \
+	--output-fmt BAM \
+	-o ${assembly%.*}.bam ${assembly%.*}.sam
 
 
-
+# remove the intermediate sam file
+#rm ${assembly%.*}.sam
 
 
 # deactivate software
