@@ -55,9 +55,11 @@ liftoff \
 	-g $reference_gff \
 	-o ${target_assembly%.*}_liftoff.gff \
 	-p 32 \
-	-chroms ${reference_assembly%.*}_chr_match_file.txt \
-	-unplaced ${reference_assembly%.*}_unplaced.txt \
 	$target_assembly $reference_assembly
+
+
+#         -chroms ${reference_assembly%.*}_chr_match_file.txt \
+#         -unplaced ${reference_assembly%.*}_unplaced.txt \
 
 
 # unload software
