@@ -38,12 +38,10 @@ AnAms1.0_E2,E2
 AnAms1.0_E3,E3
 AnAms1.0_F1,F1
 AnAms1.0_F2,F2
-AnAms1.0_X,X
-" > ${reference_assembly%.*}_chr_match_file.txt
+AnAms1.0_X,X" > ${reference_assembly%.*}_chr_match_file.txt
 
 # generate the unplaced file for the unassigned scaffold in the cat genome
-echo "AnAms1.0_unplaced
-" > ${reference_assembly%.*}_unplaced.txt
+echo "AnAms1.0_unplaced" > ${reference_assembly%.*}_unplaced.txt
 
 
 # load software
