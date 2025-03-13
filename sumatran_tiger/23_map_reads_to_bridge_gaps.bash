@@ -27,6 +27,7 @@ minimap2 \
 -a \
 -x map-ont \
 -t 64 \
+--split-prefix ${assembly%.*}_temp_prefix \
 -o ${assembly%.*}.sam \
 $reads $assembly
 
