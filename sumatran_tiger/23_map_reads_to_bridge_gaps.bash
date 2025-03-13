@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=64
-#SBATCH --mem=300g
+#SBATCH --mem=361g
 #SBATCH --time=36:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -24,12 +24,13 @@ assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.
 
 # map the raw reads back to our assembly
 minimap2 \
--a \
--x map-ont \
--t 64 \
---split-prefix ${assembly%.*}_temp_prefix \
--o ${assembly%.*}.sam \
-$reads $assembly
+	-a \
+	-x map-ont \
+	-K 100 \
+	-t 64 \
+	--split-prefix temp_prefix \
+	-o ${assembly%.*}.sam \
+	$reads $assembly
 
 
 # sort and index the sam file and convert to bam format
