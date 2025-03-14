@@ -46,26 +46,43 @@ target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9
 #AnAms1.0_unplaced" > ${reference_assembly%.*}_unplaced.txt
 
 
+## load software
+#source $HOME/.bash_profile
+##conda create --name liftoff -c bioconda liftoff
+#conda activate liftoff
+#
+## annotate assembly by lifting over genes from the closely related source assembly
+#liftoff \
+#	-g $reference_gff \
+#	-o ${target_assembly%.*}_liftoff.gff \
+#	-p 32 \
+#	$target_assembly $reference_assembly
+#
+##         -chroms ${reference_assembly%.*}_chr_match_file.txt \
+##         -unplaced ${reference_assembly%.*}_unplaced.txt \
+#
+## unload software
+#conda deactivate
+
+
+
 # load software
-source $HOME/.bash_profile
-#conda create --name liftoff -c bioconda liftoff
-conda activate liftoff
+conda activate gffread
 
+# convert the gff file to bed format for input to genespace
+gffread \
+${target_assembly%.*}_liftoff.gff \
+--bed | awk '$4 == "gene"' > ${target_assembly%.*}_liftoff_genes.bed
 
-# annotate assembly by lifting over genes from the closely related source assembly
-liftoff \
-	-g $reference_gff \
-	-o ${target_assembly%.*}_liftoff.gff \
-	-p 32 \
-	$target_assembly $reference_assembly
-
-
-#         -chroms ${reference_assembly%.*}_chr_match_file.txt \
-#         -unplaced ${reference_assembly%.*}_unplaced.txt \
-
+# generate protein fasta file as this is also required as input to genespace
+gffread \
+${target_assembly%.*}_liftoff.gff \
+-g $target_assembly \
+-y ${target_assembly%.*}_proteins.fasta
 
 # unload software
 conda deactivate
+
 
 
 
