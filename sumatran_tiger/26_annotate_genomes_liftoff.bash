@@ -18,7 +18,7 @@ reference_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_r
 reference_gff=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0r1.0.2.gff
 target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta # failed so far! :(
 target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # Worked successfully
-target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg.fasta
+#target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg.fasta # worked successfully
 
 
 ## generate the chr matching file for the cat to our tiger genomes
@@ -47,7 +47,7 @@ target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9
 
 
 ## load software
-#source $HOME/.bash_profile
+source $HOME/.bash_profile
 ##conda create --name liftoff -c bioconda liftoff
 #conda activate liftoff
 #
@@ -70,9 +70,12 @@ target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9
 conda activate gffread
 
 # convert the gff file to bed format for input to genespace
+# this command seems to retain only the genes anyway so no need for further filtering
 gffread \
 ${target_assembly%.*}_liftoff.gff \
---bed | awk '$4 == "gene"' > ${target_assembly%.*}_liftoff_genes.bed
+--bed \
+-o ${target_assembly%.*}_liftoff_genes.bed
+
 
 # generate protein fasta file as this is also required as input to genespace
 gffread \

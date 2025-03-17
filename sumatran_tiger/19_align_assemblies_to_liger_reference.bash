@@ -33,49 +33,50 @@ assembly=ONTasm.bp.p_ctg_100kb_ref_renamed_contigs.fasta
 
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta.gz
 
-## Create database from the reference genome
-## -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
-## -uRY16 seemed to work well
-#uRY=128
-#lastdb \
+### Create database from the reference genome
+### -uRY128 combined flag - makes it faster but less sensitive: it'll miss tiny rearranged fragments. To find them, try -uRY4
+### -uRY16 seemed to work well
+##uRY=128
+##lastdb \
+##	-P24 \
+##	-c \
+##	-uRY$uRY \
+##	${reference%.*.*}_db \
+##	$reference
+##echo "database created from reference genome with -uRY$uRY"
+### -c
+### -uRY128
+#
+## find score parameters for aligning the assembly to the reference
+#last-train \
 #	-P24 \
-#	-c \
-#	-uRY$uRY \
+#	--revsym \
+#	-C2 \
 #	${reference%.*.*}_db \
-#	$reference
-#echo "database created from reference genome with -uRY$uRY"
-## -c
-## -uRY128
-
-# find score parameters for aligning the assembly to the reference
-last-train \
-	-P24 \
-	--revsym \
-	-C2 \
-	${reference%.*.*}_db \
-	$wkdir/$assembly > $wkdir/${assembly%.*}hc.train
-echo "score parameters written"
-
-# find and align similar sequences
-lastal \
-	-P24 \
-	-D1e9 \
-	-C2 \
-	--split-f=MAF+ \
-	-p $wkdir/${assembly%.*}hc.train \
-	${reference%.*.*}_db $wkdir/$assembly > $wkdir/${assembly%.*}many-to-one.maf
-echo "many to one alignments written"
-
-# get one to one alignments
-last-split \
-	-r \
-	$wkdir/${assembly%.*}many-to-one.maf > $wkdir/${assembly%.*}one-to-one.maf
-echo "one to one alignments written"
+#	$wkdir/$assembly > $wkdir/${assembly%.*}hc.train
+#echo "score parameters written"
+#
+## find and align similar sequences
+#lastal \
+#	-P24 \
+#	-D1e9 \
+#	-C2 \
+#	--split-f=MAF+ \
+#	-p $wkdir/${assembly%.*}hc.train \
+#	${reference%.*.*}_db $wkdir/$assembly > $wkdir/${assembly%.*}many-to-one.maf
+#echo "many to one alignments written"
+#
+## get one to one alignments
+#last-split \
+#	-r \
+#	$wkdir/${assembly%.*}many-to-one.maf > $wkdir/${assembly%.*}one-to-one.maf
+#echo "one to one alignments written"
 
 # make a dotplot
 last-dotplot \
-	$wkdir/${assembly%.*}one-to-one.maf \
-	$wkdir/${assembly%.*}dotplot.png
+--verbose \
+$wkdir/${assembly%.*}one-to-one.maf \
+$wkdir/${assembly%.*}dotplot.png
 echo "dotplot written"
 
 # -P = number of threads
