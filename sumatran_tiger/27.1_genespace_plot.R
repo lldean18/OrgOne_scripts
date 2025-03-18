@@ -7,7 +7,7 @@ library(GENESPACE)
 # set paths for genespace to use 
 genomeRepo <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace/data"
 wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace"
-path2mcscanx <- "~/path/to/MCScanX/"
+path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/MCScanX"
 
 
 
