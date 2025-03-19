@@ -12,12 +12,13 @@ library(GENESPACE)
 # set paths for genespace to use 
 genomeRepo <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace/data"
 wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace"
-path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/MCScanX"
+path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 
 
 #########################################################################
 # download the practice data
+# this took a couple mins to run the download in a login node
 urls <- c(
   human ="000/001/405/GCF_000001405.40_GRCh38.p14/GCF_000001405.40_GRCh38.p14_",
   mouse = "000/001/635/GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_",
@@ -49,6 +50,7 @@ for(i in genomes2run){
 
 #########################################################################
 # use genespace to parse the annotations
+# this took a minute or so to run on the login node
 genomes2run <- c("human", "mouse", "platypus", "chicken", "sandLizard")
 parsedPaths <- parse_annotations(
   rawGenomeRepo = genomeRepo,
