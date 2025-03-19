@@ -10,55 +10,44 @@ library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use 
-genomeRepo <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace/data"
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace"
+genomeRepo <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 
 
-#########################################################################
-# download the practice data
-# this took a couple mins to run the download in a login node
-urls <- c(
-  human ="000/001/405/GCF_000001405.40_GRCh38.p14/GCF_000001405.40_GRCh38.p14_",
-  mouse = "000/001/635/GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_",
-  platypus = "004/115/215/GCF_004115215.2_mOrnAna1.pri.v4/GCF_004115215.2_mOrnAna1.pri.v4_",
-  chicken = "016/699/485/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_",
-  sandLizard = "009/819/535/GCF_009819535.1_rLacAgi1.pri/GCF_009819535.1_rLacAgi1.pri_")
-
-genomes2run <- names(urls)
-urls <- file.path("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF", urls)
-translatedCDS <- sprintf("%stranslated_cds.faa.gz", urls)
-geneGff <- sprintf("%sgenomic.gff.gz", urls)
-
-names(translatedCDS) <- genomes2run
-names(geneGff) <- genomes2run
-writeDirs <- file.path(genomeRepo, genomes2run)
-names(writeDirs) <- genomes2run
-for(i in genomes2run){
-  print(i)
-  if(!dir.exists(writeDirs[i]))
-    dir.create(writeDirs[i])
-  download.file(
-    url = geneGff[i], 
-    destfile = file.path(writeDirs[i], basename(geneGff[i])))
-  download.file(
-    url = translatedCDS[i], 
-    destfile = file.path(writeDirs[i], basename(translatedCDS[i])))
-}
-
 
 #########################################################################
+# set the genomes you want it to run on
+genomes2run <- c("hifiasm10", "RaftHifiasmAsm9")
+
 # use genespace to parse the annotations
 # this took a minute or so to run on the login node
-genomes2run <- c("human", "mouse", "platypus", "chicken", "sandLizard")
 parsedPaths <- parse_annotations(
   rawGenomeRepo = genomeRepo,
   genomeDirs = genomes2run,
   genomeIDs = genomes2run,
-  presets = "ncbi",
+  gffString = "gff",
+  faString = "fasta",
+  headerEntryIndex = 1,
+  gffIdColumn = "GeneID",
   genespaceWd = wd)
 
+
+
+#  presets = "ncbi",
+
+
+
+parsedPaths <- parse_annotations(
+  rawGenomeRepo = "/genomeRepo", 
+  genomeDirs = "species4_genoZ_v1.0_otherRepo",
+  genomeIDs = "species4",
+  gffString = "gff3",
+  faString = "fa",
+  headerEntryIndex = 1, 
+  gffIdColumn = "GeneID",
+  genespaceWd = "/path/to/GENESPACE/workingDir")
 
 
 
