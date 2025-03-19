@@ -69,20 +69,22 @@ gpar <- init_genespace(
   path2mcscanx = path2mcscanx)
 
 # run genespace
+# This is the bit that should be run with srun or the whole thing via sbatch
+# In testing it took... I think less than an hour 
 out <- run_genespace(gpar, overwrite = T)
 
 
 
-
-#########################################################################
-# generate riparian plot
-ripd <- plot_riparian(
-  gsParam = out,
-  refGenome = "human", 
-  useRegions = FALSE)
-
-# generate dotplot
-hits <- read_allBlast(
-  filepath = file.path(out$paths$syntenicHits, 
-                       "mouse_vs_human.allBlast.txt.gz"))
-ggdotplot(hits = hits, type = "all", verbose = FALSE)
+# This bit wasn't necessary as all the plots generated automatically
+##########################################################################
+## generate riparian plot
+#ripd <- plot_riparian(
+#  gsParam = out,
+#  refGenome = "human", 
+#  useRegions = FALSE)
+#
+## generate dotplot
+#hits <- read_allBlast(
+#  filepath = file.path(out$paths$syntenicHits, 
+#                       "mouse_vs_human.allBlast.txt.gz"))
+#ggdotplot(hits = hits, type = "all", verbose = FALSE)
