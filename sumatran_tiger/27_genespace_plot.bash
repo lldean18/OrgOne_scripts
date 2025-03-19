@@ -41,11 +41,22 @@ devtools::install_github("jtlovell/GENESPACE")
 BiocManager::install("rtracklayer")
 library(GENESPACE)
 
+
+#########################################################################
+# to get my files in order:
+# make the file structure and copy my fasta & gff files into it
+mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data
+mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data/DomesticCat
+mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10
+
+cp 
+
+
+
 # To actually use it
 conda activate genespace4
 R
 library(GENESPACE)
-
 
 
 
