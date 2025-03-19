@@ -1,3 +1,8 @@
+# to enter the genespace software env
+#conda activate genespace4
+#R
+
+
 #########################################################################
 # Load libraries
 library(GENESPACE)
