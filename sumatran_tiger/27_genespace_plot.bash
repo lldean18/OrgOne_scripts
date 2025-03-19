@@ -45,12 +45,16 @@ library(GENESPACE)
 #########################################################################
 # to get my files in order:
 # make the file structure and copy my fasta & gff files into it
-mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data
-mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data/DomesticCat
-mkdir /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10
+mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data
+mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/DomesticCat
+mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10
+mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9
 
-cp 
+cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_proteins.fasta ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10/
+cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10/
 
+cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_proteins.fasta ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9/
+cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_liftoff_genes.bed ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9/
 
 
 # To actually use it
