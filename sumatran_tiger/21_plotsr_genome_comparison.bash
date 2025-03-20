@@ -68,6 +68,10 @@ conda activate seqkit
 seqkit replace -p "^(.*)" -r "{kv}" --kv-file ${asm1%.*}_contig_assignments.txt $asm1 > ${asm1%.*}_ref_renamed_contigs.fasta
 echo -e "Done\n\n"
 
+# create a version of the ref renamed contig file for other uses that has unique names
+conda activate seqkit
+seqkit rename -n -o ${asm1%.*}_ref_renamed_contigs_unique.fasta ${asm1%.*}_ref_renamed_contigs.fasta
+
 # filter so that only the longest contig for each match to the reference is retained
 echo "retaining only the longest contig for each match to the reference..."
 seqkit seq -j 4 -w 0 ${asm1%.*}_ref_renamed_contigs.fasta | seqkit rename | seqkit sort -l -r | sed 's/_[0-9][0-9]*//' | seqkit rmdup > ${asm1%.*}_ref_renamed_contigs_longest_sequences.fasta
