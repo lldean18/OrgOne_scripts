@@ -16,7 +16,7 @@
 # set variables
 reference_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome.fa
 reference_gff=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0r1.0.2.gff
-target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta # failed so far! :(
+#target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta # failed so far! :(
 target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # Worked successfully
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg.fasta # worked successfully
 
@@ -69,17 +69,19 @@ source $HOME/.bash_profile
 # load software
 conda activate gffread
 
-# convert the gff file to bed format for input to genespace
-# this command seems to retain only the genes anyway so no need for further filtering
-gffread \
-${target_assembly%.*}_liftoff.gff \
---bed \
--o ${target_assembly%.*}_liftoff_genes.bed
+## convert the gff file to bed format for input to genespace
+## this command seems to retain only the genes anyway so no need for further filtering
+#gffread \
+#${target_assembly%.*}_liftoff.gff \
+#--bed \
+#-o ${target_assembly%.*}_liftoff_genes.bed
 
 
 # generate protein fasta file as this is also required as input to genespace
+# -S flag uses * instead of . for stop codon translation
 gffread \
 ${target_assembly%.*}_liftoff.gff \
+-S \
 -g $target_assembly \
 -y ${target_assembly%.*}_proteins.fasta
 
