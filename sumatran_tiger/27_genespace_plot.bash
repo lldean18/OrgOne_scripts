@@ -15,22 +15,6 @@
 
 # install and load software
 source $HOME/.bash_profile
-conda create --name genespace bioconda::orthofinder=2.5.5 bioconda::mcscanx conda-forge::r-base r::rstudio -y
-conda activate genespace
-conda install r-devtools
-conda install r-BiocManager
-conda install r-gtable r-MASS r-Matrix r-cpp11 r-lattice
-
-conda install r-base=4.4.1 # trying this
-
-# ok trying again from scratch
-conda create --name genespace2 bioconda::orthofinder=2.5.5 bioconda::mcscanx conda-forge::r-base=4.4.1 -y
-conda activate genespace2
-#conda install r-devtools r-BiocManager # this line wouldn't run because of a wierd orthofinder error try installing in R
-
-R
-install.packages("devtools")
-
 # ok trying a fourth time from scratch
 # first ran: conda config --remove channels defaults
 # this removed some silly conflict warning. Then ran:
@@ -40,21 +24,30 @@ R
 devtools::install_github("jtlovell/GENESPACE")
 BiocManager::install("rtracklayer")
 library(GENESPACE)
+# install was successful :)
+
+
+
+# set variables
+wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours
+
 
 
 #########################################################################
 # to get my files in order:
-# make the file structure and copy my fasta & gff files into it
-mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data
-mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/DomesticCat
-mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10
-mkdir ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9
+# make the file structure required by genespace
+mkdir $wkdir/bed
+mkdir $wkdir/peptide
 
-cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_proteins.fasta ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10/
-cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed ~/data/OrgOne/sumatran_tiger/genespace_ours/data/hifiasm10/
+# copy my bed files to the bed folder, stripping all columns after the 4th column when copying
+# This was required for the data to load correctly
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_liftoff_genes.bed > $wkdir/bed/RaftHifiasmAsm9.bed
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/hifiasm10.bed
 
-cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_proteins.fasta ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9/
-cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_liftoff_genes.bed ~/data/OrgOne/sumatran_tiger/genespace_ours/data/RaftHifiasmAsm9/
+# copy my protein fasta files
+# currently erroring because there are . characters in the fasta sequence and these aren't allowed by diamond
+cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_proteins.fasta $wkdir/peptide/RaftHifiasmAsm9.fa
+cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/hifiasm10.fa
 
 
 # To actually use it
