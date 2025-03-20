@@ -48,34 +48,36 @@ reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018
 ## -c
 ## -uRY128
 
-# find score parameters for aligning the assembly to the reference
-last-train \
-	-P24 \
-	--revsym \
-	-C2 \
-	${reference%.*.*}_db \
-	$wkdir/$assembly > $wkdir/${assembly%.*}hc.train
-echo "score parameters written"
-
-# find and align similar sequences
-lastal \
-	-P24 \
-	-D1e9 \
-	-C2 \
-	--split-f=MAF+ \
-	-p $wkdir/${assembly%.*}hc.train \
-	${reference%.*.*}_db $wkdir/$assembly > $wkdir/${assembly%.*}many-to-one.maf
-echo "many to one alignments written"
-
-# get one to one alignments
-last-split \
-	-r \
-	$wkdir/${assembly%.*}many-to-one.maf > $wkdir/${assembly%.*}one-to-one.maf
-echo "one to one alignments written"
+## find score parameters for aligning the assembly to the reference
+#last-train \
+#	-P24 \
+#	--revsym \
+#	-C2 \
+#	${reference%.*.*}_db \
+#	$wkdir/$assembly > $wkdir/${assembly%.*}hc.train
+#echo "score parameters written"
+#
+## find and align similar sequences
+#lastal \
+#	-P24 \
+#	-D1e9 \
+#	-C2 \
+#	--split-f=MAF+ \
+#	-p $wkdir/${assembly%.*}hc.train \
+#	${reference%.*.*}_db $wkdir/$assembly > $wkdir/${assembly%.*}many-to-one.maf
+#echo "many to one alignments written"
+#
+## get one to one alignments
+#last-split \
+#	-r \
+#	$wkdir/${assembly%.*}many-to-one.maf > $wkdir/${assembly%.*}one-to-one.maf
+#echo "one to one alignments written"
 
 # make a dotplot
 last-dotplot \
 --verbose \
+--rot1=h \
+--rot2=h \
 $wkdir/${assembly%.*}one-to-one.maf \
 $wkdir/${assembly%.*}dotplot.png
 echo "dotplot written"
