@@ -3,15 +3,6 @@
 # 14/3/25
 # script written for running on the UoN HPC Ada
 
-#SBATCH --job-name=genespace
-#SBATCH --partition=defq
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=10g
-#SBATCH --time=1:00:00
-#SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
-
 
 # install and load software
 source $HOME/.bash_profile
@@ -30,12 +21,14 @@ library(GENESPACE)
 
 # set variables
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours
+wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours2
 
 
 
 #########################################################################
 # to get my files in order:
 # make the file structure required by genespace
+mkdir $wkdir
 mkdir $wkdir/bed
 mkdir $wkdir/peptide
 
@@ -43,13 +36,19 @@ mkdir $wkdir/peptide
 # This was required for the data to load correctly
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_liftoff_genes.bed > $wkdir/bed/RaftHifiasmAsm9.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/hifiasm10.bed
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_liftoff_genes.bed > $wkdir/bed/LigerHaplome.bed
 
 # copy my protein fasta files
 # currently erroring because there are . characters in the fasta sequence and these aren't allowed by diamond
 cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_proteins.fasta $wkdir/peptide/RaftHifiasmAsm9.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/hifiasm10.fa
+cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_proteins.fasta $wkdir/peptide/LigerHaplome.fa
 
 
+
+
+
+#########################################################################
 # To actually use it
 conda activate genespace4
 R
