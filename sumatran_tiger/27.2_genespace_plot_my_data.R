@@ -38,9 +38,10 @@ invchr <- data.frame(
 # customise your riparian plot
 ripDat <- plot_riparian(
   gsParam = gsParam,
-  pdfFile = paste(gsParam$paths$riparian, "/MyOrder.rip.pdf", sep = ""),
+  pdfFile = paste(gsParam$paths$riparian, "/MyOrder_SmlChrs.rip.pdf", sep = ""),
   refGenome = "DomesticCat",
   syntenyWeight = 1,
+  minChrLen2plot = 0,
   invertTheseChrs = invchr,
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
   genomeIDs = c("Flye4", "RaftHifiasmAsm9", "hifiasm10", "LigerHaplome", "DomesticCat"),
