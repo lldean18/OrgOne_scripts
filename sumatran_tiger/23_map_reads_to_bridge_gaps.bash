@@ -7,7 +7,7 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=361g
 #SBATCH --time=36:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
@@ -27,18 +27,18 @@ minimap2 \
 	-a \
 	-x map-ont \
 	-K 100 \
-	-t 64 \
+	-t 32 \
 	--split-prefix temp_prefix \
 	-o ${assembly%.*}.sam \
 	$reads $assembly
 
 
-# sort and index the sam file and convert to bam format
-samtools sort \
-	--threads 63 \
-	--write-index \
-	--output-fmt BAM \
-	-o ${assembly%.*}.bam ${assembly%.*}.sam
+## sort and index the sam file and convert to bam format
+#samtools sort \
+#	--threads 63 \
+#	--write-index \
+#	--output-fmt BAM \
+#	-o ${assembly%.*}.bam ${assembly%.*}.sam
 
 
 # remove the intermediate sam file
