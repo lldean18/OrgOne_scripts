@@ -13,7 +13,9 @@
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # set variables
-reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
+#reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
+reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome.fa
+annotation=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0r1.0.2.gff
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger
 
 
@@ -27,6 +29,7 @@ python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
 	--threads 96 \
 	--eukaryote \
 	-r $reference \
+	-g $annotation \
 	-o $wkdir/quast $wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm8/ONTasm.bp.p_ctg.fasta $wkdir/hifiasm_asm1/ONTasm.bp.p_ctg.fasta
 
 
