@@ -18,7 +18,8 @@ source $HOME/.bash_profile
 conda activate minimap2
 
 
-reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/simplex_simplex_and_duplex.fastq.gz
+#reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/simplex_simplex_and_duplex.fastq.gz
+reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_simplex_simplex.fastq.gz
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta
 
 
