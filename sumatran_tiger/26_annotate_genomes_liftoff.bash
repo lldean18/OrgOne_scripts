@@ -21,7 +21,9 @@ reference_gff=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_refere
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # Worked successfully
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg.fasta # worked successfully
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly.fasta
-target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta
+#target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta
+target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm12/ONTasm.bp.p_ctg_100kb.fasta
+
 
 # load software
 #conda create --name liftoff -c bioconda liftoff
