@@ -22,7 +22,8 @@ conda activate seqtk
 # set variables
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm12/ONTasm.bp.p_ctg
 
 # remove sequences shorter than 100kb
 seqtk seq -L 100000 $assembly.fasta > ${assembly}_100kb.fasta
