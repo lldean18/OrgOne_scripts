@@ -9,7 +9,7 @@ library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use 
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours5"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 #########################################################################
