@@ -30,3 +30,9 @@ $annotation \
 
 # unload software
 conda deactivate
+
+# remove the files it generates that I don't want cluttering up my github repo!
+rm -r intermediate_files/
+rm unmapped_features.txt
+
+
