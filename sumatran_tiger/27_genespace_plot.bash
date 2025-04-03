@@ -25,6 +25,7 @@ wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours2
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours3
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours4
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours5
+wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours6
 
 
 #########################################################################
@@ -39,7 +40,7 @@ mkdir $wkdir/peptide
 #cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_liftoff_genes.bed > $wkdir/bed/RaftHifiasmAsm9.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10/finalasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/RaftHifiasmAsm10.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/hifiasm10.bed
-#cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_liftoff_genes.bed > $wkdir/bed/LigerHaplome.bed
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_liftoff_genes.bed > $wkdir/bed/LigerHaplomeHiC.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_liftoff_genes.bed > $wkdir/bed/LigerHaplome.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_genes.bed > $wkdir/bed/DomesticCat.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly_liftoff_genes.bed > $wkdir/bed/Flye4.bed
@@ -50,7 +51,7 @@ cut -f1-4 ~/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly_liftoff
 #cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm9/finalasm.bp.p_ctg_proteins.fasta $wkdir/peptide/RaftHifiasmAsm9.fa
 cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10/finalasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/RaftHifiasmAsm10.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/hifiasm10.fa
-#cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_proteins.fasta $wkdir/peptide/LigerHaplome.fa
+cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_proteins.fasta $wkdir/peptide/LigerHaplomeHiC.fa
 cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_proteins.fasta $wkdir/peptide/LigerHaplome.fa
 cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_proteins.fasta $wkdir/peptide/DomesticCat.fa
 cp ~/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly_proteins.fasta $wkdir/peptide/Flye4.fa
