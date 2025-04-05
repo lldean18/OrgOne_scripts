@@ -28,7 +28,7 @@ cd $wkdir/HiC
 
 
 # set variables
-assembly=$wkdir/hifiasm10/ONTasm.bp.p_ctg_100kb.fasta
+assembly=$wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta
 
 hic1=~/data/OrgOne/sumatran_tiger/HiC/SRR8616865_1.fastq.gz
 hic2=~/data/OrgOne/sumatran_tiger/HiC/SRR8616865_2.fastq.gz
