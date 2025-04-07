@@ -40,22 +40,22 @@ hic2=~/data/OrgOne/sumatran_tiger/HiC/SRR8616865_2.fastq.gz
 #conda install picard
 conda activate bwa
 
-# index the assembly fasta file
-bwa index $assembly
+## index the assembly fasta file
+#bwa index $assembly
 
-# align the hic reads to the assembly and convert to BAM
-bwa mem -t 32 -S -P -5 $assembly $hic1 $hic2 |
-	samtools view -@ 32 -b -q 30 - > $(basename ${assembly%.*})_hic_mapped.bam
+## align the hic reads to the assembly and convert to BAM
+#bwa mem -t 32 -S -P -5 $assembly $hic1 $hic2 |
+#	samtools view -@ 32 -b -q 30 - > $(basename ${assembly%.*})_hic_mapped.bam
 
-# sort and index the bam
-samtools sort --write-index $(basename ${assembly%.*})_hic_mapped.bam -o $(basename ${assembly%.*})_hic_mapped_sorted.bam
+## sort and index the bam
+#samtools sort --write-index $(basename ${assembly%.*})_hic_mapped.bam -o $(basename ${assembly%.*})_hic_mapped_sorted.bam
 
 # mark pcr duplicates in the bam with picard
 picard MarkDuplicates \
 	-I $(basename ${assembly%.*})_hic_mapped_sorted.bam \
 	-O $(basename ${assembly%.*})_hic_mapped_sorted_dupmk.bam \
 	-M $(basename ${assembly%.*})_picard_dup_metrics.txt \
-	CREATE_INDEX=true
+	--CREATE_INDEX=true
 
 
 conda deactivate
