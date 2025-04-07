@@ -55,7 +55,8 @@ picard MarkDuplicates \
 	-I $(basename ${assembly%.*})_hic_mapped_sorted.bam \
 	-O $(basename ${assembly%.*})_hic_mapped_sorted_dupmk.bam \
 	-M $(basename ${assembly%.*})_picard_dup_metrics.txt \
-	--CREATE_INDEX true
+	--CREATE_INDEX true \
+	--READ_NAME_REGEX=null
 
 
 conda deactivate
