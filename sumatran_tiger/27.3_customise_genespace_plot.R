@@ -26,7 +26,7 @@ out <- run_genespace(gpar, overwrite = T)
 
 #########################################################################
 # once you ran genespace, you can load the out object back into R using
-#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6/results/gsParams.rda', verbose = TRUE)
+load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6/results/gsParams.rda', verbose = TRUE)
 
 
 
@@ -62,3 +62,42 @@ ripDat <- plot_riparian(
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
   genomeIDs = c("Flye4", "RaftHifiasmAsm10", "hifiasm10", "LigerHaplome","LigerHaplomeHiC", "DomesticCat"),
   forceRecalcBlocks = FALSE)
+
+
+#############################
+# plot with only cat liger-hic and liger
+
+ripDat <- plot_riparian(
+  gsParam = gsParam,
+  pdfFile = paste(gsParam$paths$riparian, "/Cat_ligerHiC_liger.rip.pdf", sep = ""),
+  refGenome = "DomesticCat",
+  syntenyWeight = 1,
+  minChrLen2plot = 0,
+  xlabel = NULL,
+  labelTheseGenomes = c("DomesticCat","LigerHaplomeHiC"),
+  invertTheseChrs = invchr,
+  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
+  genomeIDs = c("LigerHaplome","LigerHaplomeHiC", "DomesticCat"),
+  forceRecalcBlocks = FALSE)
+
+#############################
+# plot with only cat hifiasm10 and raft10
+
+ripDat <- plot_riparian(
+  gsParam = gsParam,
+  pdfFile = paste(gsParam$paths$riparian, "/Cat_hifiasm10_raft10.rip.pdf", sep = ""),
+  refGenome = "DomesticCat",
+  syntenyWeight = 1,
+  minChrLen2plot = 0,
+  xlabel = NULL,
+  labelTheseGenomes = "DomesticCat",
+  invertTheseChrs = invchr,
+  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
+  genomeIDs = c("RaftHifiasmAsm10", "hifiasm10", "DomesticCat"),
+  forceRecalcBlocks = FALSE)
+
+
+
+
+
+
