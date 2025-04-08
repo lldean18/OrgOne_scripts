@@ -50,13 +50,22 @@ conda activate bwa
 ## sort and index the bam
 #samtools sort --write-index $(basename ${assembly%.*})_hic_mapped.bam -o $(basename ${assembly%.*})_hic_mapped_sorted.bam
 
-# mark pcr duplicates in the bam with picard
-picard MarkDuplicates \
-	-I $(basename ${assembly%.*})_hic_mapped_sorted.bam \
-	-O $(basename ${assembly%.*})_hic_mapped_sorted_dupmk.bam \
-	-M $(basename ${assembly%.*})_picard_dup_metrics.txt \
-	--CREATE_INDEX true \
-	--READ_NAME_REGEX null
+# mark and remove pcr duplicates in the bam with samtools
+samtools fixmate -m -@ 32 $(basename ${assembly%.*})_hic_mapped_sorted.bam |
+samtools markdup \
+	--write-index \
+	-r \
+	-@ 32 \
+	-s -f $(basename ${assembly%.*})_hic_mapped_sorted_dup_stats.txt \
+	--output-fmt BAM - $(basename ${assembly%.*})_hic_mapped_sorted_dedup.bam
+
+## mark pcr duplicates in the bam with picard
+#picard MarkDuplicates \
+#	-I $(basename ${assembly%.*})_hic_mapped_sorted.bam \
+#	-O $(basename ${assembly%.*})_hic_mapped_sorted_dupmk.bam \
+#	-M $(basename ${assembly%.*})_picard_dup_metrics.txt \
+#	--CREATE_INDEX true \
+#	--READ_NAME_REGEX null
 
 
 conda deactivate
@@ -74,7 +83,7 @@ samtools faidx $assembly
 yahs \
 	-o $wkdir/HiC/$(basename ${assembly%.*})_yahs \
 	$assembly \
-	$(basename ${assembly%.*})_hic_mapped_sorted_dupmk.bam
+	$(basename ${assembly%.*})_hic_mapped_sorted_dedup.bam
 
 
 
