@@ -7,8 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=10g
-#SBATCH --time=2:00:00
+#SBATCH --mem=20g
+#SBATCH --time=12:00:00
 #SBATCH --job-name=tig_assem_size_filt
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
