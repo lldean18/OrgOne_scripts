@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --mem=50g
+#SBATCH --mem=300g
 #SBATCH --time=60:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -47,17 +47,18 @@ conda activate bwa
 #bwa mem -t 32 -S -P -5 $assembly $hic1 $hic2 |
 #	samtools view -@ 32 -b -q 30 - > $(basename ${assembly%.*})_hic_mapped.bam
 
-## sort and index the bam
-#samtools sort --write-index $(basename ${assembly%.*})_hic_mapped.bam -o $(basename ${assembly%.*})_hic_mapped_sorted.bam
-
-# mark and remove pcr duplicates in the bam with samtools
-samtools fixmate -m -@ 32 $(basename ${assembly%.*})_hic_mapped_sorted.bam |
+## sort the bam by read name
+samtools sort -@ 32 -n $(basename ${assembly%.*})_hic_mapped.bam |
+# mark pcr duplicates
+samtools fixmate -m -@ 32 - - |
+# sort the bam by cooprdinate
+samtools sort -@ 32 - |
 samtools markdup \
 	--write-index \
 	-r \
 	-@ 32 \
-	-s -f $(basename ${assembly%.*})_hic_mapped_sorted_dup_stats.txt \
-	--output-fmt BAM - $(basename ${assembly%.*})_hic_mapped_sorted_dedup.bam
+	-s -f $(basename ${assembly%.*})_hic_mapped_dup_stats.txt \
+	--output-fmt BAM - $(basename ${assembly%.*})_hic_mapped_dedup.bam
 
 ## mark pcr duplicates in the bam with picard
 #picard MarkDuplicates \
@@ -71,22 +72,22 @@ samtools markdup \
 conda deactivate
 
 
-###########################################################
-# install the YAHS scaffolding tool
-#conda create --name yahs yahs -y
-conda activate yahs
-
-# index the assembly with samtools
-samtools faidx $assembly
-
-# scaffold with hic data
-yahs \
-	-o $wkdir/HiC/$(basename ${assembly%.*})_yahs \
-	$assembly \
-	$(basename ${assembly%.*})_hic_mapped_sorted_dedup.bam
-
-
-
-# deactivate software
-conda deactivate
+############################################################
+## install the YAHS scaffolding tool
+##conda create --name yahs yahs -y
+#conda activate yahs
+#
+## index the assembly with samtools
+#samtools faidx $assembly
+#
+## scaffold with hic data
+#yahs \
+#	-o $wkdir/HiC/$(basename ${assembly%.*})_yahs \
+#	$assembly \
+#	$(basename ${assembly%.*})_hic_mapped_sorted_dedup.bam
+#
+#
+#
+## deactivate software
+#conda deactivate
 
