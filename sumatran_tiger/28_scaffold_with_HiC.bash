@@ -47,18 +47,41 @@ conda activate bwa
 #bwa mem -t 32 -S -P -5 $assembly $hic1 $hic2 |
 #	samtools view -@ 32 -b -q 30 - > $(basename ${assembly%.*})_hic_mapped.bam
 
-## sort the bam by read name
+# sort the bam by read name
 samtools sort -@ 32 -n $(basename ${assembly%.*})_hic_mapped.bam |
 # mark pcr duplicates
 samtools fixmate -m -@ 32 - - |
 # sort the bam by cooprdinate
-samtools sort -@ 32 - |
+samtools sort -@ 32 -o $(basename ${assembly%.*})_hic_mapped_sorted.bam -
 samtools markdup \
-	--write-index \
-	-r \
-	-@ 32 \
-	-s -f $(basename ${assembly%.*})_hic_mapped_dup_stats.txt \
-	--output-fmt BAM - $(basename ${assembly%.*})_hic_mapped_dedup.bam
+       --write-index \
+       -r \
+       -@ 32 \
+       -s -f $(basename ${assembly%.*})_hic_mapped_dup_stats.txt \
+       --output-fmt BAM $(basename ${assembly%.*})_hic_mapped_sorted.bam $(basename ${assembly%.*})_hic_mapped_dedup.bam
+
+
+
+
+
+## sort the bam by read name
+#samtools sort -@ 32 -n $(basename ${assembly%.*})_hic_mapped.bam |
+## mark pcr duplicates
+#samtools fixmate -m -@ 32 - - |
+## sort the bam by cooprdinate
+#samtools sort -@ 32 - |
+#samtools markdup \
+#	--write-index \
+#	-r \
+#	-@ 32 \
+#	-s -f $(basename ${assembly%.*})_hic_mapped_dup_stats.txt \
+#	--output-fmt BAM - $(basename ${assembly%.*})_hic_mapped_dedup.bam
+
+
+
+
+
+
 
 ## mark pcr duplicates in the bam with picard
 #picard MarkDuplicates \
