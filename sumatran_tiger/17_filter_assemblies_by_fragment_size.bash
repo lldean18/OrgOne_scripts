@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=20g
-#SBATCH --time=12:00:00
+#SBATCH --time=2:00:00
 #SBATCH --job-name=tig_assem_size_filt
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -25,7 +25,7 @@ conda activate seqtk
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm12/ONTasm.bp.p_ctg
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10/finalasm.bp.p_ctg
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly.fasta
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly
 
 # remove sequences shorter than 100kb
 seqtk seq -L 100000 $assembly.fasta > ${assembly}_100kb.fasta
