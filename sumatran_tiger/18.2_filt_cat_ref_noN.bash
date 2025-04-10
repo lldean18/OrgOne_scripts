@@ -33,6 +33,21 @@ conda activate seqkit
 #}' | \
 #seqkit tab2fx > ${assembly%.*}_split_contigs.fa
 
+seqkit fx2tab -n -s $assembly |
+awk -F '\t' '
+{
+    header = $1;
+    seq = $2;
+    n = split(seq, fragments, /[nN]+/);
+    for (i = 1; i <= n; i++) {
+        if (length(fragments[i]) > 0) {
+            print header "_" i "\t" fragments[i];
+        }
+    }
+}' |
+seqkit tab2fx > ${assembly%.*}_split_contigs_test2.fa
+
+
 
 
 cat $assembly |
