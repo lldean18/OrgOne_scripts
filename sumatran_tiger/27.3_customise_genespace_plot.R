@@ -2,14 +2,13 @@
 #conda activate genespace4
 #R
 
-
 #########################################################################
 # Load libraries
 library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 #########################################################################
@@ -26,7 +25,8 @@ out <- run_genespace(gpar, overwrite = T)
 
 #########################################################################
 # once you ran genespace, you can load the out object back into R using
-load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6/results/gsParams.rda', verbose = TRUE)
+#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6/results/gsParams.rda', verbose = TRUE)
+load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7/results/gsParams.rda', verbose = TRUE)
 
 
 
@@ -96,6 +96,21 @@ ripDat <- plot_riparian(
   genomeIDs = c("RaftHifiasmAsm10", "hifiasm10", "DomesticCat"),
   forceRecalcBlocks = FALSE)
 
+#############################
+# plot with only cat-unscaffolded liger-ubnscaffolded and  hifiasm10 and raft10
+
+ripDat <- plot_riparian(
+  gsParam = gsParam,
+  pdfFile = paste(gsParam$paths$riparian, "/CatUnscaf_LigerUnscaf_hifiasm10_raft10.rip.pdf", sep = ""),
+  refGenome = "DomesticCatContig",
+  syntenyWeight = 1,
+  minChrLen2plot = 0,
+  xlabel = NULL,
+  labelTheseGenomes = c("RaftHifiasmAsm10", "hifiasm10"),
+  invertTheseChrs = invchr,
+  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
+  genomeIDs = c("RaftHifiasmAsm10", "hifiasm10", "LigerHaplome", "DomesticCatContig"),
+  forceRecalcBlocks = FALSE)
 
 
 
