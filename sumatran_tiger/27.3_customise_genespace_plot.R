@@ -113,7 +113,21 @@ ripDat <- plot_riparian(
   genomeIDs = c("RaftHifiasmAsm10", "hifiasm10", "LigerHaplome", "DomesticCatContig"),
   forceRecalcBlocks = FALSE)
 
+#############################
+# plot with all scaffolded HiC assemblies
 
+ripDat <- plot_riparian(
+  gsParam = gsParam,
+  pdfFile = paste(gsParam$paths$riparian, "/HiC_Cat_liger_hifiasm10.rip.pdf", sep = ""),
+  refGenome = "DomesticCat",
+  syntenyWeight = 1,
+  minChrLen2plot = 0,
+  xlabel = NULL,
+  labelTheseGenomes = c("DomesticCat","LigerHaplomeHiC","hifiasm10HiC"),
+  invertTheseChrs = invchr,
+  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
+  genomeIDs = c("hifiasm10HiC","LigerHaplomeHiC", "DomesticCat"),
+  forceRecalcBlocks = FALSE)
 
 
 
