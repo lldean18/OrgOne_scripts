@@ -8,7 +8,7 @@ library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours8"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 #########################################################################
@@ -26,12 +26,13 @@ out <- run_genespace(gpar, overwrite = T)
 #########################################################################
 # once you ran genespace, you can load the out object back into R using
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours6/results/gsParams.rda', verbose = TRUE)
-load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7/results/gsParams.rda', verbose = TRUE)
+#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7/results/gsParams.rda', verbose = TRUE)
+load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours8/results/gsParams.rda', verbose = TRUE)
 
 
 
 ########################################################################
-# genespace6 with final versions of ASMs to be included in the main figure
+# genespace6/7/8 with final versions of ASMs to be included in the main figure
 
 # set the chromosomes to be plotted inverted
 invchr <- data.frame(
@@ -48,7 +49,7 @@ invchr <- data.frame(
 
 
 
-
+########################################################################
 # customise your riparian plot
 ripDat <- plot_riparian(
   gsParam = gsParam,
