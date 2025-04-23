@@ -2,6 +2,10 @@
 # 22/4/25
 # run the script in the python3.12 conda environment on Ada
 
+# run with: srun --partition defq --cpus-per-task 1 --mem 80g --time 5:00:00 --pty bash
+# run for simplex reads with: python 30_plot_read_lengths.py /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_simplex_simplex.fastq.gz
+
+
 import gzip
 import argparse
 import os
@@ -20,12 +24,17 @@ def parse_fastq_lengths(fastq_path):
             lengths.append(len(seq))
     return lengths
 
+import numpy as np
+
 def make_histogram(lengths, output_path):
+    #lengths_log = [np.log10(l / 1000) for l in lengths if l > 0]  # Avoid log(0)
+    lengths_log = [np.log10(l) for l in lengths if l > 0]  # Avoid log(0)
     plt.figure(figsize=(10, 6))
-    plt.hist(lengths, bins=100, color='steelblue', edgecolor='black')
-    plt.xlabel("Read Length (bp)", fontsize=14)
+    plt.hist(lengths_log, bins=100, color='darkorange', edgecolor='black')
+    #plt.xlabel("log10(Read Length in kb)", fontsize=14)
+    plt.xlabel("log10(Read Length)", fontsize=14)
     plt.ylabel("Read Count", fontsize=14)
-    #plt.title("Oxford Nanopore Read Length Distribution", fontsize=16)
+    #plt.title("Log-Transformed Read Length Distribution", fontsize=16)
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.tight_layout()
     plt.savefig(output_path, dpi=300)
