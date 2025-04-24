@@ -55,6 +55,7 @@ hic2=~/data/OrgOne/sumatran_tiger/HiC/SRR8616865_2.fastq.gz
 # install pretextmap
 #conda create --name pretextmap pretext-suite
 conda activate pretextmap
+#conda install samtools
 
 samtools view -h $(basename ${assembly%.*})_hic_mapped.bam | PretextMap -o $(basename ${assembly%.*})_pretextmap_scaffolds.pretext
 
