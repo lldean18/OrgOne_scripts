@@ -25,26 +25,31 @@ assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.
 
 suffix=duplex
 
-# map the raw reads back to our assembly
-minimap2 \
-	-a \
-	-x map-ont \
-	--split-prefix temp_prefix \
-	-t 32 \
-	-o ${assembly%.*}_$suffix.sam \
-	$assembly $reads
+## map the raw reads back to our assembly
+#minimap2 \
+#	-a \
+#	-x map-ont \
+#	--split-prefix temp_prefix \
+#	-t 32 \
+#	-o ${assembly%.*}_$suffix.sam \
+#	$assembly $reads
+#
+#
+## sort and index the sam file and convert to bam format
+#samtools sort \
+#	--threads 32 \
+#	--write-index \
+#	--output-fmt BAM \
+#	-o ${assembly%.*}_$suffix.bam ${assembly%.*}_$suffix.sam
+#
+#
+## remove the intermediate sam file
+#rm ${assembly%.*}_$suffix.sam
 
 
-# sort and index the sam file and convert to bam format
-samtools sort \
-	--threads 32 \
-	--write-index \
-	--output-fmt BAM \
-	-o ${assembly%.*}_$suffix.bam ${assembly%.*}_$suffix.sam
-
-
-# remove the intermediate sam file
-rm ${assembly%.*}_$suffix.sam
+# calculate and plot stats about the mapping
+samtools stats ${assembly%.*}_$suffix.bam > ${assembly%.*}_$suffix.bam.stats
+plot-bamstats -p ${assembly%.*}_$suffix.bam.plots ${assembly%.*}_$suffix.bam.stats
 
 
 # deactivate software
