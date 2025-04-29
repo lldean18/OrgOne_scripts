@@ -32,4 +32,8 @@ ragtag.py scaffold -t 32 -o ${assembly%.*}_ragtag $reference $assembly
 # deactivate software
 conda deactivate
 
+# remove the additional text added to fasta headers
+sed -i 's/_RagTag//;s/AnAms1.0_//' ${assembly%.*}_ragtag/ragtag.scaffold.fasta
+
+
 
