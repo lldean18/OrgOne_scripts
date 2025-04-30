@@ -30,9 +30,10 @@ conda activate quartet
 #wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm9
 #genome=ONTasm.bp.p_ctg_100kb.fasta
 
-#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference
 ##genome=GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
 #genome=GCA_018350195.2_scaff_only_names.fasta.gz
+genome=GCA_018350195.2_scaff_only_names_split_contigs.fasta
 
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
 #genome=ragtag.scaffold.fasta
@@ -43,9 +44,9 @@ conda activate quartet
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4
 #genome=assembly_100kb.fasta
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference
 #genome=AnAms1.0.genome_split_contigs_100kb.fasta
-genome=AnAms1.0.genome.fa
+#genome=AnAms1.0.genome.fa
 
 # move to working directory
 cd $wkdir
