@@ -44,7 +44,8 @@ conda activate quartet
 #genome=assembly_100kb.fasta
 
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference
-genome=AnAms1.0.genome_split_contigs_100kb.fasta
+#genome=AnAms1.0.genome_split_contigs_100kb.fasta
+genome=AnAms1.0.genome.fa
 
 # move to working directory
 cd $wkdir
