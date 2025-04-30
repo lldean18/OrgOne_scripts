@@ -8,9 +8,9 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=64
 #SBATCH --mem=360g
-#SBATCH --time=48:00:00
+#SBATCH --time=60:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # set variables
@@ -27,11 +27,11 @@ conda activate quast
 
 # compare genomes
 python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
-	--threads 32 \
+	--threads 64 \
 	--eukaryote \
 	-r $reference \
 	-g $annotation \
-	-o $wkdir/quast3 $wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta $wkdir/raft_hifiasm_asm10/finalasm.bp.p_ctg_100kb.fasta $wkdir/sumatran_tiger_flye_asm4/assembly_100kb.fasta
+	-o $wkdir/quast4 $wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta $wkdir/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta $wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta $wkdir/raft_hifiasm_asm10/finalasm.bp.p_ctg_100kb.fasta $wkdir/sumatran_tiger_flye_asm4/assembly_100kb.fasta
 
 
 conda deactivate
