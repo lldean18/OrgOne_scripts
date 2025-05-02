@@ -28,8 +28,9 @@ reference_gff=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_refere
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs.fasta
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs.fa
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final.fa
-target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta
+#target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta
 #target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta
+target_assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta
 
 # load software
 #conda create --name liftoff -c bioconda liftoff
