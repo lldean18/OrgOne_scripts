@@ -29,6 +29,7 @@ wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours6
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours7
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours8
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours9
+wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours10
 
 
 
@@ -52,6 +53,7 @@ cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb_lifto
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs_liftoff_genes.bed > $wkdir/bed/DomesticCatContig.bed
 #cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_liftoff_genes.bed > $wkdir/bed/hifiasm10HiC.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_liftoff_genes.bed > $wkdir/bed/hifiasm10HiC.bed
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_liftoff_genes.bed > $wkdir/bed/hifiasm9HiC.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/hifiasm9.bed
 
 
@@ -68,6 +70,7 @@ cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb_proteins.fas
 cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs_proteins.fasta $wkdir/peptide/DomesticCatContig.fa
 #cp ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_proteins.fasta $wkdir/peptide/hifiasm10HiC.fa
 cp ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_proteins.fasta $wkdir/peptide/hifiasm10HiC.fa
+cp ~/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_proteins.fasta $wkdir/peptide/hifiasm9HiC.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/hifiasm9.fa
 
 
