@@ -22,7 +22,7 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger
 outdir=HiC2
 
 # Make a dir for the hic data & move to it
-mkdir $wkdir/$outdir
+#mkdir $wkdir/$outdir
 cd $wkdir/$outdir
 
 # download HiC data
@@ -97,11 +97,11 @@ hic2=~/data/OrgOne/sumatran_tiger/HiC/SRR8616865_2.fastq.gz
 #conda deactivate
 #
 #
-############################################################
-## install the YAHS scaffolding tool
-##conda create --name yahs yahs -y
-#conda activate yahs
-#
+##########################################################
+# install the YAHS scaffolding tool
+#conda create --name yahs yahs -y
+conda activate yahs
+
 ## index the assembly with samtools
 #samtools faidx $assembly
 #
