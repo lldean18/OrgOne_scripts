@@ -55,9 +55,11 @@ samtools view \
 	-F 0x800 -F 0x100 \
 	-o ${scaffs%.*}_mapped_self_chrs_primary.bam ${scaffs%.*}_mapped_self_chrs.bam
 
+# index the primary mappings bam file
+samtools index ${scaffs%.*}_mapped_self_chrs_primary.bam
 
-
-
+# extract coordinates of where the scaffolds are mapping to
+samtools view -F 4 ${scaffs%.*}_mapped_self_chrs_primary.bam | awk '{print $3"\t"$4}'
 
 # deactivate software
 conda deactivate
