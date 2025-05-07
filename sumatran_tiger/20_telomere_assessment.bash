@@ -22,6 +22,10 @@ source $HOME/.bash_profile
 conda activate quartet
 #conda install conda-forge::r-jpeg
 
+
+
+
+
 # set environmental variables
 #wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm10
 #genome=ONTasm.bp.p_ctg_100kb.fasta
@@ -34,8 +38,9 @@ conda activate quartet
 #genome=GCA_018350195.2_scaff_only_names.fasta.gz
 #genome=GCA_018350195.2_scaff_only_names_split_contigs.fasta
 
-#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
 #genome=ragtag.scaffold.fasta
+genome=ragtag.scaffold_3Mb.fasta
 
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10
 #genome=finalasm.bp.p_ctg_100kb.fasta
@@ -47,9 +52,9 @@ conda activate quartet
 #genome=AnAms1.0.genome_split_contigs_100kb.fasta
 #genome=AnAms1.0.genome.fa
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
-genome=ragtag.scaffold_1Mb.fasta
-
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
+#genome=ragtag.scaffold_1Mb.fasta
+#genome=ragtag.scaffold_3Mb.fasta
 
 
 
