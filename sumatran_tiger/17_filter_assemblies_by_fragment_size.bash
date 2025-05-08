@@ -27,11 +27,12 @@ conda activate seqtk
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10/finalasm.bp.p_ctg
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/sumatran_tiger_flye_asm4/assembly
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg.fasta
 
 # remove sequences shorter than 100kb
-seqtk seq -L 100000 $assembly.fasta > ${assembly}_100kb.fasta
-#seqtk seq -L 100000 $assembly.fa > ${assembly}_100kb.fasta
+seqtk seq -L 100000 $assembly > ${assembly%.*}_100kb.fasta
+#seqtk seq -L 100000 $assembly > ${assembly%.*}_100kb.fasta
 
 
 # unload software
