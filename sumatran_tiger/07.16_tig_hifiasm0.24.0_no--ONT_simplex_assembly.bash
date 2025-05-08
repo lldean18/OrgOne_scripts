@@ -26,7 +26,7 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/$species # set the working directory
 # set the attempt number for naming the output directory of each try
 # then set the reads file that was used in that attempt
 attempt=13
-#reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz # running the file with the best previous assembly in the newest version of hifiasm
+reads=$wkdir/basecalls/all_simplex_simplex.fastq.gz
 
 # print a line to the slurm output that says exactly what was done on this run
 echo "This is hifiasm version 0.24.0 running on the file $reads WITHOUT the new --ONT flag and saving the output to the directory $wkdir/hifiasm_asm$attempt"
