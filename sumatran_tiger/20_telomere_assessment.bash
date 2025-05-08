@@ -38,9 +38,9 @@ conda activate quartet
 #genome=GCA_018350195.2_scaff_only_names.fasta.gz
 #genome=GCA_018350195.2_scaff_only_names_split_contigs.fasta
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag
 #genome=ragtag.scaffold.fasta
-genome=ragtag.scaffold_3Mb.fasta
+#genome=ragtag.scaffold_3Mb.fasta
 
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10
 #genome=finalasm.bp.p_ctg_100kb.fasta
@@ -56,6 +56,8 @@ genome=ragtag.scaffold_3Mb.fasta
 #genome=ragtag.scaffold_1Mb.fasta
 #genome=ragtag.scaffold_3Mb.fasta
 
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12
+genome=finalasm.bp.p_ctg_100kb.fasta
 
 
 # move to working directory
