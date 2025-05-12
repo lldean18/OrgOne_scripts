@@ -56,9 +56,11 @@ conda activate quartet
 #genome=ragtag.scaffold_1Mb.fasta
 #genome=ragtag.scaffold_3Mb.fasta
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12
-genome=finalasm.bp.p_ctg_100kb.fasta
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12
+#genome=finalasm.bp.p_ctg_100kb.fasta
 
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
+genome=assembly_100kb.fasta
 
 # move to working directory
 cd $wkdir
