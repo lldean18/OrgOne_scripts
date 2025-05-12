@@ -31,7 +31,7 @@ python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
 	--eukaryote \
 	-r $reference \
 	-g $annotation \
-	-o $wkdir/quast4 $wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta $wkdir/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta $wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta $wkdir/raft_hifiasm_asm10/finalasm.bp.p_ctg_100kb.fasta $wkdir/sumatran_tiger_flye_asm4/assembly_100kb.fasta
+	-o $wkdir/quast5 $wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta $wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta $wkdir/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta $wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta $wkdir/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb.fasta $wkdir/flye_asm5/assembly_100kb.fasta
 
 
 conda deactivate
