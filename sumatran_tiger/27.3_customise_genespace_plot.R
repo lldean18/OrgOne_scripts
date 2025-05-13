@@ -124,15 +124,15 @@ ripDat <- plot_riparian(
 
 ripDat <- plot_riparian(
   gsParam = gsParam,
-  pdfFile = paste(gsParam$paths$riparian, "/HiC_Cat_liger_hifiasm9_hifiasm10.rip.pdf", sep = ""),
+  pdfFile = paste(gsParam$paths$riparian, "/Scaffolded_cat_liger_hifiasm9.rip.pdf", sep = ""),
   refGenome = "DomesticCat",
   syntenyWeight = 1,
   minChrLen2plot = 0,
   xlabel = NULL,
-  labelTheseGenomes = c("DomesticCat","LigerHaplomeHiC","hifiasm9HiC","hifiasm10HiC"),
+  labelTheseGenomes = c("DomesticCat","LigerHaplomeHiC","hifiasm9HiC"),
   invertTheseChrs = invchr,
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
-  genomeIDs = c("hifiasm10HiC","hifiasm9HiC","LigerHaplomeHiC", "DomesticCat"),
+  genomeIDs = c("hifiasm9HiC","LigerHaplomeHiC", "DomesticCat"),
   forceRecalcBlocks = FALSE)
 
 
