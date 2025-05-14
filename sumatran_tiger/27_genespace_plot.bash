@@ -43,7 +43,7 @@ mkdir $wkdir/peptide
 
 # copy my bed files to the bed folder, stripping all columns after the 4th column when copying
 # This was required for the data to load correctly
-cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/HERRO-RAFT-hifiasm.bed
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/HERRORAFThifiasm.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/hifiasmONT.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_liftoff_genes.bed > $wkdir/bed/TigerScaffolded.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_liftoff_genes.bed > $wkdir/bed/Tiger.bed
@@ -57,11 +57,11 @@ cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds
 
 # copy my protein fasta files
 # currently erroring because there are . characters in the fasta sequence and these aren't allowed by diamond
-cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/HERRO-RAFT-hifiasm.fa
+cp ~/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/HERRORAFThifiasm.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/hifiasmONT.fa
 cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces_proteins.fasta $wkdir/peptide/TigerScaffolded.fa
 cp ~/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_proteins.fasta $wkdir/peptide/Tiger.fa
-cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_proteins.fasta $wkdir/peptide/DomesticCat.fa
+cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_proteins.fasta $wkdir/peptide/DomesticCatScaffolded.fa
 cp ~/data/OrgOne/sumatran_tiger/flye_asm5/assembly_100kb_proteins.fasta $wkdir/peptide/Flye.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/HifiasmDuplex.fa
 cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs_proteins.fasta $wkdir/peptide/DomesticCat.fa
