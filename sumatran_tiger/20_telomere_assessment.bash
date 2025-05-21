@@ -46,8 +46,8 @@ conda activate quartet
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm10
 #genome=finalasm.bp.p_ctg_100kb.fasta
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
-genome=assembly_100kb_3Mb.fasta
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
+#genome=assembly_100kb_3Mb.fasta
 
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference
 #genome=AnAms1.0.genome_split_contigs_100kb.fasta
@@ -67,7 +67,11 @@ genome=assembly_100kb_3Mb.fasta
 #wkdir=~/data/OrgOne/sumatran_tiger/hifiasm_asm12
 #genome=ONTasm.bp.p_ctg_100kb_3Mb.fasta
 
-
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb_ragtag
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb_ragtag
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5/assembly_100kb_ragtag
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
+genome=ragtag.scaffolds_only.fasta
 
 
 
