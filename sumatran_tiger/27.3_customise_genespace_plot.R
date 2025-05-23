@@ -67,13 +67,13 @@ invchr <- data.frame(
   genome = c("hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10", "hifiasm10","hifiasm10","hifiasm10", "hifiasm10","hifiasm10","hifiasm10",
              "Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger","Tiger",
              "HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm","HERRORAFThifiasm",
-             "Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye"
+             "Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye",
              "hifiasm10HiC","hifiasm10HiC",
              "hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT","hifiasmONT"),
   chr = c("ptg000003l","ptg000005l","ptg000006l","ptg000007l","ptg000010l","ptg000011l","ptg000013l","ptg000014l","ptg000017l","ptg000019l","ptg000021l","ptg000022l","ptg000023l","ptg000024l","ptg000026l","ptg000027l","ptg000029l","ptg000030l","ptg000031l","ptg000032l","ptg000033l","ptg000046l",
           "Contig9","Contig29","Contig31","Contig33","Contig34","Contig35","Contig36","Contig25","Contig26","Contig27","Contig3","Contig23","Contig52","Contig38","Contig13","Contig46","Contig53",
           "ptg000005l","ptg000017l","ptg000035l","ptg000015l","ptg000001l","ptg000019l","ptg000034l","ptg000029l","ptg000024l","ptg000012l","ptg000007l","ptg000018l","ptg000006l","ptg000002l","ptg000014l","ptg000010l","ptg000016l","ptg000023l","ptg000025l","ptg000011l","ptg000022l","ptg000033l",
-          "contig_127","contig_554","contig_214","contig_299","contig_308","contig_565","contig_167","contig_38","contig_222",
+          "contig_127","contig_554","contig_214","contig_299","contig_308","contig_565","contig_167","contig_38","contig_322",
 	  "scaffold_3", "scaffold_12",
 	  "ptg000022l","ptg000010l","ptg000004l","ptg000019l","ptg000007l","ptg000008l","ptg000002l","ptg000024l","ptg000018l","ptg000013l","ptg000009l","ptg000016l"))
 
