@@ -1,0 +1,4 @@
+Checklist	ERC000053	Tree of Life Checklist
+tax_id	scientific_name	sample_alias	sample_title	sample_description	organism part	lifestage	project name	collected_by	collection date	geographic location (country and/or sea)	geographic location (latitude)	geographic location (longitude)	geographic location (region and locality)	habitat	sex	collecting institution
+#units	 	 	 	 	 	 	 	 	 	 	DD	DD	 	 	 	 
+9598	Pan troglodytes	290	Arks ID: 290	Whole blood collected under zoletil/medetomidine injectable anaesthesia into EDTA, stored at -20 initially then -80 from day of collection until day of shipment	blood	adult	ORG.one	Phillipa Dobbs	2018-04-17	United Kingdom	52.65286885	-1.53014049	Twycross Zoo, Warwickshire, UK	Standard zoo enclosure	female	Twycross Zoo
