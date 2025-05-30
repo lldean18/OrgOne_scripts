@@ -1,0 +1,4 @@
+Checklist	ERC000053	Tree of Life Checklist
+tax_id	scientific_name	sample_alias	sample_title	sample_description	organism part	lifestage	project name	collected_by	collection date	geographic location (country and/or sea)	geographic location (latitude)	geographic location (longitude)	geographic location (region and locality)	habitat	sex	collecting institution
+#units	 	 	 	 	 	 	 	 	 	 	DD	DD	 	 	 	 
+1137049	Cercopithecus roloway	3006	Arks ID: 3006	Assumed whole blood collected under ketamine/medetomidine injectable anaesthesia into EDTA, stored at -20 initially then -80 from day of collection until day of shipment	blood	adult	ORG.one	Unknown	2009-07-03	United Kingdom	52.65286885	-1.53014049	Twycross Zoo, Warwickshire, UK	Standard zoo enclosure	male	Twycross Zoo
