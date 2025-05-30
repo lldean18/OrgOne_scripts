@@ -1,0 +1,3 @@
+FileType	OxfordNanopore_native	Read submission file type															
+sample	study	instrument_model	library_name	library_source	library_selection	library_strategy	file_name	file_md5	oxford_nanopore_instrument	oxford_nanopore_instrument_location	oxford_nanopore_instrument_longitude	oxford_nanopore_instrument_latitude	oxford_nanopore_flowcell_type	oxford_nanopore_kit_type	basecaller_version	read_n50_kbp	total_Gbp
+ERS18347029	ERP158077	PromethION	SQK-LSK114-XL	GENOMIC	RANDOM	WGS	roloway_monkey_pod5s.tar.gz	PromthION	"Nottingham, UK"	52.94440619	-1.184877461	FLO-PRO114M	SQK-LSK114-XL	Dorado version 0.5.3	29.62	93.85
