@@ -25,7 +25,7 @@ md5sum /share/StickleAss/OrgOne/roloway_monkey/roloway_monkey_pod5s.tar.gz > /sh
 curl --upload-file /share/StickleAss/OrgOne/roloway_monkey/roloway_monkey_pod5s.tar.gz \
 --verbose \
 --progress-bar \
---user Webin-154:hjsH3ZTp ftp://webin2.ebi.ac.uk
+--user Webin-154:******** ftp://webin2.ebi.ac.uk
 
 
 # this submission took like 2 or 3 days but completed successfully :D

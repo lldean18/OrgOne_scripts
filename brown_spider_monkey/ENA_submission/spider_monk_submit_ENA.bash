@@ -23,7 +23,7 @@ srun --partition defq --cpus-per-task 1 --mem 50g --time 100:00:00 --pty bash
 curl --upload-file /share/StickleAss/OrgOne/brown_spider_monkey/brown_spider_monkey_P1_pod5s.tar.gz \
 --verbose \
 --progress-bar \
---user Webin-154:hjsH3ZTp ftp://webin2.ebi.ac.uk
+--user Webin-154:******** ftp://webin2.ebi.ac.uk
 
 
 # this submission took like 2 or 3 days for roloway monkey but completed successfully :D

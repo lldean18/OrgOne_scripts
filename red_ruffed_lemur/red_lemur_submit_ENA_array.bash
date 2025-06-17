@@ -33,7 +33,7 @@ tarball=$(awk -v ArrayTaskID=$SLURM_ARRAY_TASK_ID '$1==ArrayTaskID {print $2}' $
 echo $tarball
 
 # make ENA submission
-curl --upload-file $tarball --user Webin-154:hjsH3ZTp ftp://webin2.ebi.ac.uk
+curl --upload-file $tarball --user Webin-154:******** ftp://webin2.ebi.ac.uk
 
 
 # this submission took like 2 or 3 days for roloway monkey but completed successfully :D
