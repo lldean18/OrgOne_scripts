@@ -29,7 +29,8 @@ conda activate seqtk
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_contigs
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12/finalasm.bp.p_ctg.fasta
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5/assembly.fasta
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5/assembly.fasta
+assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg.fasta
 
 # remove sequences shorter than 100kb
 seqtk seq -L 100000 $assembly > ${assembly%.*}_100kb.fasta
