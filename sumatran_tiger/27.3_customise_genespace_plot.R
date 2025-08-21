@@ -1,6 +1,6 @@
 # to enter the genespace software env
-#conda activate genespace4
-#R
+conda activate genespace4
+R
 
 #########################################################################
 # Load libraries
@@ -8,7 +8,7 @@ library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours11"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours12"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 #########################################################################
@@ -29,8 +29,9 @@ out <- run_genespace(gpar, overwrite = T)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours7/results/gsParams.rda', verbose = TRUE)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours8/results/gsParams.rda', verbose = TRUE)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours9/results/gsParams.rda', verbose = TRUE)
-load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours10/results/gsParams.rda', verbose = TRUE)
-load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours11/results/gsParams.rda', verbose = TRUE)
+#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours10/results/gsParams.rda', verbose = TRUE)
+#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours11/results/gsParams.rda', verbose = TRUE)
+load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours12/results/gsParams.rda', verbose = TRUE)
 
 
 
