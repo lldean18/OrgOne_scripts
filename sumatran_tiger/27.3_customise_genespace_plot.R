@@ -102,6 +102,12 @@ ripDat <- plot_riparian(
 #############################
 # Main supp plot for MS NEW with ALL asms 21/8/25
 
+ggthemes <- ggplot2::theme(
+  panel.background = ggplot2::element_rect(fill = "white"))
+
+customPal <- colorRampPalette(
+  c("darkorange", "skyblue", "darkblue", "purple", "darkred", "salmon"))
+
 ripDat <- plot_riparian(
   gsParam = gsParam,
   pdfFile = paste(gsParam$paths$riparian, "/MS_plot_all_FINAL.rip.pdf", sep = ""),
@@ -111,6 +117,10 @@ ripDat <- plot_riparian(
   xlabel = NULL,
   labelTheseGenomes = c("HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   invertTheseChrs = invchr,
+  braidAlpha = .85,
+  palette = customPal,
+  addThemes = ggthemes,
+  chrFill = "lightgrey",
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
   genomeIDs = c("DomesticCat", "TigerHaplome",  "Hifiasm", "HifiasmDuplex", "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   forceRecalcBlocks = FALSE)
