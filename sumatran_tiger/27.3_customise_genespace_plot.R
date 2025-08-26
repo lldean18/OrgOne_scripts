@@ -85,6 +85,12 @@ invchr <- data.frame(
 #############################
 # Main plot for MS NEW with ALL but very fragmented asms 21/8/25
 
+ggthemes <- ggplot2::theme(
+  panel.background = ggplot2::element_rect(fill = "white"))
+
+customPal <- colorRampPalette(
+  c("darkorange","yellow", "skyblue", "darkblue", "purple", "darkred", "salmon"))
+
 ripDat <- plot_riparian(
   gsParam = gsParam,
   pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL_test.rip.pdf", sep = ""),
@@ -94,6 +100,10 @@ ripDat <- plot_riparian(
   xlabel = NULL,
   labelTheseGenomes = c("HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded", "Flye"),
   invertTheseChrs = invchr,
+  braidAlpha = .85,
+  palette = customPal,
+  addThemes = ggthemes,
+  chrFill = "lightgrey",
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
   genomeIDs = c("TigerHaplome",  "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   forceRecalcBlocks = FALSE)
@@ -106,7 +116,7 @@ ggthemes <- ggplot2::theme(
   panel.background = ggplot2::element_rect(fill = "white"))
 
 customPal <- colorRampPalette(
-  c("darkorange", "skyblue", "darkblue", "purple", "darkred", "salmon"))
+  c("darkorange","yellow", "skyblue", "darkblue", "purple", "darkred", "salmon"))
 
 ripDat <- plot_riparian(
   gsParam = gsParam,
