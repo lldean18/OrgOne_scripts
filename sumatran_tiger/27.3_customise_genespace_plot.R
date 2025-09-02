@@ -93,21 +93,20 @@ customPal <- colorRampPalette(
 
 ripDat <- plot_riparian(
   gsParam = gsParam,
-  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL_test.rip.pdf", sep = ""),
-  refGenome = "DomesticCat",
+  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL.rip.pdf", sep = ""),
+  refGenome = "DomesticCatScaffolded",
   syntenyWeight = 1,
   minChrLen2plot = 0,
   xlabel = NULL,
-  labelTheseGenomes = c("HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded", "Flye"),
+  labelTheseGenomes = c("HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   invertTheseChrs = invchr,
   braidAlpha = .85,
   palette = customPal,
   addThemes = ggthemes,
   chrFill = "lightgrey",
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
-  genomeIDs = c("TigerHaplome",  "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
+  genomeIDs = c("DomesticCat", "TigerHaplome", "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   forceRecalcBlocks = FALSE)
-
 
 #############################
 # Main supp plot for MS NEW with ALL asms 21/8/25
