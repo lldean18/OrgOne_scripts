@@ -27,18 +27,18 @@ cd $wkdir
 #### Align assemblies that will be compared #####
 #################################################
 
-# align assemblies to be compared
-conda activate minimap2
-minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment.bam
-samtools index alignment.bam
-#asm=asm5 # 0.1% sequence divergence
-#asm=asm10 # 1% sequence divergence
-#asm=asm20 # 5% sequence divergence
-conda deactivate
-
-# write the names of the assemblies to a file for use by plotsr
-echo -e ""$assembly"\tHifiasmONT
-"$reference"\tTiger_haplome" > plotsr_assemblies_list.txt
+## align assemblies to be compared
+#conda activate minimap2
+#minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment.bam
+#samtools index alignment.bam
+##asm=asm5 # 0.1% sequence divergence
+##asm=asm10 # 1% sequence divergence
+##asm=asm20 # 5% sequence divergence
+#conda deactivate
+#
+## write the names of the assemblies to a file for use by plotsr
+#echo -e ""$assembly"\tHifiasmONT
+#"$reference"\tTiger_haplome" > plotsr_assemblies_list.txt
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
@@ -56,7 +56,7 @@ syri \
 -q $assembly \
 -F B \
 --dir $wkdir \
---prefix syri
+--prefix HifiasmONT_
 
 conda deactivate
 
@@ -68,7 +68,7 @@ echo "plotting structural rearrangements with plotsr..."
 conda activate plotsr
 
 plotsr \
---sr syri.out \
+--sr HifiasmONT_syri.out \
 --genomes plotsr_assemblies_list.txt \
 -o plotsr_plot.png
 
