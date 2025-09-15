@@ -36,31 +36,29 @@ cd $wkdir
 ##asm=asm20 # 5% sequence divergence
 #conda deactivate
 #
-## write the names of the assemblies to a file for use by plotsr
-#echo -e ""$assembly"\tHifiasmONT
-#"$reference"\tTiger_haplome" > plotsr_assemblies_list.txt
+# write the names of the assemblies to a file for use by plotsr
+echo -e ""$reference"\tTiger_haplome
+"$assembly"\tHifiasmONT" > plotsr_assemblies_list.txt
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
 ###############################################################
 
-echo "identifying structural rearrangements between assemblies with syri..."
-# create your syri environment
-#conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
-#conda activate syri
-#conda create --name syri1.7.1 syri -y
-conda activate syri1.7.1
-
-# Run syri to find structural rearrangements between your assemblies
-syri \
--c alignment.bam \
--r $reference \
--q $assembly \
--F B \
---dir $wkdir \
---prefix HifiasmONT_
-
-conda deactivate
+#echo "identifying structural rearrangements between assemblies with syri..."
+## create your syri environment
+##conda create --name syri1.7.1 syri -y
+#conda activate syri1.7.1
+#
+## Run syri to find structural rearrangements between your assemblies
+#syri \
+#-c alignment.bam \
+#-r $reference \
+#-q $assembly \
+#-F B \
+#--dir $wkdir \
+#--prefix HifiasmONT_
+#
+#conda deactivate
 
 ############################
 #### create plotsr plot ####
