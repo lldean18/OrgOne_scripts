@@ -47,7 +47,9 @@ cd $wkdir
 echo "identifying structural rearrangements between assemblies with syri..."
 # create your syri environment
 #conda create -y --name syri -c bioconda -c conda-forge -c anaconda python=3.8 syri
-conda activate syri
+#conda activate syri
+#conda create --name syri1.7.1 syri -y
+conda activate syri1.7.1
 
 # Run syri to find structural rearrangements between your assemblies
 syri \
@@ -65,7 +67,9 @@ conda deactivate
 ############################
 
 echo "plotting structural rearrangements with plotsr..."
-conda activate plotsr
+#conda activate plotsr
+#conda create --name plotsr1.1.0 plotsr -y
+conda activate plotsr1.1.0
 
 plotsr \
 --sr HifiasmONT_syri.out \
