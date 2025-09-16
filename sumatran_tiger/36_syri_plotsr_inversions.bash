@@ -16,8 +16,13 @@
 # load software
 source $HOME/.bash_profile
 
+## get the cat ref file in order to match the contig names in the tiger assemblies
+#sed 's/.*_/>/' AnAms1.0.genome.fa > AnAms1.0.genome_named_contigs.fa # remove prefix of contig names
+#sed -i '/>unplaced/,$d' AnAms1.0.genome_named_contigs.fa # remove the unplaced contig
+
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/inversions
+cat=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_named_contigs.fa
 reference=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names_nospaces.fasta
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag/ragtag.scaffolds_only.fasta
 cd $wkdir
@@ -27,38 +32,50 @@ cd $wkdir
 #### Align assemblies that will be compared #####
 #################################################
 
-## align assemblies to be compared
-#conda activate minimap2
-#minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment.bam
-#samtools index alignment.bam
-##asm=asm5 # 0.1% sequence divergence
-##asm=asm10 # 1% sequence divergence
-##asm=asm20 # 5% sequence divergence
-#conda deactivate
-#
+#asm=asm5 # 0.1% sequence divergence
+#asm=asm10 # 1% sequence divergence
+#asm=asm20 # 5% sequence divergence
+
+# align assemblies to be compared
+conda activate minimap2
+minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
+samtools index alignment.bam
+minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
+samtools index alignment2.bam
+conda deactivate
+
 # write the names of the assemblies to a file for use by plotsr
-echo -e ""$reference"\tTiger_haplome
-"$assembly"\tHifiasmONT" > plotsr_assemblies_list.txt
+echo -e ""$cat"\tDomestic_cat
+"$reference"\tTiger_haplome
+"$assembly"\tHifiasm_ONT" > plotsr_assemblies_list.txt
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
 ###############################################################
 
-#echo "identifying structural rearrangements between assemblies with syri..."
-## create your syri environment
-##conda create --name syri1.7.1 syri -y
-#conda activate syri1.7.1
-#
-## Run syri to find structural rearrangements between your assemblies
-#syri \
-#-c alignment.bam \
-#-r $reference \
-#-q $assembly \
-#-F B \
-#--dir $wkdir \
-#--prefix HifiasmONT_
-#
-#conda deactivate
+echo "identifying structural rearrangements between assemblies with syri..."
+# create your syri environment
+#conda create --name syri1.7.1 syri -y
+conda activate syri1.7.1
+
+# Run syri to find structural rearrangements between your assemblies
+syri \
+-c alignment.bam \
+-r $cat \
+-q $reference \
+-F B \
+--dir $wkdir \
+--prefix Cat_Ref_
+
+syri \
+-c alignment2.bam \
+-r $reference \
+-q $assembly \
+-F B \
+--dir $wkdir \
+--prefix Ref_Asm_
+
+conda deactivate
 
 ############################
 #### create plotsr plot ####
@@ -70,9 +87,10 @@ echo "plotting structural rearrangements with plotsr..."
 conda activate plotsr1.1.0
 
 plotsr \
---sr HifiasmONT_syri.out \
+--sr Cat_Ref_syri.out \
+--sr Ref_Asm_syri.out \
 --genomes plotsr_assemblies_list.txt \
--o plotsr_plot.png
+-o plotsr_plot_CatRefAsm.png
 
 conda deactivate
 
