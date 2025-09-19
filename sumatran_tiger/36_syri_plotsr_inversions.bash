@@ -19,6 +19,7 @@ source $HOME/.bash_profile
 ## get the cat ref file in order to match the contig names in the tiger assemblies
 #sed 's/.*_/>/' AnAms1.0.genome.fa > AnAms1.0.genome_named_contigs.fa # remove prefix of contig names
 #sed -i '/>unplaced/,$d' AnAms1.0.genome_named_contigs.fa # remove the unplaced contig
+#sed -i 's/F1/F3/' AnAms1.0.genome_named_contigs.fa # because F1 in the cat is homologous to F3 in the tiger, rename F1 to F3 for compatability
 
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/inversions
