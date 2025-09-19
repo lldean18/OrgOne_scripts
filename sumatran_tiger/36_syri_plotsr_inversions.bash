@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=50g
+#SBATCH --mem=150g
 #SBATCH --time=4:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -37,18 +37,18 @@ cd $wkdir
 #asm=asm10 # 1% sequence divergence
 #asm=asm20 # 5% sequence divergence
 
-# align assemblies to be compared
-conda activate minimap2
-minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
-samtools index alignment.bam
-minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
-samtools index alignment2.bam
-conda deactivate
+## align assemblies to be compared
+#conda activate minimap2
+#minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
+#samtools index alignment.bam
+#minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
+#samtools index alignment2.bam
+#conda deactivate
 
-# write the names of the assemblies to a file for use by plotsr
-echo -e ""$cat"\tDomestic_cat
-"$reference"\tTiger_haplome
-"$assembly"\tHifiasm_ONT" > plotsr_assemblies_list.txt
+## write the names of the assemblies to a file for use by plotsr
+#echo -e ""$cat"\tDomestic_cat
+#"$reference"\tTiger_haplome
+#"$assembly"\tHifiasm_ONT" > plotsr_assemblies_list.txt
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
@@ -68,13 +68,13 @@ syri \
 --dir $wkdir \
 --prefix Cat_Ref_
 
-syri \
--c alignment2.bam \
--r $reference \
--q $assembly \
--F B \
---dir $wkdir \
---prefix Ref_Asm_
+#syri \
+#-c alignment2.bam \
+#-r $reference \
+#-q $assembly \
+#-F B \
+#--dir $wkdir \
+#--prefix Ref_Asm_
 
 conda deactivate
 
