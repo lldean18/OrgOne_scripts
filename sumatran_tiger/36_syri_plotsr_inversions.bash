@@ -93,6 +93,17 @@ plotsr \
 --genomes plotsr_assemblies_list.txt \
 -o plotsr_plot_CatRefAsm.png
 
+# customise the plot for the paper
+plotsr \
+	-o plotsr_plot_CatRefAsm_new.png \
+	--sr Cat_Ref_syri.out \
+	--sr Ref_Asm_syri.out \
+	--genomes plotsr_assemblies_list.txt \
+	--itx #\
+#	--chr \
+
+
+
 conda deactivate
 
 
