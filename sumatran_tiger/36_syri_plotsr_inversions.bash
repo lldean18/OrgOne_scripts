@@ -9,7 +9,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=150g
-#SBATCH --time=4:00:00
+#SBATCH --time=6:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
@@ -37,18 +37,18 @@ cd $wkdir
 #asm=asm10 # 1% sequence divergence
 #asm=asm20 # 5% sequence divergence
 
-## align assemblies to be compared
-#conda activate minimap2
-#minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
-#samtools index alignment.bam
-#minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
-#samtools index alignment2.bam
-#conda deactivate
+# align assemblies to be compared
+conda activate minimap2
+minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
+samtools index alignment.bam
+minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
+samtools index alignment2.bam
+conda deactivate
 
-## write the names of the assemblies to a file for use by plotsr
-#echo -e ""$cat"\tDomestic_cat
-#"$reference"\tTiger_haplome
-#"$assembly"\tHifiasm_ONT" > plotsr_assemblies_list.txt
+# write the names of the assemblies to a file for use by plotsr
+echo -e ""$cat"\tDomestic_cat
+"$reference"\tTiger_haplome
+"$assembly"\tHifiasm_ONT" > plotsr_assemblies_list.txt
 
 ###############################################################
 #### Identify structural rearrangements between assemblies ####
@@ -60,6 +60,7 @@ echo "identifying structural rearrangements between assemblies with syri..."
 conda activate syri1.7.1
 
 # Run syri to find structural rearrangements between your assemblies
+echo "running syri for cat and ref..."
 syri \
 -c alignment.bam \
 -r $cat \
@@ -68,13 +69,14 @@ syri \
 --dir $wkdir \
 --prefix Cat_Ref_
 
-#syri \
-#-c alignment2.bam \
-#-r $reference \
-#-q $assembly \
-#-F B \
-#--dir $wkdir \
-#--prefix Ref_Asm_
+echo "running syri for red and asm..."
+syri \
+-c alignment2.bam \
+-r $reference \
+-q $assembly \
+-F B \
+--dir $wkdir \
+--prefix Ref_Asm_
 
 conda deactivate
 
@@ -82,29 +84,27 @@ conda deactivate
 #### create plotsr plot ####
 ############################
 
-echo "plotting structural rearrangements with plotsr..."
-#conda activate plotsr
-#conda create --name plotsr1.1.0 plotsr -y
-conda activate plotsr1.1.0
+#echo "plotting structural rearrangements with plotsr..."
+##conda activate plotsr
+##conda create --name plotsr1.1.0 plotsr -y
+#conda activate plotsr1.1.0
 
-plotsr \
---sr Cat_Ref_syri.out \
---sr Ref_Asm_syri.out \
---genomes plotsr_assemblies_list.txt \
--o plotsr_plot_CatRefAsm.png
+#plotsr \
+#--sr Cat_Ref_syri.out \
+#--sr Ref_Asm_syri.out \
+#--genomes plotsr_assemblies_list.txt \
+#-o plotsr_plot_CatRefAsm.png
 
-# customise the plot for the paper
-plotsr \
-	-o plotsr_plot_CatRefAsm_new.png \
-	--sr Cat_Ref_syri.out \
-	--sr Ref_Asm_syri.out \
-	--genomes plotsr_assemblies_list.txt \
-	--itx #\
-#	--chr \
+## customise the plot for the paper
+#plotsr \
+#	-o plotsr_plot_CatRefAsm_new.png \
+#	--sr Cat_Ref_syri.out \
+#	--sr Ref_Asm_syri.out \
+#	--genomes plotsr_assemblies_list.txt \
+#	--itx #\
+##	--chr \
 
-
-
-conda deactivate
+#conda deactivate
 
 
 
