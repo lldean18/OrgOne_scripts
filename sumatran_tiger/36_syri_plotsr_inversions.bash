@@ -101,7 +101,9 @@ plotsr \
 	--sr Cat_Ref_syri.out \
 	--sr Ref_Asm_syri.out \
 	--genomes plotsr_assemblies_list.txt \
-#	--chr \
+	-H 10 \
+	-W 20
+	#	--chr \
 
 #conda deactivate
 
