@@ -89,11 +89,11 @@ echo "plotting structural rearrangements with plotsr..."
 #conda create --name plotsr1.1.0 plotsr -y
 conda activate plotsr1.1.0
 
-plotsr \
---sr Cat_Ref_syri.out \
---sr Ref_Asm_syri.out \
---genomes plotsr_assemblies_list.txt \
--o plotsr_plot_CatRefAsm.png
+#plotsr \
+#--sr Cat_Ref_syri.out \
+#--sr Ref_Asm_syri.out \
+#--genomes plotsr_assemblies_list.txt \
+#-o plotsr_plot_CatRefAsm.png
 
 # customise the plot for the paper
 plotsr \
