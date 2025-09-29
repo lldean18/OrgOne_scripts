@@ -104,7 +104,21 @@ plotsr \
 	-H 10 \
 	-W 20 \
 	--cfg base.cfg
-	#	--chr \
+
+# custom plot with only the inversion chromosomes
+plotsr \
+	-o plotsr_plot_CatRefAsm_inv_only.png \
+	--sr Cat_Ref_syri.out \
+	--sr Ref_Asm_syri.out \
+	--genomes plotsr_assemblies_list.txt \
+	-H 10 \
+	-W 20 \
+	--cfg base.cfg \
+	--chr E1 \
+	--chr E2 \
+	--chr D4
+
+
 
 #conda deactivate
 
