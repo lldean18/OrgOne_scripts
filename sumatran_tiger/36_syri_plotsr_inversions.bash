@@ -95,16 +95,16 @@ conda activate plotsr1.1.0
 #--genomes plotsr_assemblies_list.txt \
 #-o plotsr_plot_CatRefAsm.png
 
-# customise the plot for the paper
-plotsr \
-	-o plotsr_plot_CatRefAsm_new2.png \
-	--sr Cat_Ref_syri.out \
-	--sr Ref_Asm_syri.out \
-	--genomes plotsr_assemblies_list.txt \
-	-H 10 \
-	-W 20 \
-	-f 11 \
-	--cfg base.cfg
+## customise the plot for the paper
+#plotsr \
+#	-o plotsr_plot_CatRefAsm_new2.png \
+#	--sr Cat_Ref_syri.out \
+#	--sr Ref_Asm_syri.out \
+#	--genomes plotsr_assemblies_list.txt \
+#	-H 10 \
+#	-W 20 \
+#	-f 11 \
+#	--cfg base.cfg
 
 # custom plot with only the inversion chromosomes
 plotsr \
@@ -112,7 +112,7 @@ plotsr \
 	--sr Cat_Ref_syri.out \
 	--sr Ref_Asm_syri.out \
 	--genomes plotsr_assemblies_list.txt \
-	-H 10 \
+	-H 7.5 \
 	-W 20 \
 	--cfg base.cfg \
 	--chr E1 \
