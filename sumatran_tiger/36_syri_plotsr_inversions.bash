@@ -106,6 +106,13 @@ conda activate plotsr1.1.0
 #	-f 11 \
 #	--cfg base.cfg
 
+
+# make the genomes.txt file with custom line widths for genomes
+echo -e ""$cat"\tDomestic_cat\tlw:2.5
+"$reference"\tTiger_haplome\tlw:2.5
+"$assembly"\tHifiasm_ONT\tlw:2.5" > genomes.txt
+
+
 # custom plot with only the inversion chromosomes
 plotsr \
 	-o plotsr_plot_CatRefAsm_inv_only.png \
