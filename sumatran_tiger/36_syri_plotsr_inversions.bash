@@ -96,15 +96,15 @@ conda activate plotsr1.1.0
 #-o plotsr_plot_CatRefAsm.png
 
 ## customise the plot for the paper
-#plotsr \
-#	-o plotsr_plot_CatRefAsm_new2.png \
-#	--sr Cat_Ref_syri.out \
-#	--sr Ref_Asm_syri.out \
-#	--genomes plotsr_assemblies_list.txt \
-#	-H 10 \
-#	-W 20 \
-#	-f 11 \
-#	--cfg base.cfg
+plotsr \
+	-o plotsr_plot_CatRefAsm_new2.png \
+	--sr Cat_Ref_syri.out \
+	--sr Ref_Asm_syri.out \
+	--genomes plotsr_assemblies_list.txt \
+	-H 10 \
+	-W 20 \
+	-f 14 \
+	--cfg base.cfg
 
 
 # make the genomes.txt file with custom line widths for genomes
@@ -125,7 +125,7 @@ plotsr \
 	--chr E1 \
 	--chr E2 \
 	--chr D4 \
-	-f 11
+	-f 14
 
 
 
