@@ -103,6 +103,7 @@ plotsr \
 	--genomes plotsr_assemblies_list.txt \
 	-H 10 \
 	-W 20 \
+	-f 11 \
 	--cfg base.cfg
 
 # custom plot with only the inversion chromosomes
@@ -116,7 +117,8 @@ plotsr \
 	--cfg base.cfg \
 	--chr E1 \
 	--chr E2 \
-	--chr D4
+	--chr D4 \
+	-f 11
 
 
 
