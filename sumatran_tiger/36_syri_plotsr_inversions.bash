@@ -33,17 +33,17 @@ cd $wkdir
 #### Align assemblies that will be compared #####
 #################################################
 
-#asm=asm5 # 0.1% sequence divergence
-#asm=asm10 # 1% sequence divergence
-#asm=asm20 # 5% sequence divergence
+##asm=asm5 # 0.1% sequence divergence
+##asm=asm10 # 1% sequence divergence
+##asm=asm20 # 5% sequence divergence
 
-# align assemblies to be compared
-conda activate minimap2
-minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
-samtools index alignment.bam
-minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
-samtools index alignment2.bam
-conda deactivate
+## align assemblies to be compared
+#conda activate minimap2
+#minimap2 -ax asm5 -t 16 --eqx $cat $reference | samtools sort -O BAM - > alignment.bam
+#samtools index alignment.bam
+#minimap2 -ax asm5 -t 16 --eqx $reference $assembly | samtools sort -O BAM - > alignment2.bam
+#samtools index alignment2.bam
+#conda deactivate
 
 # write the names of the assemblies to a file for use by plotsr
 echo -e ""$cat"\tDomestic_cat
@@ -54,31 +54,31 @@ echo -e ""$cat"\tDomestic_cat
 #### Identify structural rearrangements between assemblies ####
 ###############################################################
 
-echo "identifying structural rearrangements between assemblies with syri..."
-# create your syri environment
-#conda create --name syri1.7.1 syri -y
-conda activate syri1.7.1
+#echo "identifying structural rearrangements between assemblies with syri..."
+## create your syri environment
+##conda create --name syri1.7.1 syri -y
+#conda activate syri1.7.1
 
-# Run syri to find structural rearrangements between your assemblies
-echo "running syri for cat and ref..."
-syri \
--c alignment.bam \
--r $cat \
--q $reference \
--F B \
---dir $wkdir \
---prefix Cat_Ref_
+## Run syri to find structural rearrangements between your assemblies
+#echo "running syri for cat and ref..."
+#syri \
+#-c alignment.bam \
+#-r $cat \
+#-q $reference \
+#-F B \
+#--dir $wkdir \
+#--prefix Cat_Ref_
 
-echo "running syri for red and asm..."
-syri \
--c alignment2.bam \
--r $reference \
--q $assembly \
--F B \
---dir $wkdir \
---prefix Ref_Asm_
+#echo "running syri for red and asm..."
+#syri \
+#-c alignment2.bam \
+#-r $reference \
+#-q $assembly \
+#-F B \
+#--dir $wkdir \
+#--prefix Ref_Asm_
 
-conda deactivate
+#conda deactivate
 
 ############################
 #### create plotsr plot ####
@@ -97,35 +97,35 @@ conda activate plotsr1.1.0
 
 ## customise the plot for the paper
 plotsr \
-	-o plotsr_plot_CatRefAsm_new2.png \
+	-o plotsr_plot_CatRefAsm_new3.png \
 	--sr Cat_Ref_syri.out \
 	--sr Ref_Asm_syri.out \
 	--genomes plotsr_assemblies_list.txt \
-	-H 10 \
+	-H 30 \
 	-W 20 \
 	-f 14 \
 	--cfg base.cfg
 
 
-# make the genomes.txt file with custom line widths for genomes
-echo -e ""$cat"\tDomestic_cat\tlw:2.5
-"$reference"\tTiger_haplome\tlw:2.5
-"$assembly"\tHifiasm_ONT\tlw:2.5" > genomes.txt
+## make the genomes.txt file with custom line widths for genomes
+#echo -e ""$cat"\tDomestic_cat\tlw:2.5
+#"$reference"\tTiger_haplome\tlw:2.5
+#"$assembly"\tHifiasm_ONT\tlw:2.5" > genomes.txt
 
 
-# custom plot with only the inversion chromosomes
-plotsr \
-	-o plotsr_plot_CatRefAsm_inv_only.png \
-	--sr Cat_Ref_syri.out \
-	--sr Ref_Asm_syri.out \
-	--genomes genomes.txt \
-	-H 7.5 \
-	-W 20 \
-	--cfg base.cfg \
-	--chr E1 \
-	--chr E2 \
-	--chr D4 \
-	-f 14
+## custom plot with only the inversion chromosomes
+#plotsr \
+#	-o plotsr_plot_CatRefAsm_inv_only.png \
+#	--sr Cat_Ref_syri.out \
+#	--sr Ref_Asm_syri.out \
+#	--genomes genomes.txt \
+#	-H 7.5 \
+#	-W 20 \
+#	--cfg base.cfg \
+#	--chr E1 \
+#	--chr E2 \
+#	--chr D4 \
+#	-f 14
 
 
 
