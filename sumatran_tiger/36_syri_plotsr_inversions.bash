@@ -101,7 +101,7 @@ plotsr \
 	--sr Cat_Ref_syri.out \
 	--sr Ref_Asm_syri.out \
 	--genomes plotsr_assemblies_list.txt \
-	-H 30 \
+	-H 23 \
 	-W 20 \
 	-f 14 \
 	--cfg base.cfg
