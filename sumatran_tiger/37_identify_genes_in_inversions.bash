@@ -23,10 +23,12 @@ source $HOME/.bash_profile
 conda activate bedtools
 cd $wkdir
 
-# find the inversion regions
-awk -F'\t' '$11=="INV"' $wkdir/Ref_Asm_syri.out > $wkdir/Ref_Asm_syri_INV.out
+## find the inversion regions then manually enter the ones you're interested
+## in into a bed file called inversion_coords.bed
+#awk -F'\t' '$11=="INV"' $wkdir/Ref_Asm_syri.out > $wkdir/Ref_Asm_syri_INV.out
 
-bedtools intersect -a annotation.gff3 -b regions.bed -wa > region.gff
+# find the genes in those inversion regions
+bedtools intersect -a annotation.gff3 -b inversion_coords.bed -wa > inversion_genes.gff
 
 
 
