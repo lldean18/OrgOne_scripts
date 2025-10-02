@@ -31,8 +31,13 @@ cd $wkdir
 #awk -F'\t' '$11=="INV"' $wkdir/Ref_Asm_syri.out > $wkdir/Ref_Asm_syri_INV.out
 
 # find the genes in those inversion regions
-bedtools intersect -a $annotation -b inversion_coords.bed -wa > inversion_genes.gff
+#bedtools intersect -a $annotation -b inversion_coords.bed -wa > inversion_genes.gff
 
 conda deactivate
+
+
+# select just the genes from the output
+awk -F'\t' '$3=="gene"' inversion_genes.gff > inversion_genes_only.gff
+
 
 
