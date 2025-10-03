@@ -107,25 +107,25 @@ plotsr \
 	--cfg base.cfg
 
 
-## make the genomes.txt file with custom line widths for genomes
-#echo -e ""$cat"\tDomestic_cat\tlw:2.5
-#"$reference"\tTiger_haplome\tlw:2.5
-#"$assembly"\tHifiasm_ONT\tlw:2.5" > genomes.txt
+# make the genomes.txt file with custom line widths for genomes
+echo -e ""$cat"\tDomestic_cat\tlw:2.5
+"$reference"\tTiger_haplome\tlw:2.5
+"$assembly"\tHifiasm_ONT\tlw:2.5" > genomes.txt
 
 
-## custom plot with only the inversion chromosomes
-#plotsr \
-#	-o plotsr_plot_CatRefAsm_inv_only.png \
-#	--sr Cat_Ref_syri.out \
-#	--sr Ref_Asm_syri.out \
-#	--genomes genomes.txt \
-#	-H 7.5 \
-#	-W 20 \
-#	--cfg base.cfg \
-#	--chr E1 \
-#	--chr E2 \
-#	--chr D4 \
-#	-f 14
+# custom plot with only the inversion chromosomes
+plotsr \
+	-o plotsr_plot_CatRefAsm_inv_only.png \
+	--sr Cat_Ref_syri.out \
+	--sr Ref_Asm_syri.out \
+	--genomes genomes.txt \
+	-H 7.5 \
+	-W 20 \
+	--cfg base.cfg \
+	--chr E1 \
+	--chr E2 \
+	--chr D4 \
+	-f 14
 
 
 
