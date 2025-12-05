@@ -15,7 +15,7 @@
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # set variables
-bam=/gpfs01/home/mbzlld/data/ctenella/basecalls/SUP_calls.bam
+bam=/gpfs01/home/mbzlld/data/ctenella/SUP_calls.bam
 
 # load modules
 module load samtools-uoneasy/1.18-GCC-12.3.0
