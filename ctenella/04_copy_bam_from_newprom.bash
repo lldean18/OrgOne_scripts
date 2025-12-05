@@ -8,7 +8,8 @@
 
 # set up tmux
 conda activate tmux
-tmux attach
+tmux new -s ctenella
+#tmux attach
 
 # copy bam file
 cd ~/data/ctenella
