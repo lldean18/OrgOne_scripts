@@ -4,9 +4,14 @@
 # script written for running on the UoN HPC Ada
 
 # script to merge symbiont genomes into a single fasta file
-# and then filter raw ONT reads with bbmap to determine reads that map
-# to symbiotic bacteria so they can be separated from reads that
-# are (hopefully) coral
+# and then filter raw ONT reads based on mapping
+# to symbiotic algae so they can be separated from reads that
+# are (hopefully) coral. There will need to be another step to
+# filter for prokaryotes but I'll do that separately so that Bryan
+# can look at the symbiont reads as standalone if he wants.
+
+# We'll start by trying with BBmap, although its designed for illumina
+# data, it might still be ok here. If not, maybe we'll try with minimap2
 
 #SBATCH --job-name=filter_symbionts
 #SBATCH --partition=defq
@@ -19,6 +24,7 @@
 
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/ctenella
+reads=$wkdir/SUP_calls.fastq.gz
 
 # setup env
 cd $wkdir
@@ -31,8 +37,29 @@ cat $wkdir/symbionts/*_genomic.fna.gz > $wkdir/symbionts/all_symbionts.fasta.gz
 
 
 
+### map the reads to the combined symbiont fasta
+# (retain only the reads that don't map going forward for coral assembly
+
+# hdist controls the number of substitutions allowed
+# k sets the length of sequence that must match
+# by default this also looks for the reverse compliment
+# mkh = minimum kmer hits required to report the read as matching
+K=25
+HDIST=1
+mkh=5
+# map the reads to the symbionts
+bbduk.sh \
+-Xmx2048M \
+in=$reads \
+k=$K \
+hdist=$HDIST \
+mkh=$mkh \
+out=$wkdir/$(basename "${reads%.*}")_without_symbionts_k${K}_hdist${HDIST}_mkh${mkh}.fastq \
+outm=$wkdir/$(basename "${fastq%.*}")_with_symbionts_k${K}_hdist${HDIST}_mkh${mkh}.fastq \
+stats=$wkdir/$(basename "${fastq%.*}")_stats_k${K}_hdist${HDIST}_mkh${mkh}.txt \
+ref=$wkdir/symbionts/all_symbionts.fasta.gz
 
 
-
+# will play with the settings a bit and see what we get
 
 
