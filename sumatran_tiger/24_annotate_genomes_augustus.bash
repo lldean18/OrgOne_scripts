@@ -1,7 +1,13 @@
 #!/bin/bash
 # Laura Dean
 # 10/3/25
+# 4/12/25
 # script written for running on the UoN HPC Ada
+
+# script to run de-novo genome annotation using Augustus
+# I tried this with the tiger initially and then decided liftoff was better
+# but reviewers want this to be published alongside the asm
+# so re-running for the best asm
 
 #SBATCH --job-name=augustus_annotate
 #SBATCH --partition=defq
@@ -16,7 +22,8 @@
 # set variables
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm10/ONTasm.bp.p_ctg_100kb.fasta # has to be in uncompressed fasta format
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/liger_reference/GCA_018350195.2_chrs_only_uniq_names.fasta
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome.fa
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome.fa
+assembly=
 
 # load software
 source $HOME/.bash_profile
