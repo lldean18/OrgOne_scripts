@@ -18,7 +18,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=30g
+#SBATCH --mem=200g
 #SBATCH --time=24:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -49,7 +49,7 @@ HDIST=1
 mkh=5
 # map the reads to the symbionts
 bbduk.sh \
--Xmx2048M \
+-Xmx170G \
 in=$reads \
 k=$K \
 hdist=$HDIST \
