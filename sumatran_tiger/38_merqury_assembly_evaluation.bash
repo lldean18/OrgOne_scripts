@@ -13,18 +13,22 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=65
 #SBATCH --mem=200g
-#SBATCH --time=48:00:00
+#SBATCH --time=6:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
-## setup environment
+## set variables specific to assembly
 #cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
 #assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag/ragtag.scaffolds_only.fasta
-#duplex=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.fastq.gz
 
-# setup environment
-cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
-assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta
+#cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
+#assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta
+
+cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12
+assembly=finalasm.bp.p_ctg_100kb.fasta
+
+
+# set variables that are always the same
 duplex=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.fastq.gz
 
 source $HOME/.bash_profile
