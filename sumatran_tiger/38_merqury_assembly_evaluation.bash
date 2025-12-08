@@ -22,6 +22,7 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag/ragtag.scaffolds_only.fasta
 duplex=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.fastq.gz
 
+source $HOME/.bash_profile
 #conda create --name merqury -c conda-forge -c bioconda merqury -y
 conda activate merqury
 
@@ -38,5 +39,6 @@ meryl k=31 count $duplex output ${duplex%.*.*}.meryl
 
 
 
+conda deactivate
 
 
