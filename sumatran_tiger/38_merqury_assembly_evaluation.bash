@@ -11,16 +11,16 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=30g
-#SBATCH --time=24:00:00
+#SBATCH --cpus-per-task=65
+#SBATCH --mem=200g
+#SBATCH --time=168:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
 # setup environment
-wkdir=
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag/ragtag.scaffolds_only.fasta
-duplex=
+duplex=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.fastq.gz
 
 #conda create --name merqury -c conda-forge -c bioconda merqury -y
 conda activate merqury
@@ -34,7 +34,8 @@ bash $MERQURY/best_k.sh 2451351749
 # suggests k= 20.6 but the tool suggests in most cases k=31 is optimal so will begin with that
 
 # build the database
-meryl k=31 count $duplex output ${duplex%.*}
+meryl k=31 count $duplex output ${duplex%.*.*}.meryl
+
 
 
 
