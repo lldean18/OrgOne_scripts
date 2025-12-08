@@ -25,6 +25,10 @@ assembly1=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.
 assembly2=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_3Mb.fasta
 cd $wkdir
 
+# fix the contig name in the homology scaffolded version
+sed 's/F1/F3/' $assembly2 > ${assembly2%.*}_renamed.fasta # because F1 in the cat is homologous to F3 in the tiger, rename F1 to F3 for compatability
+
+
 
 ################################################
 ### Align assemblies that will be compared #####
@@ -36,13 +40,13 @@ cd $wkdir
 
 # align assemblies to be compared
 conda activate minimap2
-minimap2 -ax asm5 -t 16 --eqx $assembly1 $assembly2 | samtools sort -O BAM - > alignment.bam
+minimap2 -ax asm5 -t 16 --eqx $assembly1 ${assembly2%.*}_renamed.fasta | samtools sort -O BAM - > alignment.bam
 samtools index alignment.bam
 conda deactivate
 
 # write the names of the assemblies to a file for use by plotsr
 echo -e ""$assembly1"\tHomology_scaffolded
-"$assembly2"\tHiC_scaffolded" > plotsr_assemblies_list.txt
+"${assembly2%.*}_renamed.fasta"\tHiC_scaffolded" > plotsr_assemblies_list.txt
 
 ##############################################################
 ### Identify structural rearrangements between assemblies ####
@@ -58,7 +62,7 @@ echo "running syri for asm1 and asm2..."
 syri \
 -c alignment.bam \
 -r $assembly1 \
--q $assembly2 \
+-q ${assembly2%.*}_renamed.fasta \
 -F B \
 --dir $wkdir \
 --prefix asm1_asm2_
