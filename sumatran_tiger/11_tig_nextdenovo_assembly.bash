@@ -1,7 +1,10 @@
 #!/bin/bash
 # Laura Dean
 # 8/4/24
+# 8/12/25
 # for running on Ada
+
+# script to assemble genome with nextdenovo
 
 #SBATCH --partition=hmemq
 #SBATCH --nodes=1
@@ -12,25 +15,27 @@
 #SBATCH --job-name=tig_nextdenovo
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
-# load your bash environment for using conda
+## load your bash environment for using conda
 source $HOME/.bash_profile
+## create a conda environment and install the software you want
+#conda create --name nextdenovo -c conda-forge -c bioconda nextdenovo
+## activate the conda environment
+conda activate nextdenovo
 
 # set variables
-species=sumatran_tiger # set the species
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/${species} # set the working directory
-input=/gpfs01/home/mbzlld/code_and_scripts/File_lists/${species}_nextDenovo_input.fofn # set input files list you will make
-config=/gpfs01/home/mbzlld/code_and_scripts/config_files/${species}_nextDenovo_config.cfg # set the config file you will make
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger
+input=/gpfs01/home/mbzlld/code_and_scripts/File_lists/sumatran_tiger_nextDenovo_input.fofn # set input files list you will make
+config=/gpfs01/home/mbzlld/code_and_scripts/config_files/sumatran_tiger_nextDenovo_config.cfg # set the config file you will make
 genome_size=2.4g
-assembly_dir=${wkdir}/${species}_nextDenovo_asm
+assembly_dir=${wkdir}/NextDenovo_asm
 
 # prepare the input file
-# note that the files are just .fastq rather than .fastq.gz now because they had to be decompressed for shasta input
-find $wkdir/basecalls -type f -name '*calls.fastq' > $input # set the full fastq file name and further path (include the calls so as not to duplicate the split files)
+echo "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/ALL_simplex.fastq.gz" > $input
 
 # prepare the config file
 echo "[General]
 job_type = local # here we use SGE to manage jobs possible options SGE, slurm, local, some others see man
-job_prefix = nextDenovo_$species
+job_prefix = nextDenovo
 task = all
 rewrite = yes
 deltmp = yes
@@ -56,15 +61,14 @@ nextgraph_options = -a 1" > $config
 #cluster_options=--cpus-per-task={cpu} --mem-per-cpu={vf} time_limited_option
 #submit = sbatch -p hmemq --cpus-per-task=1 --mem-per-cpu=64g -o {out} -e {err} {script}
 
-## create a conda environment and install the software you want
-#conda create --name nextdenovo -c conda-forge -c bioconda nextdenovo
 
-# activate the conda environment
-conda activate nextdenovo
+
 
 # assemble your genome from fastq files (using all pass and fail reads)
 nextDenovo $config
 
 # deactivate the conda environment
 conda deactivate
+
+
 
