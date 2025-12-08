@@ -27,8 +27,12 @@
 #cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/raft_hifiasm_asm12
 #assembly=finalasm.bp.p_ctg_100kb.fasta
 
-cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
-assembly=assembly_100kb.fasta
+#cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
+#assembly=assembly_100kb.fasta
+
+cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11
+assembly=ONTasm.bp.p_ctg_100kb.fasta
+
 
 
 # set variables that are always the same
