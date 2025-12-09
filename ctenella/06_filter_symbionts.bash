@@ -67,7 +67,7 @@ source $HOME/.bash_profile
 
 # filter the reads to remove these contaminants
 conda activate seqkit
-seqkit grep -v -f $wkdir/symbionts/symbiont_read_ids.txt $wkdir/SUP_calls.fastq.gz | gzip > $wkdir/SUP_calls_no_symbionts.fastq.gz
+seqkit grep --threads 24 -v -f $wkdir/symbionts/symbiont_read_ids.txt $wkdir/SUP_calls.fastq.gz | gzip > $wkdir/SUP_calls_no_symbionts.fastq.gz
 conda deactivate
 
 
