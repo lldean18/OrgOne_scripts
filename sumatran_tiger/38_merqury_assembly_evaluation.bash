@@ -30,7 +30,10 @@
 #cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5
 #assembly=assembly_100kb.fasta
 
-cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11
+#cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11
+#assembly=ONTasm.bp.p_ctg_100kb.fasta
+
+cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13
 assembly=ONTasm.bp.p_ctg_100kb.fasta
 
 
