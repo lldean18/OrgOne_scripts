@@ -70,6 +70,11 @@ conda activate seqkit
 seqkit grep --threads 24 -v -f $wkdir/symbionts/symbiont_read_ids.txt $wkdir/SUP_calls.fastq.gz | gzip > $wkdir/SUP_calls_no_symbionts.fastq.gz
 conda deactivate
 
+# keep the contaminanat reads in another file bc they are cool on their own
+conda activate seqkit
+seqkit grep --threads 24 -f $wkdir/symbionts/symbiont_read_ids.txt $wkdir/SUP_calls.fastq.gz | gzip > $wkdir/symbionts/SUP_calls_mapped_to_symbionts.fastq.gz
+conda deactivate
+
 
 
 
