@@ -25,8 +25,9 @@ assembly1=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.
 assembly2=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_3Mb.fasta
 cd $wkdir
 
-# fix the contig name in the homology scaffolded version
-sed 's/F1/F3/' $assembly2 > ${assembly2%.*}_renamed.fasta # because F1 in the cat is homologous to F3 in the tiger, rename F1 to F3 for compatability
+# hashing out this block because it already ran once successfully
+# # fix the contig name in the homology scaffolded version
+# sed 's/F1/F3/' $assembly2 > ${assembly2%.*}_renamed.fasta # because F1 in the cat is homologous to F3 in the tiger, rename F1 to F3 for compatability
 
 
 
@@ -34,40 +35,42 @@ sed 's/F1/F3/' $assembly2 > ${assembly2%.*}_renamed.fasta # because F1 in the ca
 ### Align assemblies that will be compared #####
 ################################################
 
-#asm=asm5 # 0.1% sequence divergence
-#asm=asm10 # 1% sequence divergence
-#asm=asm20 # 5% sequence divergence
-
-# align assemblies to be compared
-conda activate minimap2
-minimap2 -ax asm5 -t 16 --eqx $assembly1 ${assembly2%.*}_renamed.fasta | samtools sort -O BAM - > alignment.bam
-samtools index alignment.bam
-conda deactivate
-
-# write the names of the assemblies to a file for use by plotsr
-echo -e ""$assembly1"\tHomology_scaffolded
-"${assembly2%.*}_renamed.fasta"\tHiC_scaffolded" > plotsr_assemblies_list.txt
+# hashing out this block because it already ran once successfully
+# #asm=asm5 # 0.1% sequence divergence
+# #asm=asm10 # 1% sequence divergence
+# #asm=asm20 # 5% sequence divergence
+# 
+# # align assemblies to be compared
+# conda activate minimap2
+# minimap2 -ax asm5 -t 16 --eqx $assembly1 ${assembly2%.*}_renamed.fasta | samtools sort -O BAM - > alignment.bam
+# samtools index alignment.bam
+# conda deactivate
+# 
+# # write the names of the assemblies to a file for use by plotsr
+# echo -e ""$assembly1"\tHomology_scaffolded
+# "${assembly2%.*}_renamed.fasta"\tHiC_scaffolded" > plotsr_assemblies_list.txt
 
 ##############################################################
 ### Identify structural rearrangements between assemblies ####
 ##############################################################
 
-echo "identifying structural rearrangements between assemblies with syri..."
-# create your syri environment
-#conda create --name syri1.7.1 syri -y
-conda activate syri1.7.1
-
-# Run syri to find structural rearrangements between your assemblies
-echo "running syri for asm1 and asm2..."
-syri \
--c alignment.bam \
--r $assembly1 \
--q ${assembly2%.*}_renamed.fasta \
--F B \
---dir $wkdir \
---prefix asm1_asm2_
-
-conda deactivate
+# hashing out this block because it already ran once successfully
+# echo "identifying structural rearrangements between assemblies with syri..."
+# # create your syri environment
+# #conda create --name syri1.7.1 syri -y
+# conda activate syri1.7.1
+# 
+# # Run syri to find structural rearrangements between your assemblies
+# echo "running syri for asm1 and asm2..."
+# syri \
+# -c alignment.bam \
+# -r $assembly1 \
+# -q ${assembly2%.*}_renamed.fasta \
+# -F B \
+# --dir $wkdir \
+# --prefix asm1_asm2_
+# 
+# conda deactivate
 
 ###########################
 ### create plotsr plot ####
@@ -78,21 +81,21 @@ echo "plotting structural rearrangements with plotsr..."
 #conda create --name plotsr1.1.0 plotsr -y
 conda activate plotsr1.1.0
 
-plotsr \
---sr asm1_asm2_syri.out \
---genomes plotsr_assemblies_list.txt \
--o plotsr_plot.png
+# hashing out this block because it already ran once successfully
+# plotsr \
+# --sr asm1_asm2_syri.out \
+# --genomes plotsr_assemblies_list.txt \
+# -o plotsr_plot.png
 
-### customise the plot for the paper
-#plotsr \
-#	-o plotsr_plot_CatRefAsm_new3.png \
-#	--sr Cat_Ref_syri.out \
-#	--sr Ref_Asm_syri.out \
-#	--genomes plotsr_assemblies_list.txt \
-#	-H 23 \
-#	-W 20 \
-#	-f 14 \
-#	--cfg base.cfg
+## customise the plot for the paper
+plotsr \
+	-o plotsr_plot_MS.png \
+	--sr asm1_asm2_syri.out \
+	--genomes plotsr_assemblies_list.txt \
+	-H 23 \
+	-W 20 \
+	-f 14 \
+	--cfg base.cfg
 
 
 ## make the genomes.txt file with custom line widths for genomes
