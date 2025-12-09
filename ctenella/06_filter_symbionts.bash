@@ -17,7 +17,7 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=64
 #SBATCH --mem=200g
 #SBATCH --time=48:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
@@ -31,57 +31,46 @@ cd $wkdir
 source $HOME/.bash_profile
 
 
-### merge symbiont genomes into a single fasta
-#cat $wkdir/symbionts/*_genomic.fna.gz > $wkdir/symbionts/all_symbionts.fasta.gz
+# hashing out this block because it already ran once successfully
+# ### merge symbiont genomes into a single fasta
+# cat $wkdir/symbionts/*_genomic.fna.gz > $wkdir/symbionts/all_symbionts.fasta.gz
 
 
-### convert reads to fasta format so they can be broken into smaller chunks (for the program to run)
-conda activate seqtk
-seqtk seq -a $reads | gzip > ${reads%.*.*}.fasta.gz
+# hashing out this block because it already ran once successfully
+# ### convert reads to fasta format so they can be broken into smaller chunks (for the program to run)
+# conda activate seqtk
+# seqtk seq -a $reads | gzip > ${reads%.*.*}.fasta.gz
+# conda deactivate
+
+
+
+# hashing out this block because it already ran once successfully
+# ### map the reads to the combined symbiont fasta
+# # (retain only the reads that don't map going forward for coral assembly
+# conda activate bbmap
+# bbsplit.sh \
+# -Xmx170G \
+# fastareadlen=600 \
+# ref=$wkdir/symbionts/all_symbionts.fasta.gz \
+# in=${reads%.*.*}.fasta.gz \
+# basename=reads_mapping_to_%.fastq
+# conda deactivate
+
+
+# hashing out this block because it already ran once successfully
+# # extract the fastq header lines (without the @)
+# awk 'NR % 4 == 1 {sub(/^@/, ""); print}' $wkdir/reads_mapping_to_all_symbionts.fastq > $wkdir/symbionts/symbiont_read_ids.txt
+# # remove everything after the first space on every line to retain only the read ids
+# sed -i "s/ .*//" $wkdir/symbionts/symbiont_read_ids.txt
+# # remove the now duplicate lines where the same read id is identified more than once
+# awk '!seen[$0]++' $wkdir/symbionts/symbiont_read_ids.txt > $wkdir/temporary && mv $wkdir/temporary $wkdir/symbionts/symbiont_read_ids.txt
+
+# filter the reads to remove these contaminants
+conda activate seqkit
+seqkit grep -v -f $wkdir/symbionts/symbiont_read_ids.txt $wkdir/SUP_calls.fastq.gz | gzip > $wkdir/SUP_calls_no_symbionts.fastq.gz
 conda deactivate
 
 
 
-### map the reads to the combined symbiont fasta
-# (retain only the reads that don't map going forward for coral assembly
-conda activate bbmap
-bbsplit.sh \
--Xmx170G \
-fastareadlen=600 \
-ref=$wkdir/symbionts/all_symbionts.fasta.gz \
-in=${reads%.*.*}.fasta.gz \
-basename=out_%.fastq
-conda deactivate
-
-
-
-
-
-
-
-
-
-
-## hdist controls the number of substitutions allowed
-## k sets the length of sequence that must match
-## by default this also looks for the reverse compliment
-## mkh = minimum kmer hits required to report the read as matching
-#K=25
-#HDIST=1
-#mkh=5
-## map the reads to the symbionts
-#bbduk.sh \
-#-Xmx170G \
-#in=$reads \
-#k=$K \
-#hdist=$HDIST \
-#mkh=$mkh \
-#out=$wkdir/$(basename "${reads%.*}")_without_symbionts_k${K}_hdist${HDIST}_mkh${mkh}.fastq \
-#outm=$wkdir/$(basename "${fastq%.*}")_with_symbionts_k${K}_hdist${HDIST}_mkh${mkh}.fastq \
-#stats=$wkdir/$(basename "${fastq%.*}")_stats_k${K}_hdist${HDIST}_mkh${mkh}.txt \
-#ref=$wkdir/symbionts/all_symbionts.fasta.gz
-#
-
-# will play with the settings a bit and see what we get
 
 
