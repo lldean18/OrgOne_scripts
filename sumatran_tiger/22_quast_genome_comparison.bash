@@ -2,7 +2,10 @@
 # Laura Dean
 # 21/2/25
 # 3/4/25
+# 10/12/25
 # script written for running on the UoN HPC Ada
+
+# Script to run Quast to compare genome assemblies
 
 #SBATCH --job-name=quast
 #SBATCH --partition=defq
@@ -34,26 +37,28 @@ python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
 	--eukaryote \
 	-r $reference \
 	-g $annotation \
-	-o $wkdir/quast7 \
+	-o $wkdir/quast8 \
 	$wkdir/domestic_cat_reference/AnAms1.0.genome.fa \
-	$wkdir/domestic_cat_reference/AnAms1.0.genome_split_contigs.fa \
-	$wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta \
-	$wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta \
-	$wkdir/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta \
-	$wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta \
-	$wkdir/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb.fasta \
-	$wkdir/flye_asm5/assembly_100kb.fasta \
 	$wkdir/hifiasm_asm13/ONTasm.bp.p_ctg_100kb.fasta
+	$wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta \
+	$wkdir/flye_asm5/assembly_100kb.fasta \
+	$wkdir/NextDenovo_asm/03.ctg_graph/nd.asm.fasta \
+	$wkdir/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb.fasta \
+	$wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta \
 
 # scaffolded cat
 # unscaffolded cat
+#	$wkdir/domestic_cat_reference/AnAms1.0.genome_split_contigs.fa \
 # unscaffolded liger
-# HIFIASM ONT
+#	$wkdir/liger_reference/GCA_018350195.2_scaff_only_names_split_contigs_100kb.fasta \
 # HiC scaffolded asm
-# Hifiasm duplex with hifiasm no ONT
-# HERRO_RAFT_HIFIASM asm
-# Flye ASM
+#	$wkdir/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold.fasta \
 # simplex only asm with hifiasm no ONT
+# Hifiasm duplex with hifiasm no ONT
+# Flye ASM
+# NextDenovo asm
+# HERRO_RAFT_HIFIASM asm
+# HIFIASM ONT
 
 conda deactivate
 
