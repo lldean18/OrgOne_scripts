@@ -80,8 +80,12 @@ conda activate quartet
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg_100kb_ragtag
 #genome=ragtag.scaffolds_only.fasta
 
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph
-genome=nd.asm.fasta
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph
+#genome=nd.asm.fasta
+
+
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph/nd.asm_ragtag
+genome=ragtag.scaffolds_only.fasta
 
 
 # move to working directory
