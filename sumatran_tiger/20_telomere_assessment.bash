@@ -1,7 +1,10 @@
 #!/bin/bash
 # Laura Dean
 # 29/4/25
+# 10/12/25
 # for running on the UoN HPC Ada
+
+# script to assess telomere presence and draw telomere plots
 
 #SBATCH --partition=defq
 #SBATCH --nodes=1
@@ -74,9 +77,11 @@ conda activate quartet
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11/ONTasm.bp.p_ctg_100kb_ragtag
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/flye_asm5/assembly_100kb_ragtag
 #wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
-wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg_100kb_ragtag
-genome=ragtag.scaffolds_only.fasta
+#wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg_100kb_ragtag
+#genome=ragtag.scaffolds_only.fasta
 
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph
+genome=nd.asm.fasta
 
 
 # move to working directory
