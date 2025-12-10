@@ -33,8 +33,12 @@
 #cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm11
 #assembly=ONTasm.bp.p_ctg_100kb.fasta
 
-cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13
-assembly=ONTasm.bp.p_ctg_100kb.fasta
+#cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm13
+#assembly=ONTasm.bp.p_ctg_100kb.fasta
+
+cd /gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph
+assembly=nd.asm.fasta
+
 
 
 
