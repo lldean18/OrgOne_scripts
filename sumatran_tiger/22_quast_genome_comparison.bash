@@ -39,12 +39,12 @@ python /gpfs01/home/mbzlld/software_bin/miniconda3/envs/quast/bin/quast \
 	-g $annotation \
 	-o $wkdir/quast8 \
 	$wkdir/domestic_cat_reference/AnAms1.0.genome.fa \
-	$wkdir/hifiasm_asm13/ONTasm.bp.p_ctg_100kb.fasta
+	$wkdir/hifiasm_asm13/ONTasm.bp.p_ctg_100kb.fasta \
 	$wkdir/hifiasm_asm11/ONTasm.bp.p_ctg_100kb.fasta \
 	$wkdir/flye_asm5/assembly_100kb.fasta \
 	$wkdir/NextDenovo_asm/03.ctg_graph/nd.asm.fasta \
 	$wkdir/raft_hifiasm_asm12/finalasm.bp.p_ctg_100kb.fasta \
-	$wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta \
+	$wkdir/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta
 
 # scaffolded cat
 # unscaffolded cat
