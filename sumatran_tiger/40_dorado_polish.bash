@@ -9,15 +9,21 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=48
-#SBATCH --mem=180g
-#SBATCH --time=80:00:00
+#SBATCH --cpus-per-task=96
+#SBATCH --mem=361g
+#SBATCH --time=168:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # ran the script twice. For dorado aligner I used
-# --cpus-per-task=48
+# --cpus-per-task=49
 # --mem=180g
 # --time=80:00:00
+# this step actually completed in 10 mins and used 55G max memory
+
+# for dorado polish I used
+# --cpus-per-task=96
+# --mem=361g
+# --time=168:00:00
 
 
 # set variables
@@ -31,13 +37,13 @@ source $HOME/.bash_profile
 conda activate samtools1.22
 
 
+# hashing out this block because it already ran successfully
+# # Align reads to a reference using dorado aligner, sort and index
+# dorado aligner $assembly $reads | samtools sort --threads 48 > aligned_reads.bam
+# samtools index aligned_reads.bam
 
-# Align reads to a reference using dorado aligner, sort and index
-dorado aligner $assembly $reads | samtools sort --threads <num_threads> > aligned_reads.bam
-samtools index aligned_reads.bam
-
-# # Call consensus
-# dorado polish aligned_reads.bam $assembly > polished_assembly.fasta
+# Call consensus
+dorado polish aligned_reads.bam $assembly > polished_assembly.fasta
 
 conda deactivate
 
