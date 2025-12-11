@@ -32,6 +32,7 @@ wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours9
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours10
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours11
 wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours12
+wkdir=~/data/OrgOne/sumatran_tiger/genespace_ours13
 
 
 
@@ -55,7 +56,7 @@ cut -f1-4 ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_sp
 #cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_liftoff_genes.bed > $wkdir/bed/hifiasm10HiC.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_liftoff_genes.bed > $wkdir/bed/HifiasmOntScaffolded.bed
 cut -f1-4 ~/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg_100kb_liftoff_genes.bed > $wkdir/bed/Hifiasm.bed
-
+cut -f1-4 ~/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph/nd.asm_liftoff_genes.bed > $wkdir/bed/NextDenovo.bed
 
 # copy my protein fasta files
 # currently erroring because there are . characters in the fasta sequence and these aren't allowed by diamond
@@ -70,8 +71,7 @@ cp ~/data/OrgOne/sumatran_tiger/domestic_cat_reference/AnAms1.0.genome_split_con
 #cp ~/data/OrgOne/sumatran_tiger/HiC/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_proteins.fasta $wkdir/peptide/hifiasm10HiC.fa
 cp ~/data/OrgOne/sumatran_tiger/HiC2/ONTasm.bp.p_ctg_100kb_yahs_scaffolds_final_ragtag/ragtag.scaffold_proteins.fasta $wkdir/peptide/HifiasmOntScaffolded.fa
 cp ~/data/OrgOne/sumatran_tiger/hifiasm_asm13/ONTasm.bp.p_ctg_100kb_proteins.fasta $wkdir/peptide/Hifiasm.fa
-
-
+cp ~/data/OrgOne/sumatran_tiger/NextDenovo_asm/03.ctg_graph/nd.asm_proteins.fasta $wkdir/peptide/NextDenovo.fa
 
 
 
