@@ -29,7 +29,7 @@
 # set variables
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/dorado_polish
 assembly=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb.fasta # in fasta or fastq format
-reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.fastq.gz # in fastq or bgzipped fastq format
+reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_duplex_duplex.bam # in fastq or bgzipped fastq format
 
 # setup env
 cd $wkdir
@@ -37,10 +37,9 @@ source $HOME/.bash_profile
 conda activate samtools1.22
 
 
-# hashing out this block because it already ran successfully
-# # Align reads to a reference using dorado aligner, sort and index
-# dorado aligner $assembly $reads | samtools sort --threads 48 > aligned_reads.bam
-# samtools index aligned_reads.bam
+# Align reads to a reference using dorado aligner, sort and index
+dorado aligner $assembly $reads | samtools sort --threads 92 > aligned_reads.bam
+samtools index aligned_reads.bam
 
 # Call consensus
 dorado polish aligned_reads.bam $assembly > polished_assembly.fasta
