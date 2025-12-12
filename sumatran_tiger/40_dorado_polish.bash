@@ -36,13 +36,13 @@ cd $wkdir
 source $HOME/.bash_profile
 conda activate samtools1.22
 
-
-# Align reads to a reference using dorado aligner, sort and index
-dorado aligner $assembly $reads | samtools sort --threads 92 > aligned_reads.bam
-samtools index aligned_reads.bam
+# Hashing out this bit as it completed sucessfully once already
+# # Align reads to a reference using dorado aligner, sort and index
+# dorado aligner $assembly $reads | samtools sort --threads 92 > aligned_reads.bam
+# samtools index aligned_reads.bam
 
 # Call consensus
-dorado polish aligned_reads.bam $assembly > polished_assembly.fasta
+dorado polish aligned_reads.bam $assembly --RG 88c80469a5386fd52e4b9cc875650f868f7566f8_dna_r10.4.1_e8.2_400bps_sup@v4.1.0 > polished_assembly.fasta
 
 conda deactivate
 
