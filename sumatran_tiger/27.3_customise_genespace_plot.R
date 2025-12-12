@@ -1,3 +1,8 @@
+# to set up screen
+conda activate tmux
+tmux new -t genespace
+srun --partition defq --cpus-per-task 1 --mem 100g --time 80:00:00 --pty bash
+
 # to enter the genespace software env
 conda activate genespace4
 R
@@ -8,7 +13,7 @@ library(GENESPACE)
 
 #########################################################################
 # set paths for genespace to use
-wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours12"
+wd <- "/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours13"
 path2mcscanx <- "~/software_bin/miniconda3/envs/genespace4/bin/"
 
 #########################################################################
@@ -31,7 +36,8 @@ out <- run_genespace(gpar, overwrite = T)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours9/results/gsParams.rda', verbose = TRUE)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours10/results/gsParams.rda', verbose = TRUE)
 #load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours11/results/gsParams.rda', verbose = TRUE)
-load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours12/results/gsParams.rda', verbose = TRUE)
+#load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours12/results/gsParams.rda', verbose = TRUE)
+load('/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/genespace_ours13/results/gsParams.rda', verbose = TRUE)
 
 
 
@@ -72,13 +78,14 @@ invchr <- data.frame(
              "HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm","HerroRaftHifiasm",
              "Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye","Flye",
              "hifiasm10HiC","hifiasm10HiC",
-             "HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt"),
+             "HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","HifiasmOnt","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo","NextDenovo"),
   chr = c("ptg000003l","ptg000005l","ptg000006l","ptg000007l","ptg000010l","ptg000011l","ptg000013l","ptg000014l","ptg000017l","ptg000019l","ptg000021l","ptg000022l","ptg000023l","ptg000024l","ptg000026l","ptg000027l","ptg000029l","ptg000030l","ptg000031l","ptg000032l","ptg000033l","ptg000046l",
           "Contig9","Contig29","Contig31","Contig33","Contig34","Contig35","Contig36","Contig25","Contig26","Contig27","Contig3","Contig23","Contig52","Contig38","Contig13","Contig46","Contig53",
           "ptg000005l","ptg000017l","ptg000035l","ptg000015l","ptg000001l","ptg000019l","ptg000034l","ptg000029l","ptg000024l","ptg000012l","ptg000007l","ptg000018l","ptg000006l","ptg000002l","ptg000014l","ptg000016l","ptg000023l","ptg000025l","ptg000011l","ptg000022l","ptg000033l","ptg000030l",
           "contig_127","contig_554","contig_214","contig_299","contig_308","contig_565","contig_167","contig_38","contig_322","contig_5","contig_53","contig_55","contig_67","contig_595","contig_285","contig_641","contig_215","contig_248","contig_681","contig_450",
 	  "scaffold_3", "scaffold_12",
-	  "ptg000022l","ptg000010l","ptg000004l","ptg000019l","ptg000007l","ptg000008l","ptg000002l","ptg000024l","ptg000018l","ptg000013l","ptg000009l","ptg000016l"))
+	  "ptg000022l","ptg000010l","ptg000004l","ptg000019l","ptg000007l","ptg000008l","ptg000002l","ptg000024l","ptg000018l","ptg000013l","ptg000009l","ptg000016l",
+	"ctg000160", "ctg000210", "ctg000230", "ctg000060", "ctg000200", "ctg000350", "ctg000390", "ctg000380", "ctg000310", "ctg000020", "ctg000370", "ctg000190", "ctg000180", "ctg000140", "ctg000300"))
 
 
 
@@ -104,9 +111,12 @@ ripDat <- plot_riparian(
   palette = customPal,
   addThemes = ggthemes,
   chrFill = "lightgrey",
-  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
-  genomeIDs = c("DomesticCat", "TigerHaplome", "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
+  chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|ctg000|^lg|_|^ptg000|l$", "", tolower(x))),
+  genomeIDs = c("DomesticCat", "TigerHaplome", "Flye","NextDenovo" , "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   forceRecalcBlocks = FALSE)
+
+# to temporarily label the nextdenovo genome to see scaffs to be reversed
+#  labelTheseGenomes = c("NextDenovo", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
 
 #############################
 # Main supp plot for MS NEW with ALL asms 21/8/25
@@ -119,7 +129,7 @@ customPal <- colorRampPalette(
 
 ripDat <- plot_riparian(
   gsParam = gsParam,
-  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_all_FINAL.rip.pdf", sep = ""),
+  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_all_FINAL_SUP.rip.pdf", sep = ""),
   refGenome = "DomesticCat",
   syntenyWeight = 1,
   minChrLen2plot = 0,
@@ -131,7 +141,7 @@ ripDat <- plot_riparian(
   addThemes = ggthemes,
   chrFill = "lightgrey",
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|^lg|_|^ptg000|l$", "", tolower(x))),
-  genomeIDs = c("DomesticCat", "TigerHaplome",  "Hifiasm", "HifiasmDuplex", "Flye", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
+  genomeIDs = c("DomesticCat", "TigerHaplome",  "Hifiasm", "HifiasmDuplex", "Flye","NextDenovo", "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
   forceRecalcBlocks = FALSE)
 
 
