@@ -26,9 +26,9 @@ reads=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/basecalls/all_extracted_dup
 mkdir -p $wkdir
 cd $wkdir
 source $HOME/.bash_profile
-#conda create -n medaka -c conda-forge -c nanoporetech -c bioconda medaka
+#conda create -n medaka -c conda-forge -c bioconda medaka
 conda activate medaka
-
+#conda install cffi
 
 # run medaka to polish the assembly with the duplex reads
 medaka_consensus -i $reads -d $assembly -o $wkdir -t 46
