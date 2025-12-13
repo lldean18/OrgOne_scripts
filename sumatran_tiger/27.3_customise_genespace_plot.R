@@ -98,6 +98,7 @@ ggthemes <- ggplot2::theme(
 customPal <- colorRampPalette(
   c("darkorange","yellow", "skyblue", "darkblue", "purple", "darkred", "salmon"))
 
+
 ripDat <- plot_riparian(
   gsParam = gsParam,
   pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL.rip.pdf", sep = ""),
