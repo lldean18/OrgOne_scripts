@@ -101,7 +101,7 @@ customPal <- colorRampPalette(
 
 ripDat <- plot_riparian(
   gsParam = gsParam,
-  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL.rip.pdf", sep = ""),
+  pdfFile = paste(gsParam$paths$riparian, "/MS_plot_FINAL2.rip.pdf", sep = ""),
   refGenome = "DomesticCatScaffolded",
   syntenyWeight = 1,
   minChrLen2plot = 0,
@@ -114,7 +114,9 @@ ripDat <- plot_riparian(
   chrFill = "lightgrey",
   chrLabFun = function(x) gsub("^0", "", gsub("^anams1.0|chr|scaf|contig|chromosome|scaffold|ctg000|^lg|_|^ptg000|l$", "", tolower(x))),
   genomeIDs = c("DomesticCat", "TigerHaplome", "Flye","NextDenovo" , "HerroRaftHifiasm", "HifiasmOnt", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
-  forceRecalcBlocks = FALSE)
+  forceRecalcBlocks = FALSE,
+  chrLabFontSize = 8,
+  chrExpand = 1)
 
 # to temporarily label the nextdenovo genome to see scaffs to be reversed
 #  labelTheseGenomes = c("NextDenovo", "HifiasmOntScaffolded", "TigerHaplomeScaffolded", "DomesticCatScaffolded"),
