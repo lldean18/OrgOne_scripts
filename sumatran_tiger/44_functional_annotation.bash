@@ -39,6 +39,21 @@ sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protei
 # conda install failed, trying with the install they suggest on website
 #conda create --name interproscan2
 conda activate interproscan2
+#conda install python=3.8
+#PATH=$PATH:/gpfs01/home/mbzlld/software_bin/miniconda3/envs/interproscan2/bin
+#cd ~/software_bin
+#mkdir interproscan
+#cd interproscan
+#wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/interproscan-5.76-107.0-64-bit.tar.gz
+#wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/interproscan-5.76-107.0-64-bit.tar.gz.md5
+#md5sum -c interproscan-5.76-107.0-64-bit.tar.gz.md5
+#tar -pxvzf interproscan-5.76-107.0-*-bit.tar.gz
+#cd interproscan-5.76-107.0
+#python3 setup.py -f interproscan.properties
+#PATH=$PATH:/gpfs01/home/mbzlld/software_bin/interproscan/interproscan-5.76-107.0
+#conda install openjdk=11
+#PATH=$PATH:/gpfs01/home/mbzlld/software_bin/miniconda3/envs/interproscan2/lib/jvm/bin
+
 
 interproscan.sh \
   -i ${protein_file_basename}_filtered.faa \
