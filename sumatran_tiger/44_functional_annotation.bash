@@ -84,7 +84,7 @@ conda activate blast
 #wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
 #gunzip uniprot_sprot.fasta.gz
 #makeblastdb -in uniprot_sprot.fasta -dbtype prot -out swissprot
-cd $wkdir
+#cd $wkdir
 
 # run blast
 blastp \
@@ -98,11 +98,14 @@ conda deactivate
 
 
 
+
 ### merge all this information together
 #conda create --name agat bioconda::agat -y
 conda activate agat
-
-
+agat_sp_add_functional_annotation.pl \
+  --gff augustus.gff \
+  --ipr proteins.faa.gff3 \
+  -o augustus_functional.gff
 conda deactivate
 
 
