@@ -21,23 +21,27 @@ wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
 cd $wkdir
 
 # set variables
-protein_file_basename=proteins_from_gffread
+protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 
 
-# # extract protein sequences from structural annotation file
-# conda activate gffread
-# gffread ONTasm.bp.p_ctg_100kb.gff \
-#   -g ONTasm.bp.p_ctg_100kb.fasta \
-#   -y $protein_file_basename.faa
-# conda deactivate
-# # fix the not allowed characters by replacing them with X
-# sed -i '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' proteins.faa
+# extract protein sequences from structural annotation file
+conda activate gffread
+gffread $protein_file_basename.gff \
+  -g ONTasm.bp.p_ctg_100kb.fasta \
+  -y $protein_file_basename.faa
+conda deactivate
+# fix the not allowed characters by replacing them with X
+sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
 
 # run interproscan
 #conda create --name interproscan bioconda::interproscan -y
-conda activate interproscan
+#conda activate interproscan
+# conda install failed, trying with the install they suggest on website
+#conda create --name interproscan2
+conda activate interproscan2
+
 interproscan.sh \
-  -i $protein_file_basename.faa \
+  -i ${protein_file_basename}_filtered.faa \
   -f tsv,gff3,xml \
   -dp \
   -goterms \
