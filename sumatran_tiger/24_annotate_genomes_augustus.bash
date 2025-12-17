@@ -36,15 +36,13 @@ conda activate augustus
 # human is the nearest species for mammals and should work reasonably well according to my research
 augustus \
 	--species=human \
-	$assembly > ${assembly%.*}.gff
+	--noInFrameStop=true \
+	--genemodel=complete \
+	 --protein=on \
+	$assembly > ${assembly%.*}_3.faa
 
 
 
-#        --cds=on \
-#        --introns=on \
-#        --start=on \
-#        --stop=on \
-#	 --protein=off \
 
 
 conda deactivate
