@@ -9,8 +9,8 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=50g
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=100g
 #SBATCH --time=48:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -23,15 +23,15 @@ cd $wkdir
 # set variables
 protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 
-
-# extract protein sequences from structural annotation file
-conda activate gffread
-gffread $protein_file_basename.gff \
-  -g ONTasm.bp.p_ctg_100kb.fasta \
-  -y $protein_file_basename.faa
-conda deactivate
-# fix the not allowed characters by replacing them with X
-sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
+# # Hashing out as this bit already completed
+# # extract protein sequences from structural annotation file
+# conda activate gffread
+# gffread $protein_file_basename.gff \
+#   -g ONTasm.bp.p_ctg_100kb.fasta \
+#   -y $protein_file_basename.faa
+# conda deactivate
+# # fix the not allowed characters by replacing them with X
+# sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
 
 # run interproscan
 #conda create --name interproscan bioconda::interproscan -y
@@ -50,9 +50,9 @@ conda activate interproscan2
 #tar -pxvzf interproscan-5.76-107.0-*-bit.tar.gz
 #cd interproscan-5.76-107.0
 #python3 setup.py -f interproscan.properties
-#PATH=$PATH:/gpfs01/home/mbzlld/software_bin/interproscan/interproscan-5.76-107.0
+PATH=$PATH:/gpfs01/home/mbzlld/software_bin/interproscan/interproscan-5.76-107.0
 #conda install openjdk=11
-#PATH=$PATH:/gpfs01/home/mbzlld/software_bin/miniconda3/envs/interproscan2/lib/jvm/bin
+PATH=$PATH:/gpfs01/home/mbzlld/software_bin/miniconda3/envs/interproscan2/lib/jvm/bin
 
 
 interproscan.sh \
@@ -62,7 +62,7 @@ interproscan.sh \
   -goterms \
   -iprlookup \
   -pa \
-  -cpu 16
+  -cpu 32
 conda deactivate
 
 
