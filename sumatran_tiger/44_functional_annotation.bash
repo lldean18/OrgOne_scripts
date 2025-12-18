@@ -61,7 +61,7 @@ PATH=$PATH:/gpfs01/home/mbzlld/software_bin/interproscan/interproscan-5.76-107.0
 #conda install openjdk=11
 PATH=$PATH:/gpfs01/home/mbzlld/software_bin/miniconda3/envs/interproscan2/lib/jvm/bin
 
-
+# run interproscan
 interproscan.sh \
   -i ${protein_file_basename}_filtered.faa \
   -f tsv,gff3,xml \
@@ -71,6 +71,18 @@ interproscan.sh \
   -pa \
   -cpu 32
 conda deactivate
+
+# clean up the output
+awk '
+BEGIN { FS=OFS="\t" }
+$0 ~ /^#/ { print; next }
+$9 ~ /InterPro:|Pfam:|GO:/ {
+    gsub(/Reactome:[^",;]+,?/, "", $9)
+    gsub(/,,+/, ",", $9)
+    gsub(/,$/, "", $9)
+    print
+}
+' ${protein_file_basename}_filtered.faa.gff3 > ${protein_file_basename}_filtered.faa_clean.gff3
 
 
 #############################################################################
