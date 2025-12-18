@@ -94,6 +94,9 @@ bit-filter-KOFamScan-results \
 
 conda deactivate
 
+# filter the results to remove lines with no significant hits so I can count the significant hits
+awk '$2 != "NA"' FS='\t' $protein_file_basename-ko-annotations-filtered.tsv > $protein_file_basename-ko-annotations-filtered-sighits.tsv
+
 
 
 ### blast proteins against curated databases
@@ -112,10 +115,13 @@ blastp \
 	-outfmt 6 \
 	-evalue 1e-5 \
 	-num_threads 16 > $protein_file_basename-blast-swissprot.tsv
-
 conda deactivate
 
-
+# filter the blast hits to retain only the top hit per gene
+awk '!seen[$1]++' $protein_file_basename-blast-swissprot.tsv > $protein_file_basename-blast-swissprot-tophits.tsv
+# filter the top hits to remove any with an e value greater than 0.05
+awk '$11 <= 0.05' $protein_file_basename-blast-swissprot-tophits.tsv > $protein_file_basename-blast-swissprot-tophits-signif.tsv
+# Note this didn't actually remove any - all top hits were significant
 
 
 ### merge all this information together
