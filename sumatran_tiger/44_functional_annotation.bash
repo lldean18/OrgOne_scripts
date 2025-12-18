@@ -4,15 +4,11 @@
 # script written for running on the UoN HPC Ada
 
 # script to perform functional annotation following de novo structural annotation
+# all separate parts were run in a tmux window with srun
+conda activate tmux
+tmux new -t annotation
+srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
 
-#SBATCH --job-name=annotate
-#SBATCH --partition=defq
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=100g
-#SBATCH --time=48:00:00
-#SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
 # setup environment
@@ -23,6 +19,11 @@ cd $wkdir
 # set variables
 protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 
+
+#############################################################################
+#############################################################################
+
+
 # # Hashing out as this bit already completed
 # # extract protein sequences from structural annotation file
 # conda activate gffread
@@ -32,6 +33,12 @@ protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 # conda deactivate
 # # fix the not allowed characters by replacing them with X
 # sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
+
+
+#############################################################################
+#############################################################################
+
+srun --partition defq --cpus-per-task 32 --mem 100g --time 24:00:00 --pty bash
 
 # run interproscan
 #conda create --name interproscan bioconda::interproscan -y
@@ -66,6 +73,11 @@ interproscan.sh \
 conda deactivate
 
 
+#############################################################################
+#############################################################################
+
+srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
+
 # install the software for kegg
 #conda create --name kofamscan bioconda::kofamscan -y
 conda activate kofamscan
@@ -98,6 +110,10 @@ conda deactivate
 awk '$2 != "NA"' FS='\t' $protein_file_basename-ko-annotations-filtered.tsv > $protein_file_basename-ko-annotations-filtered-sighits.tsv
 
 
+#############################################################################
+#############################################################################
+
+srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
 
 ### blast proteins against curated databases
 conda activate blast
@@ -123,15 +139,34 @@ awk '!seen[$1]++' $protein_file_basename-blast-swissprot.tsv > $protein_file_bas
 awk '$11 <= 0.05' $protein_file_basename-blast-swissprot-tophits.tsv > $protein_file_basename-blast-swissprot-tophits-signif.tsv
 # Note this didn't actually remove any - all top hits were significant
 
+#############################################################################
+#############################################################################
 
-### merge all this information together
-#conda create --name agat bioconda::agat -y
-conda activate agat
-agat_sp_add_functional_annotation.pl \
-  --gff augustus.gff \
-  --ipr proteins.faa.gff3 \
-  -o augustus_functional.gff
-conda deactivate
+### Try also with eggnog mapper
+#conda create --name eggnog bioconda::eggnog-mapper
+conda activate eggnog
+
+# run the eggnog annotation mapper
+emapper.py \
+--cpu 16 \
+-i $protein_file_basename.faa \
+-o 
+
+
+
+
+#############################################################################
+#############################################################################
+
+### SECTION NOT USED
+## ### merge all this information together
+## #conda create --name agat bioconda::agat -y
+## conda activate agat
+## agat_sp_add_functional_annotation.pl \
+##   --gff augustus.gff \
+##   --ipr proteins.faa.gff3 \
+##   -o augustus_functional.gff
+## conda deactivate
 
 
 
