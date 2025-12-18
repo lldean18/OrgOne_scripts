@@ -57,7 +57,9 @@ liftoff \
 # unload software
 conda deactivate
 
-
+# Count the number of genes successfully transferred to the new assembly
+echo "The number of genes that were successfully transferred to the new assembly was:"
+cut -f3 ${target_assembly%.*}_liftoff.gff | grep "gene" | wc -l
 
 # load software
 conda activate gffread
