@@ -75,14 +75,41 @@ conda deactivate
 # clean up the output
 awk '
 BEGIN { FS=OFS="\t" }
-$0 ~ /^#/ { print; next }
-$9 ~ /InterPro:|Pfam:|GO:/ {
-    gsub(/Reactome:[^",;]+,?/, "", $9)
-    gsub(/,,+/, ",", $9)
-    gsub(/,$/, "", $9)
-    print
+
+{
+    prot = $1
+    analysis = $4
+    sig = $5
+    ipr = $12
+    ipr_desc = $13
+    go = $14
+
+    # Clean GO column
+    if (go != "-" && go != "--") {
+        gsub(/\([^)]*\)/, "", go)   # remove "(PANTHER)"
+    } else {
+        go = "-"
+    }
+
+    keep = 0
+
+    # Keep InterPro rows
+    if (ipr ~ /^IPR[0-9]+/) keep = 1
+
+    # Keep Pfam rows
+    if (analysis == "Pfam" || sig ~ /^PF[0-9]+/) keep = 1
+
+    # Keep GO-only rows
+    if (go ~ /GO:[0-9]+/) keep = 1
+
+    if (keep) {
+        print prot, analysis, sig, ipr, ipr_desc, go
+    }
 }
-' ${protein_file_basename}_filtered.faa.gff3 > ${protein_file_basename}_filtered.faa_clean.gff3
+' ${protein_file_basename}_filtered.faa.tsv > ${protein_file_basename}_filtered.faa_clean.tsv
+
+# count the number of genes with GO terms assigned to them
+grep "GO:" ${protein_file_basename}_filtered.faa_clean.tsv | cut -f1 | sort -u | wc -l
 
 
 #############################################################################
