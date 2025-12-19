@@ -6,10 +6,19 @@ import re
 # -------------------------
 # Input files
 # -------------------------
-AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3.gff"
-INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean.tsv"
-KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits.tsv"
-BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits.tsv"
+
+## # FOR THE RUN WITH ALL PREDICTED PROTEINS
+## AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3.gff"
+## INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean.tsv"
+## KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits.tsv"
+## BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits.tsv"
+
+# FOR THE RUN WITH PREDICTED PROTEINS FILTERED SENSIBLY
+AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3_badrm.gff"
+INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean_badrm.tsv"
+KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits_badrm.tsv"
+BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits-signif_badrm.tsv"
+
 
 # -------------------------
 # Parse InterProScan FILTERED TSV
@@ -26,7 +35,7 @@ ipr = defaultdict(lambda: {
     "InterPro": set(),
     "Pfam": set(),
     "GO": set(),
-    "Pathway": set()   # kept for compatibility (will stay empty)
+    "KO_function": set()
 })
 
 with open(INTERPRO_TSV) as fh:
@@ -37,125 +46,102 @@ with open(INTERPRO_TSV) as fh:
 
         protein_id, analysis, sig, ipr_id, desc, go = cols
 
-        # InterPro
         if ipr_id.startswith("IPR"):
             ipr[protein_id]["InterPro"].add(ipr_id)
 
-        # Pfam
         if analysis == "Pfam" or sig.startswith("PF"):
             ipr[protein_id]["Pfam"].add(sig)
 
-        # GO terms (may be comma-separated)
         if go != "-" and go != "":
             for term in go.split(","):
-                if term.startswith("GO:"):
-                    ipr[protein_id]["GO"].add(term)
+                ipr[protein_id]["GO"].add(term)
 
 # -------------------------
-# Parse KofamScan TSV
+# Parse KEGG TSV
 # -------------------------
-kegg = {}
+# Expected columns:
+# 1 ProteinID
+# 2 KO
+# 3 KO_function
 
 with open(KEGG_TSV) as fh:
-    header = next(fh)
+    next(fh)  # skip header
     for line in fh:
-        gene_id, ko_id, ko_func = line.rstrip().split("\t")
-        if ko_id != "NA":
-            kegg[gene_id] = ko_id
+        cols = line.rstrip().split("\t")
+        if len(cols) < 3:
+            continue
+
+        protein_id = cols[0]
+        ko_func = cols[2]
+
+        if ko_func:
+            ipr[protein_id]["KO_function"].add(ko_func)
 
 # -------------------------
-# Parse BLAST (best hit only)
+# Parse BLAST TSV
 # -------------------------
-blast = {}
+blast_hits = {}
 
 with open(BLAST_TSV) as fh:
     for line in fh:
         cols = line.rstrip().split("\t")
-        query = cols[0]
-        subject = cols[1]
-        if query not in blast:
-            blast[query] = subject
+        if len(cols) < 2:
+            continue
+        blast_hits[cols[0]] = cols[1]
 
 # -------------------------
-# Process Augustus GFF
+# Parse AUGUSTUS GFF
 # -------------------------
-summary_rows = []
-seen_proteins = set()
-
-out_gff = open("annotated.gff3", "w")
+genes = {}
+gff_lines = []
 
 with open(AUGUSTUS_GFF) as fh:
     for line in fh:
         if line.startswith("#"):
-            out_gff.write(line)
+            gff_lines.append(line)
             continue
 
-        cols = line.rstrip().split("\t")
-        if len(cols) < 9:
-            out_gff.write(line)
+        parts = line.rstrip().split("\t")
+        if len(parts) < 9:
+            gff_lines.append(line)
             continue
 
-        attr = cols[8]
+        attrs = parts[8]
+        m = re.search(r'ID=([^;]+)', attrs)
+        if m:
+            gene_id = m.group(1)
+            genes[gene_id] = parts
 
-        gene_id = None
-        protein_id = None
-
-        # Extract gene_id and transcript_id
-        m_gene = re.search(r'gene_id "([^"]+)"', attr)
-        m_tx = re.search(r'transcript_id "([^"]+)"', attr)
-
-        if m_gene:
-            gene_id = m_gene.group(1)
-        if m_tx:
-            protein_id = m_tx.group(1)
-
-        if protein_id:
-            ip = ipr.get(protein_id, {})
-            ko = kegg.get(protein_id, "-")
-            blast_hit = blast.get(protein_id, "-")
-
-            extra = []
-
-            if ip.get("InterPro"):
-                extra.append("InterPro=" + ",".join(sorted(ip["InterPro"])))
-            if ip.get("Pfam"):
-                extra.append("Pfam=" + ",".join(sorted(ip["Pfam"])))
-            if ip.get("GO"):
-                extra.append("GO=" + ",".join(sorted(ip["GO"])))
-            if ko != "-":
-                extra.append(f"KO={ko}")
-            if blast_hit != "-":
-                extra.append(f"BLAST_hit={blast_hit}")
-
-            if extra:
-                cols[8] += ";" + ";".join(extra)
-
-            if protein_id not in seen_proteins:
-                summary_rows.append([
-                    gene_id or "-",
-                    protein_id,
-                    blast_hit,
-                    ",".join(sorted(ip.get("InterPro", []))),
-                    ",".join(sorted(ip.get("Pfam", []))),
-                    ",".join(sorted(ip.get("GO", []))),
-                    ko,
-                    "-",              # Pathway (intentionally empty)
-                    blast_hit
-                ])
-                seen_proteins.add(protein_id)
-
-        out_gff.write("\t".join(cols) + "\n")
-
-out_gff.close()
+        gff_lines.append(line)
 
 # -------------------------
-# Write summary table
+# Write merged TSV
 # -------------------------
-with open("annotation_summary.tsv", "w") as out:
-    out.write(
-        "GeneID\tProteinID\tDescription\tInterPro\tPfam\tGO\tKO\tPathway\tBLAST_hit\n"
+def fmt(values):
+    return ",".join(sorted(values)) if values else "-"
+
+with open("merged_annotations.tsv", "w") as out_tsv:
+    out_tsv.write(
+        "GeneID\tInterPro\tPfam\tGO\tKO_function\tBLAST_hit\n"
     )
-    for row in summary_rows:
-        out.write("\t".join(row) + "\n")
+
+    for gene_id in sorted(genes):
+        out_tsv.write(
+            "\t".join([
+                gene_id,
+                fmt(ipr[gene_id]["InterPro"]),
+                fmt(ipr[gene_id]["Pfam"]),
+                fmt(ipr[gene_id]["GO"]),
+                fmt(ipr[gene_id]["KO_function"]),
+                blast_hits.get(gene_id, "-")
+            ]) + "\n"
+        )
+
+# -------------------------
+# Write merged GFF (UNCHANGED)
+# -------------------------
+with open("merged_annotations.gff", "w") as out_gff:
+    for line in gff_lines:
+        out_gff.write(line)
 
 print("Annotation successfully merged")
