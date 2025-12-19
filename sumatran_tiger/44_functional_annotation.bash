@@ -1,6 +1,6 @@
 #!/bin/bash
 # Laura Dean
-# 16/12/25
+# 19/12/25
 # script written for running on the UoN HPC Ada
 
 # script to perform functional annotation following de novo structural annotation
@@ -24,15 +24,27 @@ protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 #############################################################################
 
 
-# # Hashing out as this bit already completed
-# # extract protein sequences from structural annotation file
-# conda activate gffread
-# gffread $protein_file_basename.gff \
-#   -g ONTasm.bp.p_ctg_100kb.fasta \
-#   -y $protein_file_basename.faa
-# conda deactivate
-# # fix the not allowed characters by replacing them with X
-# sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
+# extract protein sequences from structural annotation file
+conda activate gffread
+gffread $protein_file_basename.gff \
+  -g ONTasm.bp.p_ctg_100kb.fasta \
+  -y $protein_file_basename.faa
+conda deactivate
+# fix the not allowed characters by replacing them with X
+# this wasn't actually necessary in the end because it didn't filter anything out!
+#sed '/^>/! s/[^ACDEFGHIKLMNPQRSTVWY*]/X/g' $protein_file_basename.faa > ${protein_file_basename}_filtered.faa
+
+# filter the proteins in the fasta file to retain only those with at least 2 exons and >= 200 amino acids
+conda activate python3.12
+python 46_filter_augustus_proteins.py
+conda deactivate
+# then should proceed to run downstream things with the filtered fasta
+# but since I ran them already on the unfiltered fasta I will instead extract the fasta headers that were thrown out and remove them
+# from downstream outputs
+comm -23 \
+  <(grep '^>' $protein_file_basename.faa | sed 's/^>//' | cut -d' ' -f1 | sort) \
+  <(grep '^>' ${protein_file_basename}_filtered.faa | sed 's/^>//' | cut -d' ' -f1 | sort) > proteins_to_remove.txt
+
 
 
 #############################################################################
@@ -108,9 +120,14 @@ BEGIN { FS=OFS="\t" }
 }
 ' ${protein_file_basename}_filtered.faa.tsv > ${protein_file_basename}_filtered.faa_clean.tsv
 
+# remove the proteins not good enough to keep retrospectively
+awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt ${protein_file_basename}_filtered.faa_clean.tsv > ${protein_file_basename}_filtered.faa_clean_badrm.tsv
+
 # count the number of genes with GO terms assigned to them
 grep "GO:" ${protein_file_basename}_filtered.faa_clean.tsv | cut -f1 | sort -u | wc -l
-
+# 17,339
+grep "GO:" ${protein_file_basename}_filtered.faa_clean_badrm.tsv | cut -f1 | sort -u | wc -l
+# 14,962
 
 #############################################################################
 #############################################################################
@@ -148,6 +165,15 @@ conda deactivate
 # filter the results to remove lines with no significant hits so I can count the significant hits
 awk '$2 != "NA"' FS='\t' $protein_file_basename-ko-annotations-filtered.tsv > $protein_file_basename-ko-annotations-filtered-sighits.tsv
 
+# remove the proteins not good enough to keep retrospectively
+awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt $protein_file_basename-ko-annotations-filtered-sighits.tsv > $protein_file_basename-ko-annotations-filtered-sighits_badrm.tsv
+
+# count the genes that were assigned a KO pathway
+cat $protein_file_basename-ko-annotations-filtered-sighits.tsv | wc -l # then minus 1 for header line
+# 16,084
+cat $protein_file_basename-ko-annotations-filtered-sighits_badrm.tsv | wc -l # then minus 1 for header line
+# 14,065
+
 
 #############################################################################
 #############################################################################
@@ -178,18 +204,41 @@ awk '!seen[$1]++' $protein_file_basename-blast-swissprot.tsv > $protein_file_bas
 awk '$11 <= 0.05' $protein_file_basename-blast-swissprot-tophits.tsv > $protein_file_basename-blast-swissprot-tophits-signif.tsv
 # Note this didn't actually remove any - all top hits were significant
 
+# remove the proteins not good enough to keep retrospectively
+awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt $protein_file_basename-blast-swissprot-tophits-signif.tsv > $protein_file_basename-blast-swissprot-tophits-signif_badrm.tsv
+
+# count the genes that were assigned a KO pathway
+cat $protein_file_basename-blast-swissprot-tophits-signif.tsv | wc -l
+# 24,906
+cat $protein_file_basename-blast-swissprot-tophits-signif_badrm.tsv | wc -l
+# 20,604
+
+
 #############################################################################
 #############################################################################
 
-### Try also with eggnog mapper
-#conda create --name eggnog bioconda::eggnog-mapper
-conda activate eggnog
+### merge all the results into a single gff annotation file and a single table
+conda activate python3.12
+python 45_merge_annotations.py
+conda deactivate
 
-# run the eggnog annotation mapper
-emapper.py \
---cpu 16 \
--i $protein_file_basename.faa \
--o 
+
+
+
+
+#############################################################################
+#############################################################################
+
+## # DIDNT RUN THIS IN THE END DECIDED WE HAVE ENOUGH
+## ### Try also with eggnog mapper
+## #conda create --name eggnog bioconda::eggnog-mapper
+## conda activate eggnog
+## 
+## # run the eggnog annotation mapper
+## emapper.py \
+## --cpu 16 \
+## -i $protein_file_basename.faa \
+## -o 
 
 
 
