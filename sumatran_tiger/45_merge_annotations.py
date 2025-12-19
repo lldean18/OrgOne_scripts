@@ -7,48 +7,49 @@ import re
 # Input files
 # -------------------------
 AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3.gff"
-INTERPRO_GFF = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean.gff3"
+INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean.tsv"
 KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits.tsv"
 BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits.tsv"
 
 # -------------------------
-# Parse InterProScan GFF3
+# Parse InterProScan FILTERED TSV
 # -------------------------
+# Expected columns:
+# 1 ProteinID
+# 2 Analysis
+# 3 Signature
+# 4 InterPro
+# 5 Description
+# 6 GO
+
 ipr = defaultdict(lambda: {
     "InterPro": set(),
     "Pfam": set(),
     "GO": set(),
-    "Pathway": set()
+    "Pathway": set()   # kept for compatibility (will stay empty)
 })
 
-with open(INTERPRO_GFF) as fh:
+with open(INTERPRO_TSV) as fh:
     for line in fh:
-        if line.startswith("#"):
-            continue
-
         cols = line.rstrip().split("\t")
-        if len(cols) < 9:
+        if len(cols) < 6:
             continue
 
-        protein_id = cols[0]
-        attr = cols[8]
+        protein_id, analysis, sig, ipr_id, desc, go = cols
 
-        # InterPro IDs
-        for ipr_id in re.findall(r"InterPro:(IPR\d+)", attr):
+        # InterPro
+        if ipr_id.startswith("IPR"):
             ipr[protein_id]["InterPro"].add(ipr_id)
 
-        # Pfam (Name=PFxxxxx)
-        pfam = re.search(r"Name=(PF\d+)", attr)
-        if pfam:
-            ipr[protein_id]["Pfam"].add(pfam.group(1))
+        # Pfam
+        if analysis == "Pfam" or sig.startswith("PF"):
+            ipr[protein_id]["Pfam"].add(sig)
 
-        # GO terms
-        for go in re.findall(r"GO:(\d+)", attr):
-            ipr[protein_id]["GO"].add(f"GO:{go}")
-
-        # Reactome pathways
-        for path in re.findall(r"Reactome:([^\",]+)", attr):
-            ipr[protein_id]["Pathway"].add(path)
+        # GO terms (may be comma-separated)
+        if go != "-" and go != "":
+            for term in go.split(","):
+                if term.startswith("GO:"):
+                    ipr[protein_id]["GO"].add(term)
 
 # -------------------------
 # Parse KofamScan TSV
@@ -123,8 +124,6 @@ with open(AUGUSTUS_GFF) as fh:
                 extra.append("GO=" + ",".join(sorted(ip["GO"])))
             if ko != "-":
                 extra.append(f"KO={ko}")
-            if ip.get("Pathway"):
-                extra.append("Pathway=" + ",".join(sorted(ip["Pathway"])))
             if blast_hit != "-":
                 extra.append(f"BLAST_hit={blast_hit}")
 
@@ -140,7 +139,7 @@ with open(AUGUSTUS_GFF) as fh:
                     ",".join(sorted(ip.get("Pfam", []))),
                     ",".join(sorted(ip.get("GO", []))),
                     ko,
-                    ",".join(sorted(ip.get("Pathway", []))),
+                    "-",              # Pathway (intentionally empty)
                     blast_hit
                 ])
                 seen_proteins.add(protein_id)
@@ -159,4 +158,4 @@ with open("annotation_summary.tsv", "w") as out:
     for row in summary_rows:
         out.write("\t".join(row) + "\n")
 
-print("✔ Annotation successfully merged")
+print("Annotation successfully merged")
