@@ -44,7 +44,20 @@ conda deactivate
 comm -23 \
   <(grep '^>' $protein_file_basename.faa | sed 's/^>//' | cut -d' ' -f1 | sort) \
   <(grep '^>' ${protein_file_basename}_filtered.faa | sed 's/^>//' | cut -d' ' -f1 | sort) > proteins_to_remove.txt
+# make a version of this file that is the gene names rather than protein names
+sed 's/.t1//' proteins_to_remove.txt > genes_to_remove.txt
+sed -i 's/^/# start gene /' genes_to_remove.txt # add what will be before the gene name on the first line to remove from the gff
 
+# then filter the gff predictions to remove these dubious proteins
+# remove every line that matches any of the lines in the genes to remove file and every line after it up to and including a line that is ###
+awk '
+NR==FNR {rm[$0]; next}
+{
+    if ($0 in rm) skip=1
+    if (!skip) print
+    if (skip && $0=="###") skip=0
+}
+' genes_to_remove.txt $protein_file_basename.gff > ${protein_file_basename}_badrm.gff
 
 
 #############################################################################
