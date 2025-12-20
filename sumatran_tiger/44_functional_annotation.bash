@@ -14,10 +14,12 @@ srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
 # setup environment
 source $HOME/.bash_profile
 wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
 cd $wkdir
 
 # set variables
 protein_file_basename=ONTasm.bp.p_ctg_100kb_3
+protein_file_basename=ragtag.scaffolds_only_augustus
 
 
 #############################################################################
@@ -27,7 +29,7 @@ protein_file_basename=ONTasm.bp.p_ctg_100kb_3
 # extract protein sequences from structural annotation file
 conda activate gffread
 gffread $protein_file_basename.gff \
-  -g ONTasm.bp.p_ctg_100kb.fasta \
+  -g ${protein_file_basename%_*}.fasta \
   -y $protein_file_basename.faa
 conda deactivate
 # fix the not allowed characters by replacing them with X
