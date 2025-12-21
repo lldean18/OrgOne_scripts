@@ -5,9 +5,9 @@ from Bio import SeqIO
 # -------------------------
 # Input files
 # -------------------------
-GFF_FILE = "ONTasm.bp.p_ctg_100kb_3.gff"
-PROTEIN_FASTA = "ONTasm.bp.p_ctg_100kb_3.faa"
-OUTPUT_FASTA = "ONTasm.bp.p_ctg_100kb_3_filtered.faa"
+GFF_FILE = "ragtag.scaffolds_only_augustus.gff"
+PROTEIN_FASTA = "ragtag.scaffolds_only_augustus.faa"
+OUTPUT_FASTA = "ragtag.scaffolds_only_augustus_filtered.faa"
 
 # -------------------------
 # Step 1: count exons per gene from GFF
