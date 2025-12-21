@@ -66,6 +66,10 @@ NR==FNR {rm[$0]; next}
 #############################################################################
 
 srun --partition defq --cpus-per-task 32 --mem 100g --time 24:00:00 --pty bash
+source $HOME/.bash_profile
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
+cd $wkdir
+protein_file_basename=ragtag.scaffolds_only_augustus
 
 # run interproscan
 #conda create --name interproscan bioconda::interproscan -y
@@ -142,12 +146,17 @@ awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt ${protein_f
 grep "GO:" ${protein_file_basename}_filtered.faa_clean.tsv | cut -f1 | sort -u | wc -l
 # 17,339
 grep "GO:" ${protein_file_basename}_filtered.faa_clean_badrm.tsv | cut -f1 | sort -u | wc -l
-# 14,962
+# 14,962 (for the unscaffolded asm)
+# 14,935 (for the scaffolded asm)
 
 #############################################################################
 #############################################################################
 
 srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
+source $HOME/.bash_profile
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
+cd $wkdir
+protein_file_basename=ragtag.scaffolds_only_augustus
 
 # install the software for kegg
 #conda create --name kofamscan bioconda::kofamscan -y
@@ -187,13 +196,17 @@ awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt $protein_fi
 cat $protein_file_basename-ko-annotations-filtered-sighits.tsv | wc -l # then minus 1 for header line
 # 16,084
 cat $protein_file_basename-ko-annotations-filtered-sighits_badrm.tsv | wc -l # then minus 1 for header line
-# 14,065
-
+# 14,065 (for the unscaffoled asm)
+# 14,074 (for the scaffolded asm)
 
 #############################################################################
 #############################################################################
 
 srun --partition defq --cpus-per-task 16 --mem 80g --time 12:00:00 --pty bash
+source $HOME/.bash_profile
+wkdir=/gpfs01/home/mbzlld/data/OrgOne/sumatran_tiger/hifiasm_asm9/ONTasm.bp.p_ctg_100kb_ragtag
+cd $wkdir
+protein_file_basename=ragtag.scaffolds_only_augustus
 
 ### blast proteins against curated databases
 conda activate blast
