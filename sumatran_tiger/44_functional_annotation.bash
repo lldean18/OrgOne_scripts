@@ -235,12 +235,12 @@ awk '$11 <= 0.05' $protein_file_basename-blast-swissprot-tophits.tsv > $protein_
 # remove the proteins not good enough to keep retrospectively
 awk -F'\t' 'NR==FNR {a[$1]; next} !($1 in a)' proteins_to_remove.txt $protein_file_basename-blast-swissprot-tophits-signif.tsv > $protein_file_basename-blast-swissprot-tophits-signif_badrm.tsv
 
-# count the genes that were assigned a KO pathway
+# count the genes that had a blast hit in the swissprot databasse
 cat $protein_file_basename-blast-swissprot-tophits-signif.tsv | wc -l
 # 24,906
 cat $protein_file_basename-blast-swissprot-tophits-signif_badrm.tsv | wc -l
 # 20,604
-
+# 20,511
 
 #############################################################################
 #############################################################################
