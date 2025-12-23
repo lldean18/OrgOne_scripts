@@ -268,8 +268,34 @@ conda deactivate
 ### add the prefix to every locus tag
 sed -i 's/locus_tag=/locus_tag=PTIG_/g' ptigris_annotation.gff
 
+conda activate agat
+agat_convert_sp_gxf2gxf.pl \
+  --gff ptigris_annotation.gff \
+  --output ptigris_annotation_formatted.gff
+
+
 #############################################################################
 #############################################################################
+
+### convert the fasta file plus the annotation to EMBL flat file format for sumbmission to ENA
+#conda create --name embl bioconda:emblmygff3
+conda activate embl
+EMBLmyGFF3 ptigris_annotation_formatted.gff ragtag.scaffolds_only.fasta \
+        --data_class STD \
+        --topology linear \
+        --molecule_type "genomic DNA" \
+        --transl_table 1 \
+        --species 'Panthera tigris' \
+        --taxonomy MAM \
+        --locus_tag PTIG \
+        --project_id PRJEB74210 \
+        --rg XXX \
+        -o result.embl
+
+
+#############################################################################
+#############################################################################
+
 
 ## # DIDNT RUN THIS IN THE END DECIDED WE HAVE ENOUGH
 ## ### Try also with eggnog mapper
