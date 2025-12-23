@@ -253,7 +253,20 @@ conda deactivate
 ### count how many genes in the final tsv file have no annotations from any of the platforms
 awk -F'\t' '$3=="-" && $4=="-" && $5=="-" && $6=="-" && $7=="-" && $8=="-" && $9=="-" {count++} END {print count}' annotation_summary.tsv
 
+### fix the gff file
+sed -i 's/;;/;/' annotated.gff3
+sed -i 's/"//g' annotated.gff3
+sed -i 's/transcript_id /transcript_id=/g' annotated.gff3
+sed -i 's/ gene_id /gene_id=/g' annotated.gff3
 
+# add the locus tag field using the ID
+#conda create --name agat bioconda::agat -y
+conda activate agat
+agat_sq_add_locus_tag.pl --gff annotated.gff3 --li ID --lo locus_tag -o ptigris_annotation.gff
+conda deactivate
+
+### add the prefix to every locus tag
+sed -i 's/locus_tag=/locus_tag=PTIG_/g' ptigris_annotation.gff
 
 #############################################################################
 #############################################################################
