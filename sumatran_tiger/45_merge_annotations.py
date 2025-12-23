@@ -13,11 +13,17 @@ import re
 ## KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits.tsv"
 ## BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits.tsv"
 
-# FOR THE RUN WITH PREDICTED PROTEINS FILTERED SENSIBLY
-AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3_badrm.gff"
-INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean_badrm.tsv"
-KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits_badrm.tsv"
-BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits-signif_badrm.tsv"
+## # FOR THE RUN WITH PREDICTED PROTEINS FILTERED SENSIBLY
+## AUGUSTUS_GFF = "ONTasm.bp.p_ctg_100kb_3_badrm.gff"
+## INTERPRO_TSV = "ONTasm.bp.p_ctg_100kb_3_filtered.faa_clean_badrm.tsv"
+## KEGG_TSV = "ONTasm.bp.p_ctg_100kb_3-ko-annotations-filtered-sighits_badrm.tsv"
+## BLAST_TSV = "ONTasm.bp.p_ctg_100kb_3-blast-swissprot-tophits-signif_badrm.tsv"
+
+# FOR THE RUN WITH THE SCAFFOLDED ASSEMBLY
+AUGUSTUS_GFF = "ragtag.scaffolds_only_augustus_badrm.gff"
+INTERPRO_TSV = "ragtag.scaffolds_only_augustus_filtered.faa_clean_badrm.tsv"
+KEGG_TSV = "ragtag.scaffolds_only_augustus-ko-annotations-filtered-sighits_badrm.tsv"
+BLAST_TSV = "ragtag.scaffolds_only_augustus-blast-swissprot-tophits-signif_badrm.tsv"
 
 
 # -------------------------
