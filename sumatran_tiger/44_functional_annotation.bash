@@ -250,7 +250,8 @@ conda activate python3.12
 python 45_merge_annotations.py
 conda deactivate
 
-
+### count how many genes in the final tsv file have no annotations from any of the platforms
+awk -F'\t' '$3=="-" && $4=="-" && $5=="-" && $6=="-" && $7=="-" && $8=="-" && $9=="-" {count++} END {print count}' annotation_summary.tsv
 
 
 
