@@ -25,7 +25,6 @@ INTERPRO_TSV = "ragtag.scaffolds_only_augustus_filtered.faa_clean_badrm.tsv"
 KEGG_TSV = "ragtag.scaffolds_only_augustus-ko-annotations-filtered-sighits_badrm.tsv"
 BLAST_TSV = "ragtag.scaffolds_only_augustus-blast-swissprot-tophits-signif_badrm.tsv"
 
-
 # -------------------------
 # Parse InterProScan FILTERED TSV
 # -------------------------
@@ -38,10 +37,11 @@ BLAST_TSV = "ragtag.scaffolds_only_augustus-blast-swissprot-tophits-signif_badrm
 # 6 GO
 
 ipr = defaultdict(lambda: {
+    "Description": set(),
     "InterPro": set(),
     "Pfam": set(),
     "GO": set(),
-    "KO_function": set()
+    "Pathway": set()   # kept for compatibility (unused)
 })
 
 with open(INTERPRO_TSV) as fh:
@@ -52,23 +52,29 @@ with open(INTERPRO_TSV) as fh:
 
         protein_id, analysis, sig, ipr_id, desc, go = cols
 
+        if desc and desc != "-":
+            ipr[protein_id]["Description"].add(desc)
+
         if ipr_id.startswith("IPR"):
             ipr[protein_id]["InterPro"].add(ipr_id)
 
         if analysis == "Pfam" or sig.startswith("PF"):
             ipr[protein_id]["Pfam"].add(sig)
 
-        if go != "-" and go != "":
+        if go and go != "-":
             for term in go.split(","):
-                ipr[protein_id]["GO"].add(term)
+                if term.startswith("GO:"):
+                    ipr[protein_id]["GO"].add(term)
 
 # -------------------------
-# Parse KEGG TSV
+# Parse KofamScan TSV
 # -------------------------
 # Expected columns:
 # 1 ProteinID
 # 2 KO
 # 3 KO_function
+
+kegg = {}
 
 with open(KEGG_TSV) as fh:
     next(fh)  # skip header
@@ -77,77 +83,106 @@ with open(KEGG_TSV) as fh:
         if len(cols) < 3:
             continue
 
-        protein_id = cols[0]
-        ko_func = cols[2]
+        protein_id, ko_id, ko_func = cols[0], cols[1], cols[2]
 
-        if ko_func:
-            ipr[protein_id]["KO_function"].add(ko_func)
+        if ko_id != "NA":
+            kegg[protein_id] = (ko_id, ko_func)
+        else:
+            kegg[protein_id] = ("-", "-")
 
 # -------------------------
-# Parse BLAST TSV
+# Parse BLAST (best hit only)
 # -------------------------
-blast_hits = {}
+blast = {}
 
 with open(BLAST_TSV) as fh:
     for line in fh:
         cols = line.rstrip().split("\t")
         if len(cols) < 2:
             continue
-        blast_hits[cols[0]] = cols[1]
+        query, subject = cols[0], cols[1]
+        if query not in blast:
+            blast[query] = subject
 
 # -------------------------
-# Parse AUGUSTUS GFF
+# Process Augustus GFF
 # -------------------------
-genes = {}
-gff_lines = []
+summary_rows = []
+seen_proteins = set()
+
+out_gff = open("annotated.gff3", "w")
 
 with open(AUGUSTUS_GFF) as fh:
     for line in fh:
         if line.startswith("#"):
-            gff_lines.append(line)
+            out_gff.write(line)
             continue
 
-        parts = line.rstrip().split("\t")
-        if len(parts) < 9:
-            gff_lines.append(line)
+        cols = line.rstrip().split("\t")
+        if len(cols) < 9:
+            out_gff.write(line)
             continue
 
-        attrs = parts[8]
-        m = re.search(r'ID=([^;]+)', attrs)
-        if m:
-            gene_id = m.group(1)
-            genes[gene_id] = parts
+        attr = cols[8]
 
-        gff_lines.append(line)
+        gene_id = None
+        protein_id = None
+
+        m_gene = re.search(r'gene_id "([^"]+)"', attr)
+        m_tx = re.search(r'transcript_id "([^"]+)"', attr)
+
+        if m_gene:
+            gene_id = m_gene.group(1)
+        if m_tx:
+            protein_id = m_tx.group(1)
+
+        if protein_id:
+            ip = ipr.get(protein_id, {})
+            ko_id, ko_func = kegg.get(protein_id, ("-", "-"))
+            blast_hit = blast.get(protein_id, "-")
+
+            extra = []
+
+            if ip.get("InterPro"):
+                extra.append("InterPro=" + ",".join(sorted(ip["InterPro"])))
+            if ip.get("Pfam"):
+                extra.append("Pfam=" + ",".join(sorted(ip["Pfam"])))
+            if ip.get("GO"):
+                extra.append("GO=" + ",".join(sorted(ip["GO"])))
+            if ko_id != "-":
+                extra.append(f"KO={ko_id}")
+            if blast_hit != "-":
+                extra.append(f"BLAST_hit={blast_hit}")
+
+            if extra:
+                cols[8] += ";" + ";".join(extra)
+
+            if protein_id not in seen_proteins:
+                summary_rows.append([
+                    gene_id or "-",
+                    protein_id,
+                    ",".join(sorted(ip.get("Description", []))) or "-",
+                    ",".join(sorted(ip.get("InterPro", []))) or "-",
+                    ",".join(sorted(ip.get("Pfam", []))) or "-",
+                    ",".join(sorted(ip.get("GO", []))) or "-",
+                    ko_id or "-",
+                    ko_func or "-",
+                    blast_hit or "-"
+                ])
+                seen_proteins.add(protein_id)
+
+        out_gff.write("\t".join(cols) + "\n")
+
+out_gff.close()
 
 # -------------------------
-# Write merged TSV
+# Write summary table
 # -------------------------
-def fmt(values):
-    return ",".join(sorted(values)) if values else "-"
-
-with open("merged_annotations.tsv", "w") as out_tsv:
-    out_tsv.write(
-        "GeneID\tInterPro\tPfam\tGO\tKO_function\tBLAST_hit\n"
+with open("annotation_summary.tsv", "w") as out:
+    out.write(
+        "GeneID\tProteinID\tDescription\tInterPro\tPfam\tGO\tKO\tKO_function\tBLAST_hit\n"
     )
-
-    for gene_id in sorted(genes):
-        out_tsv.write(
-            "\t".join([
-                gene_id,
-                fmt(ipr[gene_id]["InterPro"]),
-                fmt(ipr[gene_id]["Pfam"]),
-                fmt(ipr[gene_id]["GO"]),
-                fmt(ipr[gene_id]["KO_function"]),
-                blast_hits.get(gene_id, "-")
-            ]) + "\n"
-        )
-
-# -------------------------
-# Write merged GFF (UNCHANGED)
-# -------------------------
-with open("merged_annotations.gff", "w") as out_gff:
-    for line in gff_lines:
-        out_gff.write(line)
+    for row in summary_rows:
+        out.write("\t".join(row) + "\n")
 
 print("Annotation successfully merged")
