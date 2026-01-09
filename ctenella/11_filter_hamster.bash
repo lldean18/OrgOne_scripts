@@ -31,7 +31,7 @@ conda activate bbmap
 bbsplit.sh \
 -Xmx170G \
 fastareadlen=600 \
-minid=0.94 \
+minid=0.98 \
 ref=$wkdir/GCF_003668045.3_CriGri-PICRH-1.0_genomic.fna.gz \
 in=${reads%.*.*}.fasta.gz \
 basename=reads_mapping_to_%.fastq
@@ -57,6 +57,11 @@ conda deactivate
 # keep the contaminanat reads in another file
 conda activate seqkit
 seqkit grep --threads 24 -f $wkdir/hamster_read_ids.txt $reads | gzip > $wkdir/SUP_calls_mapped_to_hamster.fastq.gz
+conda deactivate
+
+# convert fastq to fasta
+conda activate seqkit
+seqkit fq2fa $wkdir/SUP_calls_mapped_to_hamster.fastq.gz -o $wkdir/SUP_calls_mapped_to_hamster.fasta.gz
 conda deactivate
 
 
