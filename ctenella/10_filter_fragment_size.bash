@@ -21,6 +21,7 @@ conda activate seqtk
 
 # set variables
 assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm1/ONTasm.bp.p_ctg.fasta
+assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm2/ONTasm.bp.p_ctg.fasta
 
 # remove sequences shorter than 100kb
 seqtk seq -L 100000 $assembly > ${assembly%.*}_100kb.fasta
