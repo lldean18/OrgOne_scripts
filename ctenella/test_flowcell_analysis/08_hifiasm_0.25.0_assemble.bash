@@ -3,6 +3,8 @@
 # 5/12/25
 # for running on Ada
 
+# script to assemble genome using hifiasm ONT mode
+
 #SBATCH --partition=hmemq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -23,9 +25,11 @@ conda activate hifiasm_0.25.0
 # set environment variables
 wkdir=/gpfs01/home/mbzlld/data/ctenella
 # set the attempt number for naming the output directory of each try
-attempt=1
+#attempt=1
+attempt=2
 # then set the reads file that was used in that attempt
-reads=$wkdir/SUP_calls.fastq.gz
+#reads=$wkdir/SUP_calls.fastq.gz
+reads=$wkdir/hamster/SUP_calls_no_hamster.fastq.gz
 
 # print a line to the slurm output that says exactly what was done on this run
 echo "This is hifiasm version 0.25.0 running on the file $reads and saving the output to the directory $wkdir/hifiasm_asm$attempt"
