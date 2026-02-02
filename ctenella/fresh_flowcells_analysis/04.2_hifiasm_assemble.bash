@@ -23,7 +23,7 @@ conda activate hifiasm_0.25.0
 
 
 # set environment variables
-#wkdir=/gpfs01/home/mbzlld/data/ctenella
+wkdir=/gpfs01/home/mbzlld/data/ctenella
 
 # set the attempt number for naming the output directory of each try
 #attempt=1
