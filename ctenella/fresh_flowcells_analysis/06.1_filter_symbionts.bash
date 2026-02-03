@@ -50,6 +50,7 @@ conda activate bbmap
 bbsplit.sh \
 -Xmx170G \
 fastareadlen=600 \
+minid=0.98 \
 ref=$wkdir/symbionts/all_symbionts.fasta.gz \
 in=${reads_out%.*.*}.fasta.gz \
 basename=new_reads_mapping_to_%.fastq
