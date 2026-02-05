@@ -32,7 +32,7 @@ conda activate seqkit
 ## sed -i 's/\t.*//' $output_dir/Ctenella_readIDs_36-42GC.tsv
 
 # filter the reads to contain only those in the list of read IDs
-seqkit grep /
+seqkit grep \
 -f $output_dir/Ctenella_readIDs_36-42GC.tsv \
 $reads | gzip > $output_dir/Ctenella_sup_36-42GC.fastq.gz
 

@@ -10,7 +10,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=96
 #SBATCH --mem=1495g
-#SBATCH --time=168:00:00
+#SBATCH --time=68:00:00
 #SBATCH --job-name=ctenella_assembly
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -24,17 +24,27 @@ conda activate hifiasm_0.25.0
 
 # set environment variables
 #wkdir=/gpfs01/home/mbzlld/data/ctenella
-wkdir=/share/deepseq/laura/ctenella
+#wkdir=/gpfs01/home/mbzlld/data/ctenella
+#wkdir=/share/deepseq/laura/ctenella
+#wkdir=/gpfs01/home/mbzlld/data/ctenella
+#wkdir=/gpfs01/home/mbzlld/data/ctenella
+wkdir=/gpfs01/home/mbzlld/data/ctenella
 
 # set the attempt number for naming the output directory of each try
 #attempt=1
 #attempt=2
-attempt=3
+#attempt=3
+#attempt=4
+#attempt=5
+attempt=6
 
 # then set the reads file that was used in that attempt
 #reads=$wkdir/SUP_calls.fastq.gz
 #reads=$wkdir/hamster/SUP_calls_no_hamster.fastq.gz
-reads=$wkdir/Ctenella_sup.fastq.gz
+#reads=$wkdir/Ctenella_sup.fastq.gz
+#reads=$wkdir/new_flowcell_calls/Ctenella_sup_3.5kb.fasta
+#reads=$wkdir/new_flowcell_calls/Ctenella_sup_36-42GC.fastq.gz
+reads=$wkdir/new_flowcell_calls/Ctenella_sup_36-42GC.fastq.gz
 
 # print a line to the slurm output that says exactly what was done on this run
 echo "This is hifiasm version 0.25.0 running on the file $reads and saving the output to the directory $wkdir/hifiasm_asm$attempt"
@@ -45,6 +55,7 @@ cd $wkdir/hifiasm_asm$attempt
 
 # run hifiasm on the simplex reads with the new --ont flag to generate the assembly
 hifiasm \
+--telo-m AACCCT \
 -t 96 \
 --ont \
 -o ONTasm \
