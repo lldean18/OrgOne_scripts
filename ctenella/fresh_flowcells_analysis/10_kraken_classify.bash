@@ -8,9 +8,9 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=50g
-#SBATCH --time=48:00:00
+#SBATCH --cpus-per-task=48
+#SBATCH --mem=100g
+#SBATCH --time=120:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
@@ -30,11 +30,23 @@ source $HOME/.bash_profile
 conda activate kraken2
 
 # set variables
-DBNAME=/gpfs01/home/mbzlld/data/databases/core_nt/k2_core_nt_20251015
-to_classify=
+#DBNAME=/gpfs01/home/mbzlld/data/databases/core_nt/k2_core_nt_20251015
+DBNAME=/share/deepseq/matt/Ctenella/kraken_core
+to_classify=Ctenella_sup.fastq.gz
 
+cd /share/deepseq/laura/ctenella/kraken2
 
 # run kraken2 to classify reads or assembly contigs
+kraken2 \
+--db $DBNAME \
+--threads 32 \
+--use-names \
+--report kraken_report \
+$to_classify | gzip Ctenella_sup_classified.fastq.gz
+
+#--gzip-compressed
+
+
 
 
 
