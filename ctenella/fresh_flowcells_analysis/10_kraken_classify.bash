@@ -58,5 +58,14 @@ $to_classify
 
 conda deactivate
 
+# well the log was written to stdout rather than the log file but I just copied it to the log file minus
+# the last 3 lines which were information about how many reads were classified with the command
+# head -n -3 slurm-kraken2-6051446.out > /share/deepseq/laura/ctenella/kraken2/k2_log
+
+gzip Ctenella_sup_k2_classified.fastq
+
+# 53668435 sequences (115276.64 Mbp) processed in 1018.647s (3161.2 Kseq/m, 6789.99 Mbp/m).
+#  42580517 sequences classified (79.34%)
+#  11087918 sequences unclassified (20.66%)
 
 
