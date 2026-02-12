@@ -5,11 +5,11 @@
 # script to install and use kraken2 to classify reads or contings from ctenella sequencing
 
 #SBATCH --job-name=kraken2
-#SBATCH --partition=defq
+#SBATCH --partition=hmemq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=48
-#SBATCH --mem=100g
+#SBATCH --mem=750g
 #SBATCH --time=120:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -39,15 +39,14 @@ cd /share/deepseq/laura/ctenella/kraken2
 # run kraken2 to classify reads or assembly contigs
 kraken2 \
 --db $DBNAME \
---threads 32 \
+--threads 40 \
 --use-names \
 --report kraken_report \
-$to_classify | gzip Ctenella_sup_classified.fastq.gz
-
-#--gzip-compressed
+$to_classify | gzip > Ctenella_sup_classified.fastq.gz
 
 
 
+conda deactivate
 
 
 
