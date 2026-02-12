@@ -28,6 +28,7 @@ conda activate hifiasm_0.25.0
 #wkdir=/share/deepseq/laura/ctenella
 #wkdir=/gpfs01/home/mbzlld/data/ctenella
 #wkdir=/gpfs01/home/mbzlld/data/ctenella
+#wkdir=/gpfs01/home/mbzlld/data/ctenella
 wkdir=/gpfs01/home/mbzlld/data/ctenella
 
 # set the attempt number for naming the output directory of each try
@@ -36,7 +37,8 @@ wkdir=/gpfs01/home/mbzlld/data/ctenella
 #attempt=3
 #attempt=4
 #attempt=5
-attempt=6
+#attempt=6
+attempt=7
 
 # then set the reads file that was used in that attempt
 #reads=$wkdir/SUP_calls.fastq.gz
@@ -44,7 +46,8 @@ attempt=6
 #reads=$wkdir/Ctenella_sup.fastq.gz
 #reads=$wkdir/new_flowcell_calls/Ctenella_sup_3.5kb.fasta
 #reads=$wkdir/new_flowcell_calls/Ctenella_sup_36-42GC.fastq.gz
-reads=$wkdir/new_flowcell_calls/Ctenella_sup_36-42GC.fastq.gz
+#reads=$wkdir/new_flowcell_calls/Ctenella_sup_36-42GC.fastq.gz
+reads=$wkdir/new_flowcell_calls/Ctenella_sup_no_symbionts.fastq.gz
 
 # print a line to the slurm output that says exactly what was done on this run
 echo "This is hifiasm version 0.25.0 running on the file $reads and saving the output to the directory $wkdir/hifiasm_asm$attempt"
