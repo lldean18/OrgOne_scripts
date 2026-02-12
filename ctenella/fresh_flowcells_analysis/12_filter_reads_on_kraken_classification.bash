@@ -7,10 +7,32 @@
 
 # set up env
 
-srun --partition defq --cpus-per-task 2 --mem 20g --time 10:00:00 --pty bash
+srun --partition defq --cpus-per-task 2 --mem 30g --time 24:00:00 --pty bash
 conda activate kraken2
 
 # TaxID for Montipora (the right family of coral) = 46703
+
+### SECOND TRY WITH MY CLASSIFIED READS
+cd /share/deepseq/laura/ctenella/kraken2
+
+python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
+-s Ctenella_sup_k2_classified.fastq.gz \
+-o Ctenella_sup_k2_Montipora.fastq \
+--taxid 46703 \
+--fastq-output \
+--include-children \
+-k k2_log \
+--report k2_report
+
+
+
+
+
+
+
+
+
+### FIRST TRY WITH MATTS CLASSIFIED READS (but the classified fastq terminated unexpectedly so they failed right at the end)
 
 # filter the classified reads to keep only those from the Montipora family
 python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
