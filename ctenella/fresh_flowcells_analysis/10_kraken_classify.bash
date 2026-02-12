@@ -10,7 +10,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=48
 #SBATCH --mem=500g
-#SBATCH --time=03:00:00
+#SBATCH --time=12:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
@@ -32,19 +32,29 @@ conda activate kraken2
 # set variables
 #DBNAME=/gpfs01/home/mbzlld/data/databases/core_nt/k2_core_nt_20251015
 DBNAME=/share/deepseq/matt/Ctenella/kraken_core
-to_classify=Ctenella_sup.fastq.gz
+#to_classify=Ctenella_sup.fastq.gz
+to_classify=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
 
 cd /share/deepseq/laura/ctenella/kraken2
 
-# run kraken2 to classify reads or assembly contigs
-kraken2 \
+##  # run kraken2 to classify reads or assembly contigs
+##  kraken2 \
+##  --db $DBNAME \
+##  --threads 40 \
+##  --use-names \
+##  --report kraken_report \
+##  $to_classify | gzip > Ctenella_sup_classified.fastq.gz
+
+# Trying with the K2 wrapper instead since the above ran but only produced a 5GB output file!?
+
+k2 classify \
 --db $DBNAME \
 --threads 40 \
+--classified-out Ctenella_sup_k2_classified.fastq \
+--report k2_report \
 --use-names \
---report kraken_report \
-$to_classify | gzip > Ctenella_sup_classified.fastq.gz
-
-
+--log k2_log \
+$to_classify
 
 conda deactivate
 
