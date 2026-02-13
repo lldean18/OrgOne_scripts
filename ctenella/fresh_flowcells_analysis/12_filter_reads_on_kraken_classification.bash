@@ -13,8 +13,9 @@ conda activate kraken2
 # TaxID for Montipora (the right family of coral) = 46703
 
 ### SECOND TRY WITH MY CLASSIFIED READS
+# This worked so Matt's file of classified reads must have been truncated
+# Extract just the Montipora reads
 cd /share/deepseq/laura/ctenella/kraken2
-
 python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
 -s Ctenella_sup_k2_classified.fastq.gz \
 -o Ctenella_sup_k2_Montipora.fastq \
@@ -23,6 +24,24 @@ python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
 --include-children \
 -k k2_log \
 --report k2_report
+
+gzip Ctenella_sup_k2_Montipora.fastq
+
+# extract just the Scleratinia reads
+cd /share/deepseq/laura/ctenella/kraken2
+python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
+-s Ctenella_sup_k2_classified.fastq.gz \
+-o Ctenella_sup_k2_Scleratinia.fastq \
+--taxid 6125 \
+--fastq-output \
+--include-children \
+-k k2_log \
+--report k2_report
+
+gzip Ctenella_sup_k2_Scleratinia.fastq
+
+
+
 
 
 
