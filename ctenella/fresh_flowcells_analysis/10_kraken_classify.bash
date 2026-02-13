@@ -56,7 +56,6 @@ k2 classify \
 --log k2_log \
 $to_classify
 
-conda deactivate
 
 # well the log was written to stdout rather than the log file but I just copied it to the log file minus
 # the last 3 lines which were information about how many reads were classified with the command
@@ -68,4 +67,15 @@ gzip Ctenella_sup_k2_classified.fastq
 #  42580517 sequences classified (79.34%)
 #  11087918 sequences unclassified (20.66%)
 
+# calculate abundances for plotting with bracken
+bracken \
+-d $DBNAME \
+-i k2_report \
+-o reads.bracken.out \
+-w reads.breport
+
+
+# then use the .breport file in the shiny app here to make the plot: https://fbreitwieser.shinyapps.io/pavian/
+
+conda deactivate
 
