@@ -41,7 +41,19 @@ python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
 gzip Ctenella_sup_k2_Scleratinia.fastq
 
 
+# extract just the reads that are not classified as Scleratinia
+cd /share/deepseq/laura/ctenella/kraken2
+python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
+-s Ctenella_sup_k2_classified.fastq.gz \
+-o Ctenella_sup_k2_NOT_Scleratinia.fastq \
+--exclude \
+--taxid 6125 \
+--fastq-output \
+--include-children \
+-k k2_log \
+--report k2_report
 
+gzip Ctenella_sup_NOT_k2_Scleratinia.fastq
 
 
 
