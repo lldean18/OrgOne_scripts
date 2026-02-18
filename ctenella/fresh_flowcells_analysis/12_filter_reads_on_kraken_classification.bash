@@ -53,7 +53,7 @@ python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
 -k k2_log \
 --report k2_report
 
-gzip Ctenella_sup_NOT_k2_Scleratinia.fastq
+gzip Ctenella_sup_k2_NOT_Scleratinia.fastq
 
 
 
