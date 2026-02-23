@@ -10,7 +10,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=96
 #SBATCH --mem=1420g
-#SBATCH --time=80:00:00
+#SBATCH --time=168:00:00
 #SBATCH --job-name=ctenella_assembly
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
