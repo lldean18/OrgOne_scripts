@@ -33,9 +33,11 @@ conda activate kraken2
 #DBNAME=/gpfs01/home/mbzlld/data/databases/core_nt/k2_core_nt_20251015
 DBNAME=/share/deepseq/matt/Ctenella/kraken_core
 #to_classify=Ctenella_sup.fastq.gz
-to_classify=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
+#to_classify=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
+to_classify=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg.fasta
 
-cd /share/deepseq/laura/ctenella/kraken2
+#cd /share/deepseq/laura/ctenella/kraken2
+cd /gpfs01/home/mbzlld/data/ctenella/kraken2
 
 ##  # run kraken2 to classify reads or assembly contigs
 ##  kraken2 \
@@ -50,10 +52,11 @@ cd /share/deepseq/laura/ctenella/kraken2
 k2 classify \
 --db $DBNAME \
 --threads 40 \
---classified-out Ctenella_sup_k2_classified.fastq \
+--classified-out ${to_classify%.*}_classified.fasta \
+--unclassified-out ${to_classify%.*}_unclassified.fasta \
 --report k2_report \
 --use-names \
---log k2_log \
+--output k2_log \
 $to_classify
 
 
@@ -61,7 +64,7 @@ $to_classify
 # the last 3 lines which were information about how many reads were classified with the command
 # head -n -3 slurm-kraken2-6051446.out > /share/deepseq/laura/ctenella/kraken2/k2_log
 
-gzip Ctenella_sup_k2_classified.fastq
+#gzip Ctenella_sup_k2_classified.fastq
 
 # 53668435 sequences (115276.64 Mbp) processed in 1018.647s (3161.2 Kseq/m, 6789.99 Mbp/m).
 #  42580517 sequences classified (79.34%)
@@ -71,8 +74,8 @@ gzip Ctenella_sup_k2_classified.fastq
 bracken \
 -d $DBNAME \
 -i k2_report \
--o reads.bracken.out \
--w reads.breport
+-o asm.bracken.out \
+-w asm.breport
 
 
 # then use the .breport file in the shiny app here to make the plot: https://fbreitwieser.shinyapps.io/pavian/
