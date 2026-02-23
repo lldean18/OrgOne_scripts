@@ -63,29 +63,3 @@ gzip Ctenella_sup_k2_NOT_Scleratinia.fastq
 
 
 
-### FIRST TRY WITH MATTS CLASSIFIED READS (but the classified fastq terminated unexpectedly so they failed right at the end)
-
-# filter the classified reads to keep only those from the Montipora family
-python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
--s /share/deepseq/matt/Ctenella/Ctenella_sup_classified.fastq.gz \
--o /share/deepseq/laura/ctenella/Ctenella_sup_Montipora.fastq \
---taxid 46703 \
---fastq-output \
---include-children \
--k /share/deepseq/matt/Ctenella/read.k2_out \
---report /share/deepseq/matt/Ctenella/reads.report
-
-# TaxID for Scleratinia (zooming a bit further out taxonomically) = 6125
-
-# filter the classified reads to keep only those from the Scleratinia family
-python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
--s /share/deepseq/matt/Ctenella/Ctenella_sup_classified.fastq.gz \
--o /share/deepseq/laura/ctenella/Ctenella_sup_Scleratinia.fastq \
---taxid 6125 \
---fastq-output \
---include-children \
--k /share/deepseq/matt/Ctenella/read.k2_out \
---report /share/deepseq/matt/Ctenella/reads.report
-
-
-  
