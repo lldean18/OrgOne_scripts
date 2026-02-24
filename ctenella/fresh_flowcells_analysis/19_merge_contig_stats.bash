@@ -24,3 +24,6 @@ awk 'BEGIN{print "contig\tcoverage\ttaxid\tlength\tGC"}
      {print $1, $2, $3, $4, $6}' OFS="\t" merged.txt > final_table.tsv
 
 
+rm cov.txt len.txt gc.txt tmp.txt merged.txt
+
+
