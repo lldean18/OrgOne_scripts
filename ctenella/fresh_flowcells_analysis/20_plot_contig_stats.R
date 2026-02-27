@@ -4,6 +4,9 @@ conda activate r
 R
 
 
+# ended up making the 3D plots in R on my laptop with plotly
+# because that allowed me to view the plot interactively
+
 library(ggplot2)
 ##install.packages("plotly")
 #library(plotly)
