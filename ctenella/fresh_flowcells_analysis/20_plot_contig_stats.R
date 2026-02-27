@@ -20,7 +20,11 @@ df <- read.table("final_table.tsv", header = T)
 
 #Dplot <- plot_ly(x=df$length, y=df$GC, z=df$coverage, type="scatter3d", mode="markers", color=as.factor(df$taxid))
 
-Dplot <- scatterplot3D(x=df$length, y=df$GC, z=df$coverage)
+Dplot <- scatterplot3d(x=df$length, y=df$GC, z=df$coverage)
+png(Dplot, 
+       filename = "scatterplot3D.pdf"
+       )
+
 
 
 ############################
