@@ -1,13 +1,27 @@
 
-cd 
+cd /gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4 
 conda activate r
 R
 
 
 library(ggplot2)
+##install.packages("plotly")
+#library(plotly)
+#install.packages("scatterplot3d")
+library(scatterplot3d)
 options(scipen = 999)
 
 df <- read.table("final_table.tsv", header = T)
+
+
+##################################################
+# 3D plot of contig length, depth and GC content #
+##################################################
+
+#Dplot <- plot_ly(x=df$length, y=df$GC, z=df$coverage, type="scatter3d", mode="markers", color=as.factor(df$taxid))
+
+Dplot <- scatterplot3D(x=df$length, y=df$GC, z=df$coverage)
+
 
 ############################
 # GC against contig length #
