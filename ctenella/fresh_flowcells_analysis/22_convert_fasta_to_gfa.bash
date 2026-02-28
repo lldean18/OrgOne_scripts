@@ -11,7 +11,7 @@ conda activate gfastats
 cd /gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4
 
 # convert fasta file to gfa format
-gfastats ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta > ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.gfa
+gfastats ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta -o gfa > ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.gfa
 
 conda deactivate
 
