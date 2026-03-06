@@ -57,17 +57,19 @@ samtools view \
 mitogenome_mapped_reads.bam > mito_reads.bam
 
 # count how many reads there were in the first bam file
+# there were 53678735 reads
 samtools view \
 --threads 30 \
 -c mitogenome_mapped_reads.bam
 # then count how many we kept
+# we kept 90130 reads
 samtools view \
 --threads 30 \
 -c mito_reads.bam
 
 
 # convert the mitochondrial reads back to fastq format
-samtools fastq --threads 30  mito_reads.bam - | gzip > mito_reads.fastq.gz
+samtools fastq --threads 30  mito_reads.bam | gzip > mito_reads.fastq.gz
 
 conda deactivate
 
