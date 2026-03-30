@@ -8,8 +8,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=100g
-#SBATCH --time=48:00:00
+#SBATCH --mem=10g
+#SBATCH --time=2:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 #SBATCH --array=1-12
 
