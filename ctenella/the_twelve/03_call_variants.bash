@@ -3,10 +3,25 @@
 
 # script to call variants for ctenella 12
 
+#SBATCH --partition=ampere-mq
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:A100-mig:1
+#SBATCH --mem=128g
+#SBATCH --time=90:00:00
+#SBATCH --job-name=Clair3_variant_call
+#SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
+#SBATCH --array=1-12
 
+# setup config
+CONFIG=~/code_and_scripts/config_files/ctenella_the_twelve_config.txt
+ind=$(awk -v ArrayTaskID=$SLURM_ARRAY_TASK_ID '$1==ArrayTaskID {print $2}' $CONFIG)
+echo "slurm array = $SLURM_ARRAY_TASK_ID calling variants for sample $ind"
 
 
 # install clair3
+source $HOME/.bash_profile
 #conda create -n clair3 -c conda-forge -c bioconda python=3.11 samtools whatshap parallel zstd xz zlib bzip2 automake make gcc gxx curl pigz
 conda activate clair3
 ##  pip install uv
@@ -36,21 +51,24 @@ conda activate clair3
 ##  ${CLAIR3_PATH}/run_clair3.sh
 module load cuda-uoneasy/12.6.0
 cd /gpfs01/home/mbzlld/data/ctenella/the_twelve
-mkdir -P variants
+mkdir -p variants
 
 # set variables
 CLAIR3_PATH=/gpfs01/home/mbzlld/software_bin/Clair3
-MODEL_NAME="[YOUR_MODEL_NAME]"
+MODEL_NAME=r1041_e82_400bps_sup_v500
 
 
 # run clair3 to call variants for each ind
 python3 ${CLAIR3_PATH}/run_clair3.py \
   --bam_fn=bams/map_sort_barcode${ind}_filtered.bam \
   --ref_fn=../ctenella_chagius_asm.fasta \
-  --threads= \
+  --threads=16 \
   --platform="ont" \
   --model_path="${CLAIR3_PATH}/models/${MODEL_NAME}" \
-  --output=variants \
-  --include_all_ctgs
+  --output=variants/${ind} \
+  --include_all_ctgs \
+  --use_gpu
 
+
+conda deactivate
 
