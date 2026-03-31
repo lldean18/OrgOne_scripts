@@ -68,7 +68,8 @@ python3 ${CLAIR3_PATH}/run_clair3.py \
   --platform="ont" \
   --model_path="${CLAIR3_PATH}/models/${MODEL_NAME}" \
   --output=variants/${ind} \
-  --include_all_ctgs #\
+  --include_all_ctgs \
+  --gvcf #\
 #  --use_gpu
 
 
