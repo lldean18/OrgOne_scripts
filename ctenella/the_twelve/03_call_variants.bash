@@ -3,16 +3,17 @@
 
 # script to call variants for ctenella 12
 
-#SBATCH --partition=ampere-mq
+#SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --gres=gpu:A100-mig:1
-#SBATCH --mem=128g
+#SBATCH --cpus-per-task=48
+#SBATCH --mem=180g
 #SBATCH --time=90:00:00
 #SBATCH --job-name=Clair3_variant_call
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 #SBATCH --array=1-12
+# --partition=ampere-mq
+# --gres=gpu:A100-mig:1
 
 # setup config
 CONFIG=~/code_and_scripts/config_files/ctenella_the_twelve_config.txt
@@ -49,7 +50,8 @@ conda activate clair3
 ##  wget -r -np -nH --cut-dirs=2 -R "index.html*" -P ./models https://www.bio8.cs.hku.hk/clair3/clair3_models_pytorch/
 ##  # test the install
 ##  ${CLAIR3_PATH}/run_clair3.sh
-module load cuda-uoneasy/12.6.0
+##  pip install -U --force-reinstall numpy # fix for error on first install
+#module load cuda-uoneasy/12.6.0
 cd /gpfs01/home/mbzlld/data/ctenella/the_twelve
 mkdir -p variants
 
@@ -62,12 +64,12 @@ MODEL_NAME=r1041_e82_400bps_sup_v500
 python3 ${CLAIR3_PATH}/run_clair3.py \
   --bam_fn=bams/map_sort_barcode${ind}_filtered.bam \
   --ref_fn=../ctenella_chagius_asm.fasta \
-  --threads=16 \
+  --threads=48 \
   --platform="ont" \
   --model_path="${CLAIR3_PATH}/models/${MODEL_NAME}" \
   --output=variants/${ind} \
-  --include_all_ctgs \
-  --use_gpu
+  --include_all_ctgs #\
+#  --use_gpu
 
 
 conda deactivate
