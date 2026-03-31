@@ -32,8 +32,10 @@ samtools addreplacerg \
     map_sort_barcode${ind}_filtered.bam
 
 # index new bams
-samtools index map_sort_barcode${ind}_filtered.bam
+samtools index map_sort_barcode${ind}_filtered_named.bam
 
+# remove the bams without sample names
+rm map_sort_barcode${ind}_filtered.bam*
 
 conda deactivate
 
