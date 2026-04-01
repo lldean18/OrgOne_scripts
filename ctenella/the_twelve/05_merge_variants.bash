@@ -27,6 +27,10 @@ glnexus_cli \
   --trim-uncalled-alleles \
   /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/*.gvcf.gz > the_twelve.bcf
 
-
 conda deactivate
+
+# index the bcf file
+module load bcftools-uoneasy/1.19-GCC-13.2.0
+bcftools index the_twelve.bcf
+module unload bcftools-uoneasy/1.19-GCC-13.2.0
 
