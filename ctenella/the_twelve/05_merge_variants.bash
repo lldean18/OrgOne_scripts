@@ -25,7 +25,7 @@ glnexus_cli \
   --config ~/github/OrgOne_scripts/ctenella/the_twelve/clair3.yml \
   --threads 32 \
   --trim-uncalled-alleles \
-  /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/merge_output.gvcf.gz > the_twelve.bcf
+  /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/*.gvcf.gz > the_twelve.bcf
 
 
 
