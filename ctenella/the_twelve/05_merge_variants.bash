@@ -28,15 +28,5 @@ glnexus_cli \
   /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/*.gvcf.gz > the_twelve.bcf
 
 
-
 conda deactivate
 
-###  module load bcftools-uoneasy/1.19-GCC-13.2.0
-###  
-###  
-###  bcftools merge \
-###  *.vcf.gz \
-###   -Oz \
-###  --threads 16 \
-###  --write-index \
-###  --output merged.vcf.gz
