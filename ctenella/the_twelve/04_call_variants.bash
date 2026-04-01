@@ -73,6 +73,9 @@ python3 ${CLAIR3_PATH}/run_clair3.py \
   --gvcf #\
 #  --use_gpu
 
+# rename the output files to contain the ind name as GLNexus requires this in the joint genotyping step
+mv variants/${ind}/merge_output.gvcf.gz variants/${ind}/merge_output_${ind}.gvcf.gz
+mv variants/${ind}/merge_output.gvcf.gz.tbi variants/${ind}/merge_output_${ind}.gvcf.gz.tbi
 
 conda deactivate
 
