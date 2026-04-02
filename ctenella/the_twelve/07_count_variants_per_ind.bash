@@ -3,7 +3,7 @@
 
 # script to generate stats abount genotypes in the 12 ctenella samples
 
-#SBATCH --job-name=filter_variants
+#SBATCH --job-name=variant_stats
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
