@@ -33,7 +33,7 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 
 # this wasnt really what I was after, try a different option
 
-bcftools +counts the_twelve_filtered.vcf.gz
+bcftools +counts the_twelve_filtered.vcf.gz > the_twelve_filtered_counts_summary.txt
 
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
