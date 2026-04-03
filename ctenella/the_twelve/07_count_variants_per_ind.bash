@@ -33,8 +33,19 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 
 # this wasnt really what I was after, try a different option
 
-bcftools +counts the_twelve_filtered.vcf.gz > the_twelve_filtered_counts_summary.txt
+#bcftools +counts the_twelve_filtered.vcf.gz > the_twelve_filtered_counts_summary.txt
 
+bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_filtered.vcf.gz \
+| awk '$2!="0/0" && $2!="./." && $2!~/\./' \
+| cut -f1 \
+| sort \
+| uniq -c
+
+bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
+| awk '$2!="0/0" && $2!="./." && $2!~/\./' \
+| cut -f1 \
+| sort \
+| uniq -c
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 
