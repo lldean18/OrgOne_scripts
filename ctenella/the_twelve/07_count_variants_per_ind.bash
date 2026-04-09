@@ -21,19 +21,8 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 ###  bcftools stats \
 ###  --threads 16 \
 ###  the_twelve_filtered.vcf.gz > the_twelve_filtered_stats.txt
-###  
-###  # plot that info
-###  plot-vcfstats \
-###  -p vcf_plots \
-###  the_twelve_filtered_stats.txt
-###  
-###  conda activate python3.12
-###  python3 vcf_plots/plot.py
-###  conda deactivate
-
 # this wasnt really what I was after, try a different option
 
-#bcftools +counts the_twelve_filtered.vcf.gz > the_twelve_filtered_counts_summary.txt
 
 bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_filtered.vcf.gz \
 | awk '$2!="0/0" && $2!="./." && $2!~/\./' \
@@ -41,11 +30,46 @@ bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_filtered.vcf.gz \
 | sort \
 | uniq -c
 
+# count the number of variants that differ from the reference
 bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
 | awk '$2!="0/0" && $2!="./." && $2!~/\./' \
 | cut -f1 \
 | sort \
 | uniq -c
+
+#  212657 barcode17
+#  232759 barcode18
+#  233928 barcode19
+#  230534 barcode20
+#  223021 barcode21
+#  219241 barcode22
+#  235436 barcode23
+#  209501 barcode24
+#  213517 barcode29
+#  144702 barcode30
+#  213839 barcode31
+#  217648 barcode32
+
+# count the number of sites that match the reference
+bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
+| awk '$2=="0/0"' \
+| cut -f1 \
+| sort \
+| uniq -c
+
+#  355735 barcode17
+#  335633 barcode18
+#  334464 barcode19
+#  337858 barcode20
+#  345371 barcode21
+#  349151 barcode22
+#  332956 barcode23
+#  358891 barcode24
+#  354875 barcode29
+#  423690 barcode30
+#  354553 barcode31
+#  350744 barcode32
+
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 
