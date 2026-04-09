@@ -51,6 +51,12 @@ vcftools \
   --max-missing 1 \
   --recode --stdout | bgzip > the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz
 
+# filter for MAF 0.1
+vcftools \
+  --gzvcf the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
+  --maf 0.1 \
+  --recode --stdout | bgzip > the_twelve_snps_0.1maf_nopartialcalls_nomissing.vcf.gz
+
 
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
