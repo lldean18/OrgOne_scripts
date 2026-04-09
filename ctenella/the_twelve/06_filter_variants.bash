@@ -16,7 +16,6 @@
 source $HOME/.bash_profile
 module load bcftools-uoneasy/1.19-GCC-13.2.0
 module load vcftools-uoneasy/0.1.16-GCC-12.3.0
-module load plink-uoneasy/2.00a3.7-foss-2023a
 cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 
 
@@ -43,9 +42,17 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 ###    --maf 0.05 \
 ###    --recode --stdout | bgzip > the_twelve_snps_0.9missing_0.5maf.vcf.gz
 
+###  # change half calls to missing
+###  bcftools +setGT the_twelve_snps_0.9missing_0.5maf.vcf.gz -- -t ./x -n . | bgzip > the_twelve_snps_0.9missing_0.5maf_nopartialcalls.vcf.gz
+
+# filter for total missingness
+vcftools \
+  --gzvcf the_twelve_snps.vcf.gz \
+  --max-missing 1 \
+  --recode --stdout | bgzip > the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz
+
 
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 module unload vcftools-uoneasy/0.1.16-GCC-12.3.0
-module unload plink-uoneasy/2.00a3.7-foss-2023a
 
