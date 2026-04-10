@@ -31,12 +31,13 @@ bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_filtered.vcf.gz \
 | uniq -c
 
 # count the number of variants that differ from the reference
-bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
+bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.1maf_nopartialcalls_nomissing.vcf.gz \
 | awk '$2!="0/0" && $2!="./." && $2!~/\./' \
 | cut -f1 \
 | sort \
 | uniq -c
 
+### 0.05 MAF
 #  212657 barcode17
 #  232759 barcode18
 #  233928 barcode19
@@ -50,13 +51,29 @@ bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomis
 #  213839 barcode31
 #  217648 barcode32
 
+### 0.1 MAF
+# 170554 barcode17
+# 185800 barcode18
+# 190103 barcode19
+# 184025 barcode20
+# 179826 barcode21
+# 176407 barcode22
+# 188537 barcode23
+# 166636 barcode24
+# 171340 barcode29
+# 115184 barcode30
+# 170363 barcode31
+# 175011 barcode32
+
+
 # count the number of sites that match the reference
-bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomissing.vcf.gz \
+bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.1maf_nopartialcalls_nomissing.vcf.gz \
 | awk '$2=="0/0"' \
 | cut -f1 \
 | sort \
 | uniq -c
 
+### 0.05 MAF
 #  355735 barcode17
 #  335633 barcode18
 #  334464 barcode19
@@ -70,6 +87,19 @@ bcftools query -f '[%SAMPLE\t%GT\n]' the_twelve_snps_0.5maf_nopartialcalls_nomis
 #  354553 barcode31
 #  350744 barcode32
 
+### 0.1 MAF
+# 139197 barcode17
+# 123951 barcode18
+# 119648 barcode19
+# 125726 barcode20
+# 129925 barcode21
+# 133344 barcode22
+# 121214 barcode23
+# 143115 barcode24
+# 138411 barcode29
+# 194567 barcode30
+# 139388 barcode31
+# 134740 barcode32
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 
