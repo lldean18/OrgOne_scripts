@@ -20,7 +20,7 @@ assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleract
 
 
 # Align reads to a reference using dorado aligner, sort and index
-dorado aligner $assembly /share/deepseq/matt/Ctenella/Ctenella_sup.fastq.gz |
+dorado aligner $assembly /share/deepseq/matt/Ctenella/Ctenella.sup.meth.bam |
 samtools sort --threads 48 > ${assembly%.*}_mapped_reads.bam
 samtools index ${assembly%.*}_mapped_reads.bam
 
