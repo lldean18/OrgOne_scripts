@@ -22,6 +22,10 @@ echo "slurm array = $SLURM_ARRAY_TASK_ID generating pod5 tar archive for sample 
 # make tar archive for each barcode for the pod5 files from the twelve
 tar -czf /share/deepseq/laura/ctenella/ctenella_chagius_pod5s_barcode${ind}.tar.gz \
   20260325_1426_2G_PBG31226_c8a42015/pod5_pass/barcode${ind} \
-  20260325_1426_2G_PBG31226_c8a42015/pod5_fail/barcode${ind}
+  20260325_1426_2G_PBG31226_c8a42015/pod5_fail/barcode${ind} \
+  20260323_1207_2G_PBG31226_1c8c2a8d/pod5_pass/barcode${ind} \
+  20260323_1207_2G_PBG31226_1c8c2a8d/pod5_fail/barcode${ind}
 
+# generate md5sums
+md5sum /share/deepseq/laura/ctenella/ctenella_chagius_pod5s_barcode${ind}.tar.gz > /share/deepseq/laura/ctenella/ctenella_chagius_pod5s_barcode${ind}.md5
 
