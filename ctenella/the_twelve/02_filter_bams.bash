@@ -32,10 +32,11 @@ samtools view \
 --threads 16 \
 -b \
 -q 20 \
--F 0x904 \
+-F 260 \
 map_sort_barcode${ind}.bam > map_sort_barcode${ind}_filtered.bam
 # index the filtered bams
 samtools index --threads 16 map_sort_barcode${ind}_filtered.bam
+#-F 0x904 \ # to remove secondary and supplementary alignments and unmapped reads
 
 
 # Generate info about how well the reads mapped
