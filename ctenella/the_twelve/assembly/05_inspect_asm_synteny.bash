@@ -24,6 +24,8 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/assemblies/ntsynt
 ###  ls /gpfs01/home/mbzlld/data/ctenella/the_twelve/assemblies/barcode*/barcode*_ONTasm.bp.p_ctg.fasta >> assemblies_list.txt
 ###  sed -i 's|^[^/]*/|/|' assemblies_list.txt 
 
+# with all 13 genomes this failed without telling me why. Trying selecting fewer asms to compare
+
 # calculate synteny between assemblies
 ntSynt \
   --fastas_list assemblies_list.txt \
@@ -32,15 +34,15 @@ ntSynt \
 # make a list of the assembly .fai files
 ls *.fai > fai_list.txt
 
-# plot synteny
-ntsynt_viz.py \
---normalize \
---blocks ntSynt.k24.w1000.synteny_blocks.tsv \
---fais fai_list.txt \
---prefix ribbon_plot \
---target-genome ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta \
---no-arrow \
---ribbon_adjust 2.5
+###  # plot synteny
+###  ntsynt_viz.py \
+###  --normalize \
+###  --blocks ntSynt.k24.w1000.synteny_blocks.tsv \
+###  --fais fai_list.txt \
+###  --prefix ribbon_plot \
+###  --target-genome ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta \
+###  --no-arrow \
+###  --ribbon_adjust 2.5
 
 # unload software
 conda deactivate
