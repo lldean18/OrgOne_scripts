@@ -1,7 +1,7 @@
 #!/bin/bash
 # 30/3/26
 
-# script to filter ctenella twelve mapped bams that were written by dorado
+# script to filter ctenella twelve bams plus the ref bam
 
 #SBATCH --job-name=FilterMappedReads
 #SBATCH --partition=defq
@@ -11,7 +11,7 @@
 #SBATCH --mem=10g
 #SBATCH --time=2:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
-#SBATCH --array=1-12
+#SBATCH --array=1-13
 
 
 # setup env
@@ -27,7 +27,7 @@ echo "slurm array = $SLURM_ARRAY_TASK_ID filtering mapped reads for sample $ind"
 
 
 
-# filter bams to remove low quality mappings and secondary and supplementary alignments and unmapped reads
+# filter bams to remove low quality mappings and secondary alignments and unmapped reads
 samtools view \
 --threads 16 \
 -b \
