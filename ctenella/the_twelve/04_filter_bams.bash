@@ -20,7 +20,7 @@ conda activate samtools1.22
 cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/bams
 
 # setup config
-CONFIG=~/code_and_scripts/config_files/ctenella_the_twelve_config.txt
+CONFIG=~/code_and_scripts/config_files/ctenella_the_thirteen_config.txt
 ind=$(awk -v ArrayTaskID=$SLURM_ARRAY_TASK_ID '$1==ArrayTaskID {print $2}' $CONFIG)
 echo "slurm array = $SLURM_ARRAY_TASK_ID filtering mapped reads for sample $ind"
 
@@ -33,9 +33,9 @@ samtools view \
 -b \
 -q 20 \
 -F 260 \
-map_sort_barcode${ind}.bam > map_sort_barcode${ind}_filtered.bam
+remap_sort_barcode${ind}.bam > remap_sort_barcode${ind}_filtered.bam
 # index the filtered bams
-samtools index --threads 16 map_sort_barcode${ind}_filtered.bam
+samtools index --threads 16 remap_sort_barcode${ind}_filtered.bam
 #-F 0x904 \ # to remove secondary and supplementary alignments and unmapped reads
 
 
