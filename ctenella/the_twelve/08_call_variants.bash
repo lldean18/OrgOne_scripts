@@ -11,12 +11,12 @@
 #SBATCH --time=90:00:00
 #SBATCH --job-name=Clair3_variant_call
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
-#SBATCH --array=1-12
+#SBATCH --array=1-13
 # --partition=ampere-mq
 # --gres=gpu:A100-mig:1
 
 # setup config
-CONFIG=~/code_and_scripts/config_files/ctenella_the_twelve_config.txt
+CONFIG=~/code_and_scripts/config_files/ctenella_the_thirteen_config.txt
 ind=$(awk -v ArrayTaskID=$SLURM_ARRAY_TASK_ID '$1==ArrayTaskID {print $2}' $CONFIG)
 echo "slurm array = $SLURM_ARRAY_TASK_ID calling variants for sample $ind"
 
@@ -62,7 +62,7 @@ MODEL_NAME=r1041_e82_400bps_sup_v500
 
 # run clair3 to call variants for each ind
 python3 ${CLAIR3_PATH}/run_clair3.py \
-  --bam_fn=bams/map_sort_barcode${ind}_filtered_named.bam \
+  --bam_fn=bams/remap_sort_barcode${ind}_filtered_named.bam \
   --ref_fn=../ctenella_chagius_asm.fasta \
   --threads=48 \
   --platform="ont" \
