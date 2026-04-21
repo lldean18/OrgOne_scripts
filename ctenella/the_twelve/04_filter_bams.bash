@@ -26,12 +26,12 @@ echo "slurm array = $SLURM_ARRAY_TASK_ID filtering mapped reads for sample $ind"
 
 
 
-
+# NOTE changed the quality cut off from 20 to 30 this time to try it out
 # filter bams to remove low quality mappings and secondary alignments and unmapped reads
 samtools view \
 --threads 16 \
 -b \
--q 20 \
+-q 30 \
 -F 260 \
 remap_sort_barcode${ind}.bam > remap_sort_barcode${ind}_filtered.bam
 # index the filtered bams
@@ -41,9 +41,9 @@ samtools index --threads 16 remap_sort_barcode${ind}_filtered.bam
 
 # Generate info about how well the reads mapped
 echo "the raw reads were mapped with the following success:" > mapping_info/${ind}_mapping_info.txt
-samtools flagstat --threads 16 map_sort_barcode${ind}.bam >> mapping_info/${ind}_mapping_info.txt
+samtools flagstat --threads 16 remap_sort_barcode${ind}.bam >> mapping_info/${ind}_mapping_info.txt
 echo "the filtered reads were mapped with the following success:" >> mapping_info/${ind}_mapping_info.txt
-samtools flagstat --threads 16 map_sort_barcode${ind}_filtered.bam >> mapping_info/${ind}_mapping_info.txt
+samtools flagstat --threads 16 remap_sort_barcode${ind}_filtered.bam >> mapping_info/${ind}_mapping_info.txt
 
 
 
