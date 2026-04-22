@@ -70,8 +70,7 @@ python3 ${CLAIR3_PATH}/run_clair3.py \
   --output=variants/${ind} \
   --include_all_ctgs \
   --sample_name=barcode${ind} \
-  --gvcf \
-  --tmpdir=~/tmp #\
+  --gvcf #\
 #  --use_gpu
 
 # rename the output files to contain the ind name as GLNexus requires this in the joint genotyping step
