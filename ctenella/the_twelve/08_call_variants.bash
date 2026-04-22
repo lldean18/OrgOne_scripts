@@ -6,8 +6,8 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=48
-#SBATCH --mem=180g
+#SBATCH --cpus-per-task=96
+#SBATCH --mem=361g
 #SBATCH --time=90:00:00
 #SBATCH --job-name=Clair3_variant_call
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
@@ -70,7 +70,8 @@ python3 ${CLAIR3_PATH}/run_clair3.py \
   --output=variants/${ind} \
   --include_all_ctgs \
   --sample_name=barcode${ind} \
-  --gvcf #\
+  --gvcf \
+  --tmpdir=~/tmp #\
 #  --use_gpu
 
 # rename the output files to contain the ind name as GLNexus requires this in the joint genotyping step
