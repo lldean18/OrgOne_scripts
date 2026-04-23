@@ -1,7 +1,7 @@
 #!/bin/bash
 # 31/3/26
 
-# script to merge individual level vcf files output by clair3 for the 12 ctenella samples
+# script to merge individual level vcf files output by clair3 for the 13 ctenella samples
 
 #SBATCH --job-name=joint_genotype
 #SBATCH --partition=defq
@@ -25,12 +25,12 @@ glnexus_cli \
   --config ~/github/OrgOne_scripts/ctenella/the_twelve/clair3.yml \
   --threads 32 \
   --trim-uncalled-alleles \
-  /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/*.gvcf.gz > the_twelve.bcf
+  /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/*/*.gvcf.gz > the_thirteen.bcf
 
 conda deactivate
 
 # index the bcf file
 module load bcftools-uoneasy/1.19-GCC-13.2.0
-bcftools index the_twelve.bcf
+bcftools index the_thirteen.bcf
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 
