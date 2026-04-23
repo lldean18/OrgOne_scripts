@@ -10,7 +10,7 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --mem=4g
 #SBATCH --time=5:00:00
-#SBATCH --array=1-12
+#SBATCH --array=1-13
 #SBATCH --job-name=coverage_calcs
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
