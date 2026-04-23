@@ -19,6 +19,6 @@ ind=$(awk -v ArrayTaskID=$SLURM_ARRAY_TASK_ID '$1==ArrayTaskID {print $2}' $CONF
 echo "slurm array = $SLURM_ARRAY_TASK_ID uploading the tar archive for barcode$ind"
 
 # make ENA submission
-curl --upload-file /share/deepseq/laura/ctenella/ctenella_chagius_pod5s_barcode${ind}.tar.gz --user Webin-154:hjsH3ZTp ftp://webin2.ebi.ac.uk
+curl --upload-file /share/deepseq/laura/ctenella/ctenella_chagius_pod5s_barcode${ind}.tar.gz --user Webin-154:******** ftp://webin2.ebi.ac.uk
 
 
