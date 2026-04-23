@@ -29,6 +29,7 @@ cd /gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/annotation
 
 # make gene predictions with braker3
 conda activate braker3
+export PATH=$CONDA_PREFIX/bin:$PATH
 export PERL5LIB=/gpfs01/home/mbzlld/software_bin/miniconda3/envs/braker3/lib/perl5/site_perl:$PERL5LIB
 braker.pl \
   --AUGUSTUS_ab_initio \
