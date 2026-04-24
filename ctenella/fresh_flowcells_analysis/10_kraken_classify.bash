@@ -34,10 +34,12 @@ conda activate kraken2
 DBNAME=/share/deepseq/matt/Ctenella/kraken_core
 #to_classify=Ctenella_sup.fastq.gz
 #to_classify=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
-to_classify=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg.fasta
+#to_classify=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg.fasta
+to_classify=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg.fasta
 
 #cd /share/deepseq/laura/ctenella/kraken2
-cd /gpfs01/home/mbzlld/data/ctenella/kraken2
+#cd /gpfs01/home/mbzlld/data/ctenella/kraken2
+cd /gpfs01/home/mbzlld/data/ctenella/kraken2/hap1
 
 ##  # run kraken2 to classify reads or assembly contigs
 ##  kraken2 \
