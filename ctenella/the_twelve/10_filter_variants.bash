@@ -56,6 +56,9 @@ bgzip > the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.gz
 vcftools --gzvcf the_thirteen_Q30_DP20_SNP.vcf.gz --max-missing 1 --maf 0.1 --recode --stdout |
 bgzip > the_thirteen_Q30_DP20_SNP_mis1_maf0.1.vcf.gz
 
+# remove the reference individual from the vcf we want to use for tree building
+bcftools view -s "^barcoderef" the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz -Oz -o the_twelve_Q30_DP10_SNP_mis1_maf0.1.vcf.gz
+
 
 
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
