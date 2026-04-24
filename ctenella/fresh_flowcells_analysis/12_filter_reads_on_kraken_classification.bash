@@ -74,4 +74,15 @@ python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
 # this was so quick for the contigs I probably didn't even need srun
 
 
+# extract just the Scleractinia contigs from the hap1 assembly
+cd /gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4
+python /share/deepseq/laura/ctenella/extract_kraken_reads.py \
+-s ONTasm.bp.hap1.p_ctg_classified.fasta \
+-o ONTasm.bp.hap1.p_ctg_Scleractinia.fasta \
+--taxid 6125 \
+--include-children \
+-k /gpfs01/home/mbzlld/data/ctenella/kraken2/hap1/k2_log \
+--report /gpfs01/home/mbzlld/data/ctenella/kraken2/hap1/k2_report
+# this was so quick for the contigs I probably didn't even need srun
+
 
