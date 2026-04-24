@@ -17,6 +17,7 @@
 
 # setup env
 assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia.fasta
+assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia.fasta
 
 source $HOME/.bash_profile
 conda activate seqkit
