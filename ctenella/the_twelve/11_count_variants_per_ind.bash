@@ -34,6 +34,10 @@ done
 # make the output file fully tab separated
 awk '{print $1, $2, $3}' OFS='\t' non_ref_variant_counts.tsv > tmp && mv tmp non_ref_variant_counts.tsv
 
+
+
+
+
 # count the number of variants that differ from the reference (for a single file at a time)
 bcftools query -f '[%SAMPLE\t%GT\n]' the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.gz \
 | awk '$2!="0/0" && $2!="./." && $2!~/\./' | cut -f1 | sort | uniq -c
@@ -44,7 +48,9 @@ bcftools query -f '[%SAMPLE\t%GT\n]' the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.g
 
 
 
-
+# count the number of variants that are homozygous for the alternate allele (for a single file at a time)
+bcftools query -f '[%SAMPLE\t%GT\n]' the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz \
+| awk ' $2=="1/1" ' | cut -f1 | sort | uniq -c
 
 
 
