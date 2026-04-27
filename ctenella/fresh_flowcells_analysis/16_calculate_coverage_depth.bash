@@ -20,7 +20,8 @@ source $HOME/.bash_profile
 conda activate samtools1.22
 
 # set variables
-bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_mapped_raw_reads_Scleractinia.bam
+#bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_mapped_raw_reads_Scleractinia.bam
+bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_mapped_raw_reads_Scleractinia.bam
 
 
 # calculate coverage depth for each contig
