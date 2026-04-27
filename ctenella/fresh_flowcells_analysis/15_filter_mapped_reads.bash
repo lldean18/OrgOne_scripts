@@ -20,12 +20,14 @@ source $HOME/.bash_profile
 conda activate minimap2
 
 # set variables
-bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_mapped_raw_reads.bam
-filtered_asm=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia.fasta
+#bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_mapped_raw_reads.bam
+#filtered_asm=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia.fasta
+bam=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_mapped_raw_reads.bam
+filtered_asm=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia.fasta
 
 # extract the contig names from the filtered asm
-grep "^>" $filtered_asm | sed 's/^>//' > ${filtered_asm%.*}_contig_names.txt
-#grep "^>" $filtered_asm | sed 's/^>//' | sed '/ *//' > ${filtered_asm%.*}_contig_names.txt
+#grep "^>" $filtered_asm | sed 's/^>//' > ${filtered_asm%.*}_contig_names.txt
+grep "^>" $filtered_asm | sed 's/^>//' | sed '/ *//' > ${filtered_asm%.*}_contig_names.txt
 
 
 # filter the bam file to retain only reads in the filtered asm
