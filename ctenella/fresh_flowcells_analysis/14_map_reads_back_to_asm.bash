@@ -19,8 +19,12 @@
 source $HOME/.bash_profile
 conda activate minimap2
 
-reads=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
-assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg.fasta
+#reads=/share/deepseq/laura/ctenella/Ctenella_sup.fastq.gz
+##assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg.fasta
+#assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg.fasta
+
+reads=/gpfs01/home/mbzlld/data/ctenella/mitogenome/mito_reads_miniprot.fastq.gz
+assembly=/gpfs01/home/mbzlld/data/ctenella/mitogenome/flye_mito_asm_2/assembly.fasta
 
 # map the raw reads back to our assembly
 minimap2 \

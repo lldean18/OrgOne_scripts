@@ -19,29 +19,30 @@ cd /gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4
 source $HOME/.bash_profile
 conda activate seqkit
 
-asm=ONTasm.bp.p_ctg_Scleractinia.fasta
+#asm=ONTasm.bp.p_ctg_Scleractinia.fasta
+asm=ONTasm.bp.hap1.p_ctg_Scleractinia.fasta
 
 
 ########### FILTER GC
 # Make a list of contig IDs with GC content between 38 and 41
-awk -F'\t' '$2 >= 38 && $2 <= 41' ONTasm.bp.p_ctg_Scleractinia.fasta_GC.tsv > Contig_IDs_38-41GC.tsv
-sed -i 's/\t.*//' Contig_IDs_38-41GC.tsv
+awk -F'\t' '$2 >= 38 && $2 <= 41' ${asm}_GC.tsv > Contig_IDs_38-41GC_hap1.tsv
+sed -i 's/\t.*//' Contig_IDs_38-41GC_hap1.tsv
 
 # filter the reads to contain only those in the list of read IDs
 seqkit grep \
 -n \
--f Contig_IDs_38-41GC.tsv \
+-f Contig_IDs_38-41GC_hap1.tsv \
 $asm > ${asm%.*}_38-41GC.fasta
 
 
 ############ FILTER DEPTH
 # make a list of contig coverage depth between 180 and 300 X
-awk -F' ' '$2 >= 180 && $2 <= 300' ONTasm.bp.p_ctg_mapped_raw_reads_Scleractinia_depth.txt > Contig_IDs_180-300X.txt
-sed -i 's/ .*//' Contig_IDs_180-300X.txt
+awk -F' ' '$2 >= 180 && $2 <= 300' ONTasm.bp.hap1.p_ctg_mapped_raw_reads_Scleractinia_depth.txt > Contig_IDs_180-300X_hap1.txt
+sed -i 's/ .*//' Contig_IDs_180-300X_hap1.txt
 
 # filter the reads to contain only those in the list of read IDs
 seqkit grep \
--f Contig_IDs_180-300X.txt \
+-f Contig_IDs_180-300X_hap1.txt \
 ${asm%.*}_38-41GC.fasta > ${asm%.*}_38-41GC_180-300X.fasta
 
 
