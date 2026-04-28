@@ -63,7 +63,7 @@ MODEL_NAME=r1041_e82_400bps_sup_v500
 # run clair3 to call variants for each ind
 python3 ${CLAIR3_PATH}/run_clair3.py \
   --bam_fn=bams/remap_sort_barcode${ind}_filtered_named.bam \
-  --ref_fn=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb_polished_1.fasta \
+  --ref_fn=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta \
   --threads=48 \
   --platform="ont" \
   --model_path="${CLAIR3_PATH}/models/${MODEL_NAME}" \
