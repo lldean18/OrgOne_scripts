@@ -30,7 +30,7 @@ minimap2 \
 -y \
 -ax map-ont \
 -t 24 \
-/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb_polished_1.fasta \
+/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta \
 - |
 samtools sort --threads 24 -o remap_sort_barcode${ind}.bam
 samtools index --threads 24 remap_sort_barcode${ind}.bam
