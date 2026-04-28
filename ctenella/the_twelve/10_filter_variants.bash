@@ -61,6 +61,8 @@ bcftools view -s "^barcoderef" the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz -Oz 
 
 
 
+
+
 module unload bcftools-uoneasy/1.19-GCC-13.2.0
 module unload vcftools-uoneasy/0.1.16-GCC-12.3.0
 
