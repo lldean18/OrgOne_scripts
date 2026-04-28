@@ -17,7 +17,8 @@
 source $HOME/.bash_profile
 conda activate samtools1.22
 #assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
-assembly=/gpfs01/home/mbzlld/data/ctenella/mitogenome/flye_mito_asm_2/assembly.fasta
+#assembly=/gpfs01/home/mbzlld/data/ctenella/mitogenome/flye_mito_asm_2/assembly.fasta
+assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
 
 # Align reads to a reference using dorado aligner, sort and index
 dorado aligner $assembly /share/deepseq/matt/Ctenella/Ctenella.sup.meth.bam |
@@ -30,14 +31,15 @@ dorado polish \
 --threads 48 \
 --RG 1a4a3b36-aa31-420d-acde-f8d38087de7a_dna_r10.4.1_e8.2_400bps_sup@v5.2.0 \
 ${assembly%.*}_mapped_reads.bam \
-$assembly > ${assembly%.*}_polished_1.fasta
+$assembly > ${assembly%.*}_polished.fasta
 
-# polish the draft assembly again with the 2nd read group
-dorado polish \
---threads 48 \
---RG b90d191e-d354-4888-a386-83de53d6f4c7_dna_r10.4.1_e8.2_400bps_sup@v5.2.0 \
-${assembly%.*}_mapped_reads.bam \
-${assembly%.*}_polished_1.fasta > ${assembly%.*}_polished_final.fasta
+# # this 2nd step made the first asm worse so omitting it for the hap1 asm
+# # polish the draft assembly again with the 2nd read group
+# dorado polish \
+# --threads 48 \
+# --RG b90d191e-d354-4888-a386-83de53d6f4c7_dna_r10.4.1_e8.2_400bps_sup@v5.2.0 \
+# ${assembly%.*}_mapped_reads.bam \
+# ${assembly%.*}_polished_1.fasta > ${assembly%.*}_polished_final.fasta
 
 
 conda deactivate
