@@ -8,7 +8,7 @@ unifier_config:
 genotyper_config:
     required_dp: 1
     revise_genotypes: true
-    allow_partial_data: true
+    allow_partial_data: false
     more_PL: true
     trim_uncalled_alleles: true
     liftover_fields:
