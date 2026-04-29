@@ -17,4 +17,5 @@ conda activate samtools1.22
 samtools faidx /gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 conda deactivate
 
+# this is for merging the unpolished hap1 asm with the mitogenome prior to polishing
 
