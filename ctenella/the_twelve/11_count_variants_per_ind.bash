@@ -21,7 +21,8 @@ cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
 # count the number of variants that differ from the reference
 # for all files in a list and write to an output file
 rm non_ref_variant_counts.tsv
-files=(the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP20_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP10_SNP_mis1_maf0.05.vcf.gz the_thirteen_Q30_DP15_SNP_mis1_maf0.05.vcf.gz the_thirteen_Q30_DP20_SNP_mis1_maf0.05.vcf.gz)
+files=(the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP20_SNP_mis1_maf0.1.vcf.gz)
+#files=(the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP15_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP20_SNP_mis1_maf0.1.vcf.gz the_thirteen_Q30_DP10_SNP_mis1_maf0.05.vcf.gz the_thirteen_Q30_DP15_SNP_mis1_maf0.05.vcf.gz the_thirteen_Q30_DP20_SNP_mis1_maf0.05.vcf.gz)
 for file in ${files[@]}
 do
 bcftools query -f '[%SAMPLE\t%GT\n]' $file \
