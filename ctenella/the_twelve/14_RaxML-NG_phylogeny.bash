@@ -24,10 +24,10 @@ mkdir -p /gpfs01/home/mbzlld/data/ctenella/the_twelve/raxmlng
 # mv the_twelve_Q30_DP10_SNP_mis1_maf0.1.min4.phy the_twelve_Q30_DP10_SNP_mis1_maf0.1.phy
 # mv the_twelve_Q30_DP10_SNP_mis1_maf0.1.min4.fasta the_twelve_Q30_DP10_SNP_mis1_maf0.1.fasta
 
-# # convert the thirteen VCF to phylip format
-# cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
-# python ~/software_bin/vcf2phylip.py --input the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz
-# mv the_thirteen_Q30_DP10_SNP_mis1_maf0.1.min4.phy the_thirteen_Q30_DP10_SNP_mis1_maf0.1.phy
+# convert the thirteen VCF to phylip format
+cd /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants
+python ~/software_bin/vcf2phylip.py --input the_thirteen_Q30_DP10_SNP_mis1_maf0.1.vcf.gz
+mv the_thirteen_Q30_DP10_SNP_mis1_maf0.1.min4.phy the_thirteen_Q30_DP10_SNP_mis1_maf0.1.phy
 
 # # remove invariant sites from the alignment
 # snp-sites -p /gpfs01/home/mbzlld/data/ctenella/the_twelve/variants/the_twelve_Q30_DP10_SNP_mis1_maf0.1.fasta \
