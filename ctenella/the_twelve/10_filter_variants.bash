@@ -32,21 +32,21 @@ bcftools view -v snps -m2 -M2 the_thirteen_Q30_DP10.vcf.gz -Oz --threads 16 -o t
 bcftools view -v snps -m2 -M2 the_thirteen_Q30_DP15.vcf.gz -Oz --threads 16 -o the_thirteen_Q30_DP15_SNP.vcf.gz
 bcftools view -v snps -m2 -M2 the_thirteen_Q30_DP20.vcf.gz -Oz --threads 16 -o the_thirteen_Q30_DP20_SNP.vcf.gz
 
-# filter for missingness and minor allele frequency
-vcftools --gzvcf the_thirteen_Q30_DP10_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
-bgzip > the_thirteen_Q30_DP10_SNP_mis0.9_maf0.05.vcf.gz
-vcftools --gzvcf the_thirteen_Q30_DP15_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
-bgzip > the_thirteen_Q30_DP15_SNP_mis0.9_maf0.05.vcf.gz
-vcftools --gzvcf the_thirteen_Q30_DP20_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
-bgzip > the_thirteen_Q30_DP20_SNP_mis0.9_maf0.05.vcf.gz
-
-# filter for total missingness
-vcftools --gzvcf the_thirteen_Q30_DP10_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
-bgzip > the_thirteen_Q30_DP10_SNP_mis1_maf0.05.vcf.gz
-vcftools --gzvcf the_thirteen_Q30_DP15_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
-bgzip > the_thirteen_Q30_DP15_SNP_mis1_maf0.05.vcf.gz
-vcftools --gzvcf the_thirteen_Q30_DP20_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
-bgzip > the_thirteen_Q30_DP20_SNP_mis1_maf0.05.vcf.gz
+# # filter for missingness and minor allele frequency
+# vcftools --gzvcf the_thirteen_Q30_DP10_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP10_SNP_mis0.9_maf0.05.vcf.gz
+# vcftools --gzvcf the_thirteen_Q30_DP15_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP15_SNP_mis0.9_maf0.05.vcf.gz
+# vcftools --gzvcf the_thirteen_Q30_DP20_SNP.vcf.gz --max-missing 0.9 --maf 0.05 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP20_SNP_mis0.9_maf0.05.vcf.gz
+# 
+# # filter for total missingness
+# vcftools --gzvcf the_thirteen_Q30_DP10_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP10_SNP_mis1_maf0.05.vcf.gz
+# vcftools --gzvcf the_thirteen_Q30_DP15_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP15_SNP_mis1_maf0.05.vcf.gz
+# vcftools --gzvcf the_thirteen_Q30_DP20_SNP_mis0.9_maf0.05.vcf.gz --max-missing 1 --recode --stdout |
+# bgzip > the_thirteen_Q30_DP20_SNP_mis1_maf0.05.vcf.gz
 
 # filter for MAF 0.1
 vcftools --gzvcf the_thirteen_Q30_DP10_SNP.vcf.gz --max-missing 1 --maf 0.1 --recode --stdout |
