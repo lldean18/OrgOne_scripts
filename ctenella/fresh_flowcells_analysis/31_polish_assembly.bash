@@ -18,7 +18,8 @@ source $HOME/.bash_profile
 conda activate samtools1.22
 #assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
 #assembly=/gpfs01/home/mbzlld/data/ctenella/mitogenome/flye_mito_asm_2/assembly.fasta
-assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
+#assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
+assembly=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4/ONTasm.bp.hap1.p_ctg_Scleractinia_39-40.5GC_220-300X_100kb.fasta
 
 # Align reads to a reference using dorado aligner, sort and index
 dorado aligner $assembly /share/deepseq/matt/Ctenella/Ctenella.sup.meth.bam |
