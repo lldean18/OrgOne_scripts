@@ -16,7 +16,7 @@
 # setup env
 source $HOME/.bash_profile
 conda activate samtools1.22
-assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle_3.5kb.bp.p_ctg.fasta
+#assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle_3.5kb.bp.p_ctg.fasta
 assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle.bp.p_ctg.fasta
 
 
