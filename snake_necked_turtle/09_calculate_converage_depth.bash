@@ -17,12 +17,15 @@
 # set up env
 source $HOME/.bash_profile
 conda activate samtools1.22
+cd /share/deepseq/org_one/SNT052/assembly_QC
 bam=/share/deepseq/org_one/SNT052/hifiasm/turtle.bp.p_ctg_mapped_reads.bam
 
 
 # calculate coverage depth for each contig
 samtools depth -a $bam |
-awk '{sum[$1]+=$3; count[$1]++} END {for (c in sum) print c, sum[c]/count[c]}' > ${bam%.*}_depth.txt
+awk '{sum[$1]+=$3; count[$1]++} END {for (c in sum) print c, sum[c]/count[c]}' > $(basename ${bam%.*})_depth.txt
 
 
 conda deactivate
+
+
