@@ -4,17 +4,19 @@
 # script to polish the turtle assembly variations with dorado polish
 
 #SBATCH --job-name=dorado_polish
-#SBATCH --partition=defq
+#SBATCH --partition=ampereq
+#SBATCH --gres=gpu:A100-full:1
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=48
-#SBATCH --mem=361g
-#SBATCH --time=100:00:00
+#SBATCH --cpus-per-task=40
+#SBATCH --mem=256g
+#SBATCH --time=130:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
 # setup env
 source $HOME/.bash_profile
+module load cuda-12.2.2
 conda activate samtools1.22
 #assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle_3.5kb.bp.p_ctg.fasta
 assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle.bp.p_ctg.fasta
@@ -29,9 +31,11 @@ assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle.bp.p_ctg.fasta
 # polish the draft assembly
 dorado polish \
 --threads 48 \
+--device cuda:all \
 ${assembly%.*}_mapped_reads.bam \
 $assembly > /share/deepseq/org_one/SNT052/dorado_polish/$(basename ${assembly%.*})_polished.fasta
 
 
+module unload cuda-12.2.2
 conda deactivate
 
