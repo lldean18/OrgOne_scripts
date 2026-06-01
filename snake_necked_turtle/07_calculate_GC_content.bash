@@ -18,11 +18,12 @@
 # setup env
 source $HOME/.bash_profile
 conda activate seqkit
+cd /share/deepseq/org_one/SNT052/assembly_QC
 assembly=/share/deepseq/org_one/SNT052/hifiasm/turtle.bp.p_ctg.fasta
 
 
 # calculate GC content of reads
-seqkit fx2tab --threads 16 --gc --name $assembly > ${assembly}_GC.tsv
+seqkit fx2tab --threads 16 --gc --name $assembly > $(basename ${assembly})_GC.tsv
 
 
 conda deactivate
