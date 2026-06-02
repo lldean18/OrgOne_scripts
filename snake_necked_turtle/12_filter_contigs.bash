@@ -24,7 +24,7 @@ asm=turtle.bp.p_ctg_polished.fasta
 
 ########### FILTER GC
 # Make a list of contig IDs with GC content between 36 and 55
-awk -F'\t' '$2 >= 36 && $2 <= 55' ../assembly_QC/${asm}_GC.tsv > Contig_IDs_36-55GC.tsv
+awk -F'\t' '$2 >= 36 && $2 <= 55' ../assembly_QC/turtle.bp.p_ctg.fasta_GC.tsv > Contig_IDs_36-55GC.tsv
 sed -i 's/\t.*//' Contig_IDs_36-55GC.tsv
 
 # filter the reads to contain only those in the list of read IDs
