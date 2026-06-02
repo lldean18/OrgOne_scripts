@@ -49,7 +49,7 @@ ${asm%.*}_36-55GC.fasta > ${asm%.*}_36-55GC_10-100X.fasta
 seqtk seq \
 -L 100000 ${asm%.*}_36-55GC_10-100X.fasta > ${asm%.*}_36-55GC_10-100X_100kb.fasta
 
-
+rm Contig_IDs_10-100X.txt Contig_IDs_36-55GC.tsv
 
 conda deactivate
 
