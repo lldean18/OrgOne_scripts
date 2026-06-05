@@ -28,6 +28,9 @@ lineage_dataset=sauropsida_odb12
 # decide what lineage dataset you will use for your species
 #busco --list-datasets
 
+export _JAVA_OPTIONS="-Xmx64g"
+export BBMAP_JAVA_OPTS="-Xmx64g"
+
 # run busco
 # --in : input assembly in fasta format
 # --lineage_dataset nearest class in the busco database for your species
