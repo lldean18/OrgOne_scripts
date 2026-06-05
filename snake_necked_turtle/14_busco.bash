@@ -18,6 +18,7 @@ conda activate busco6.0.0
 mkdir -p /share/deepseq/org_one/SNT052/busco
 cd /share/deepseq/org_one/SNT052/busco
 assembly=/share/deepseq/org_one/SNT052/dorado_polish/turtle.bp.p_ctg_polished_36-55GC_10-100X_100kb.fasta
+#lineage_dataset=sauropsida_odb12.2
 lineage_dataset=sauropsida_odb12
 
 
@@ -42,6 +43,7 @@ busco \
 --out_path ./ \
 --cpu 16 \
 -f \
+--offline \
 --download_path ~/busco_downloads
 
 # deactivate conda
