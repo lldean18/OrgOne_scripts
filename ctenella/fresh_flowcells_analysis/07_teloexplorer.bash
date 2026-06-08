@@ -29,12 +29,14 @@ conda activate quartet
 
 
 # set environmental variables
-wkdir=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4
-genome=ONTasm.bp.p_ctg_100kb.fasta
+#wkdir=/gpfs01/home/mbzlld/data/ctenella/hifiasm_asm4
+#genome=ONTasm.bp.p_ctg_100kb.fasta
+#cd $wkdir
 
+mkdir -p /gpfs01/home/mbzlld/data/ctenella/teloexplorer
+cd  /gpfs01/home/mbzlld/data/ctenella/teloexplorer
+genome=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 
-# move to working directory
-cd $wkdir
 
 
 # unzip the input fasta file if it is gzipped and reassign its name
@@ -67,7 +69,7 @@ fi
 python ~/software_bin/quarTeT/quartet.py TeloExplorer \
 	-i $genome \
 	-c animal \
-	-p ${genome%.*}_quartet
+	-p $(basename ${genome%.*})_telomeres
 
 conda deactivate
 
