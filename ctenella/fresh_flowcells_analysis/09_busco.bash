@@ -25,7 +25,7 @@ cd /gpfs01/home/mbzlld/data/ctenella/busco
 #assembly=ONTasm.bp.p_ctg_100kb.fasta # same assembly but filtered to remove fragments smaller than 100kb
 #assembly=ONTasm.bp.p_ctg_Scleractinia.fasta
 #assembly=ONTasm.bp.p_ctg_Scleractinia_38-41GC_180-300X_100kb.fasta
-assembly=/gpfs01/home/mbzlld/data/ctenella/busco/ctenella_chagius_asm.fasta
+assembly=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 
 #lineage_dataset=eukaryota_odb10
 lineage_dataset=metazoa_odb12
