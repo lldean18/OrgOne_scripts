@@ -54,25 +54,37 @@ conda activate busco6.0.0
 # decide what lineage dataset you will use for your species
 #busco --list-datasets
 
-# run busco
-# --in : input assembly in fasta format
-# --lineage_dataset nearest class in the busco database for your species
-# --mode specify you are working on a genome assembly
-# --out name the output files (busco will create a dfolder with this name)
-# --out_path specify the path to your desired output directory
-# --cpu specify number of cores to use
-busco \
---in $assembly \
---lineage_dataset $lineage_dataset \
---mode genome \
---out $(basename ${assembly%.*})_$lineage_dataset \
---out_path ./ \
---cpu 16 \
--f \
---download_path ~/busco_downloads
+###  # run busco
+###  # --in : input assembly in fasta format
+###  # --lineage_dataset nearest class in the busco database for your species
+###  # --mode specify you are working on a genome assembly
+###  # --out name the output files (busco will create a dfolder with this name)
+###  # --out_path specify the path to your desired output directory
+###  # --cpu specify number of cores to use
+###  busco \
+###  --in $assembly \
+###  --lineage_dataset $lineage_dataset \
+###  --mode genome \
+###  --out $(basename ${assembly%.*})_$lineage_dataset \
+###  --out_path ./ \
+###  --cpu 16 \
+###  -f \
+###  --download_path ~/busco_downloads
+
+# busco --plot $(basename ${assembly%.*})_$lineage_dataset
 
 # deactivate conda
 conda deactivate
+
+
+conda activate blobtoolkit
+
+blobtools create --fasta /gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta /gpfs01/home/mbzlld/data/ctenella/blobtoolkit
+blobtools add --busco /gpfs01/home/mbzlld/data/ctenella/busco/ctenella_chagius_asm_metazoa_odb12/run_metazoa_odb12/full_table.tsv /gpfs01/home/mbzlld/data/ctenella/blobtoolkit
+blobtools view --view snail --plot --out /gpfs01/home/mbzlld/data/ctenella/blobtoolkit /gpfs01/home/mbzlld/data/ctenella/blobtoolkit
+
+conda deactivate
+
 
 
 
