@@ -14,8 +14,8 @@
 
 # set the run accession number for the file you wish to download
 #accession=ERR12834988
-#accession=ERR12834986
-accession=ERR12834987
+accession=ERR12834986
+#accession=ERR12834987
 
 # move to download location
 cd /gpfs01/home/mbzlld/data/OrgOne/camel/pod5s
@@ -29,15 +29,16 @@ sed -i 's/;/\n/g' ftp_path.txt # if there are multiple urls on the same line (e.
 
 
 ###### download the files from the urls
-wget --input-file=ftp_path.txt
+#wget --input-file=ftp_path.txt
+#echo "wget command has finished"
+curl -O "$(cat ftp_path.txt)"
 
-echo "wget command has finished"
 
-####### now extract the tarball
-# (get the file name first)
-tarball=$(cat ftp_path.txt)
-tarball=${tarball##*/}
-tar -xvzf $tarball
+###  ####### now extract the tarball
+###  # (get the file name first)
+###  tarball=$(cat ftp_path.txt)
+###  tarball=${tarball##*/}
+###  tar -xvzf $tarball
 
 ####### now delete the tarball
 # feels to risky to run in a job!
