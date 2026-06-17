@@ -45,3 +45,14 @@ curl -O "$(cat ftp_path.txt)"
 #rm -r $tarball
 
 
+
+##############################
+# giving up and trying with srun so I can see what is going on
+# srun --partition defq --cpus-per-task 1 --mem 20g --time 80:00:00 --pty bash
+
+source $HOME/.bash_profile
+cd /gpfs01/home/mbzlld/data/OrgOne/camel/pod5s
+wget --input-file=ftp_path.txt
+
+
+
