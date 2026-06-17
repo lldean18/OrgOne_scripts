@@ -13,10 +13,12 @@
 module load rclone-uon/1.65.2
 
 # copy a directory called cats from the HPC to MySite
-rclone --transfers 4 --checkers 4 --bwlimit 100M --checksum copy /gpfs01/home/mbzlld/data/ctenella/the_twelve/bams ctenella:ctenella_bams
+#rclone --transfers 4 --checkers 4 --bwlimit 100M --checksum copy /gpfs01/home/mbzlld/data/ctenella/the_twelve/bams ctenella:ctenella_bams
+rclone --transfers 4 --checkers 4 --bwlimit 100M --checksum copy /gpfs01/home/mbzlld/data/ctenella/assembly ctenella:assembly
 
 # Check the directory has copied successfully
-rclone check --one-way /gpfs01/home/mbzlld/data/ctenella/the_twelve/bams ctenella:ctenella_bams
+rclone check --one-way /gpfs01/home/mbzlld/data/ctenella/assembly ctenella:assembly
 
 # unload the software
 module unload rclone-uon/1.65.2
+
