@@ -17,6 +17,7 @@ module load singularity/3.8.5
 #cd ~/software_bin/singularity
 #singularity build braker3.sif docker://teambraker/braker3:latest
 cd /gpfs01/home/mbzlld/data/ctenella/braker
+singularity build braker3.sif docker://teambraker/braker3:latest
 
 ##  # download protein sequences from other corals to train the annotation
 ##  mkdir -p /gpfs01/home/mbzlld/data/ctenella/braker/training_proteins
@@ -30,10 +31,10 @@ cd /gpfs01/home/mbzlld/data/ctenella/braker
 ##  rm GCF_013753865.1_Amil_v2.1_protein.faa.gz GCF_932526225.1_jaNemVect1.1_protein.faa.gz GCF_000222465.1_Adig_1.1_protein.faa.gz GCF_002571385.2_Stylophora_pistillata_v1.1_protein.faa.gz
 
 # make gene predictions with braker3
-singularity exec gpfs01/home/mbzlld/software_bin/singularity/braker3.sif braker.pl \
+singularity exec braker3.sif braker.pl \
   --AUGUSTUS_ab_initio \
   --threads 16 \
-  --genome=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta \
+  --genome=../ctenella_chagius_asm.fasta \
   --species=Ctenella_chagius \
   --prot_seq=training_proteins/cnidaria_proteins.faa.gz \
   --gff3
