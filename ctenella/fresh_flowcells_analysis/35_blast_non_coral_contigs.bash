@@ -7,7 +7,7 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=10g
 #SBATCH --time=40:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
@@ -21,6 +21,7 @@ cd /gpfs01/home/mbzlld/data/ctenella/metagenome
 
 # blast each contig from the not coral assembly to hopefully ID symbionts
 blastn \
+  -num_threads 32 \
   -query ONTasm.bp.p_ctg_NOT_Scleractinia.fasta \
   -db /gpfs01/home/mbzlld/data/databases/nt \
   -max_target_seqs 1 \
@@ -28,11 +29,23 @@ blastn \
   -outfmt "6 qseqid sseqid stitle pident length evalue bitscore" \
   -out top_blast_hits.tsv
 
-
-
 conda deactivate
 
 
-
+# summarise the number of contigs for each different species
+awk -F'\t' '
+{ key = $2 "\t" $3
+    count[key]++
+    if (contigs[key] == "")
+        contigs[key] = $1
+    else
+        contigs[key] = contigs[key] "," $1}
+END { print "stitle\tsseqid\tcounts\tcontigs"
+    for (k in count) {
+        split(k, a, "\t")
+        sseqid = a[1]
+        stitle = a[2]
+        print stitle "\t" sseqid "\t" count[k] "\t" contigs[k]
+}}' top_blast_hits.tsv > blast_summary.tsv
 
 
