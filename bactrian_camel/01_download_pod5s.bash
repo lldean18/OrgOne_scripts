@@ -14,7 +14,7 @@
 
 # set the run accession number for the file you wish to download
 #accession=ERR12834988
-accession=ERR12834986
+#accession=ERR12834986
 #accession=ERR12834987
 
 # move to download location
