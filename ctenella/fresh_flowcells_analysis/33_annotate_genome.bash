@@ -30,16 +30,30 @@ cd /gpfs01/home/mbzlld/data/ctenella/braker
 ##  cat GCF_013753865.1_Amil_v2.1_protein.faa.gz GCF_932526225.1_jaNemVect1.1_protein.faa.gz GCF_000222465.1_Adig_1.1_protein.faa.gz GCF_002571385.2_Stylophora_pistillata_v1.1_protein.faa.gz > cnidaria_proteins.faa.gz
 ##  rm GCF_013753865.1_Amil_v2.1_protein.faa.gz GCF_932526225.1_jaNemVect1.1_protein.faa.gz GCF_000222465.1_Adig_1.1_protein.faa.gz GCF_002571385.2_Stylophora_pistillata_v1.1_protein.faa.gz
 
-# make gene predictions with braker3
-singularity exec braker3.sif braker.pl \
-  --AUGUSTUS_ab_initio \
-  --threads 16 \
-  --genome=../ctenella_chagius_asm.fasta \
-  --species=Ctenella_chagius \
-  --prot_seq=training_proteins/cnidaria_proteins.faa.gz \
-  --gff3
+###  # make gene predictions with braker3
+###  singularity exec braker3.sif braker.pl \
+###    --AUGUSTUS_ab_initio \
+###    --threads 16 \
+###    --genome=../ctenella_chagius_asm.fasta \
+###    --species=Ctenella_chagius \
+###    --prot_seq=training_proteins/cnidaria_proteins.faa.gz \
+###    --gff3
 
 
+# trying with Sonals sif and code
+WKDIR=/gpfs01/home/mbzlld/data/ctenella/braker
+
+singularity exec -B ${WKDIR}:${WKDIR} braker3.sif braker.pl \
+        --genome=ctenella_chagius_asm.fasta \
+        --species=Ctenella_chagius \
+	--prot_seq=cnidaria_proteins.faa \
+        --busco_lineage actinopterygii_odb10 \
+	--gff3 \
+        --workingdir=${WKDIR} \
+        --threads 16 &> ${WKDIR}/braker3.log
+
+
+#        --AUGUSTUS_CONFIG_PATH=${OUTDIR} \
 #  --PROTHINT_PATH=/gpfs01/home/mbzlld/software_bin/ProtHint/bin \
 
 module unload singularity/3.8.5
