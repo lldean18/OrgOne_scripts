@@ -54,5 +54,5 @@ source $HOME/.bash_profile
 cd /gpfs01/home/mbzlld/data/OrgOne/camel/pod5s
 wget --input-file=ftp_path.txt
 
-
+tar -xvzf bactrian_camel_P1_sheared_pod5s.tar.gz
 
