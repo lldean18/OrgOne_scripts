@@ -17,7 +17,7 @@ module load singularity/3.8.5
 #cd ~/software_bin/singularity
 #singularity build braker3.sif docker://teambraker/braker3:latest
 cd /gpfs01/home/mbzlld/data/ctenella/braker
-singularity build braker3.sif docker://teambraker/braker3:latest
+#singularity build braker3.sif docker://teambraker/braker3:latest
 
 ##  # download protein sequences from other corals to train the annotation
 ##  mkdir -p /gpfs01/home/mbzlld/data/ctenella/braker/training_proteins
