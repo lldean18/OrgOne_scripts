@@ -47,7 +47,7 @@ singularity exec -B ${WKDIR}:${WKDIR} braker3.sif braker.pl \
         --genome=ctenella_chagius_asm.fasta \
         --species=Ctenella_chagius \
 	--prot_seq=cnidaria_proteins.faa \
-        --busco_lineage actinopterygii_odb10 \
+        --busco_lineage anthozoa_odb12.2 \
 	--gff3 \
         --workingdir=${WKDIR} \
         --threads 16 &> ${WKDIR}/braker3.log
