@@ -29,7 +29,7 @@ assembly=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 
 #lineage_dataset=eukaryota_odb10
 #lineage_dataset=metazoa_odb12
-lineage_dataset=anthozoa_odb12.2
+lineage_dataset=anthozoa_odb12
 
 
 
