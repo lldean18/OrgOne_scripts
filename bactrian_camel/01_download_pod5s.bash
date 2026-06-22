@@ -31,8 +31,8 @@ cd /gpfs01/home/mbzlld/data/OrgOne/camel/pod5s
 ###### download the files from the urls
 #wget --input-file=ftp_path.txt
 #wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834988/bactrian_camel_P1_209_pod5s.tar.gz
-wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834987/bactrian_camel_P1_207_pod5s.tar.gz
-echo "wget command has finished"
+#wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834987/bactrian_camel_P1_207_pod5s.tar.gz
+#echo "wget command has finished"
 
 
 ###  ####### now extract the tarball
@@ -56,4 +56,6 @@ echo "wget command has finished"
 ###  wget --input-file=ftp_path.txt
 
 #tar -xvzf bactrian_camel_P1_sheared_pod5s.tar.gz
+tar -xvzf bactrian_camel_P1_209_pod5s.tar.gz
+
 
