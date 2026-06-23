@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
-#SBATCH --mem=80g
+#SBATCH --mem=180g
 #SBATCH --time=160:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
@@ -31,6 +31,7 @@ blastn \
 
 conda deactivate
 
+echo "blastn finished"
 
 # summarise the number of contigs for each different species
 awk -F'\t' '
