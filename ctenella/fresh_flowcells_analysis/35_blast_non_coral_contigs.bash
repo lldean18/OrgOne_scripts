@@ -7,7 +7,7 @@
 #SBATCH --partition=defq
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=16
 #SBATCH --mem=180g
 #SBATCH --time=160:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
@@ -21,7 +21,7 @@ cd /gpfs01/home/mbzlld/data/ctenella/metagenome
 
 # blast each contig from the not coral assembly to hopefully ID symbionts
 blastn \
-  -num_threads 32 \
+  -num_threads 16 \
   -query ONTasm.bp.p_ctg_NOT_Scleractinia.fasta \
   -db /gpfs01/home/mbzlld/data/databases/nt \
   -max_target_seqs 1 \
