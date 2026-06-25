@@ -9,7 +9,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=15g
-#SBATCH --time=80:00:00
+#SBATCH --time=150:00:00
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 # set the run accession number for the file you wish to download
@@ -31,7 +31,11 @@ cd /gpfs01/home/mbzlld/data/OrgOne/camel/pod5s
 ###### download the files from the urls
 #wget --input-file=ftp_path.txt
 #wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834988/bactrian_camel_P1_209_pod5s.tar.gz
-wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834987/bactrian_camel_P1_207_pod5s.tar.gz
+#wget ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834987/bactrian_camel_P1_207_pod5s.tar.gz
+
+wget -c --tries=0 --waitretry=60 --read-timeout=300 \
+ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR128/ERR12834987/bactrian_camel_P1_207_pod5s.tar.gz
+
 echo "wget command has finished"
 
 
