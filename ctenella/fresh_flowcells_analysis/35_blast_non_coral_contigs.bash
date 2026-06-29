@@ -49,4 +49,6 @@ END { print "stitle\tsseqid\tcounts\tcontigs"
         print stitle "\t" sseqid "\t" count[k] "\t" contigs[k]
 }}' top_blast_hits.tsv > blast_summary.tsv
 
+echo "script has run to completion"
+
 
