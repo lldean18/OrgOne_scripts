@@ -75,12 +75,11 @@ singularity exec -B ${WKDIR}:${WKDIR} braker3.sif braker.pl \
         --species=Ctenella_chagius \
 	--prot_seq=training_proteins/anthozoa_proteins.faa \
 	--gff3 \
-        --busco_lineage anthozoa_odb12 \
         --workingdir=${WKDIR} \
         --threads 16 &> ${WKDIR}/braker3.log
 
 
-#        --busco_lineage anthozoa_odb12.2 \
+#        --busco_lineage anthozoa_odb12 \
 #        --AUGUSTUS_CONFIG_PATH=${OUTDIR} \
 #  --PROTHINT_PATH=/gpfs01/home/mbzlld/software_bin/ProtHint/bin \
 
