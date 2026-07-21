@@ -23,12 +23,12 @@ cd /gpfs01/home/mbzlld/data/ctenella/repeatmodeler
 assembly=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 
 
-# build repeatmasker database
-BuildDatabase -name ctenella $assembly
+# # build repeatmasker database
+# BuildDatabase -name ctenella $assembly
 
 
 # run repeatmodeler
-RepeatModeler -database ctenella -threads 16 -LTRStruct
+RepeatModeler -database ctenella -pa 16 -xsmall -gff
 
 
 # cleanup env
