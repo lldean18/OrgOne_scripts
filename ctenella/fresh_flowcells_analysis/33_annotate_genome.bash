@@ -13,6 +13,11 @@
 #SBATCH --output=/gpfs01/home/mbzlld/code_and_scripts/slurm_out_scripts/slurm-%x-%j.out
 
 
+# setup env for repeatmasker
+#conda create --name repeatmasker bioconda::repeatmasker
+conda activate repeatmasker
+
+
 # setup env
 module load singularity/3.8.5
 #cd ~/software_bin/singularity
