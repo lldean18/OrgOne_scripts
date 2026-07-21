@@ -28,7 +28,11 @@ assembly=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 
 
 # run repeatmodeler
-RepeatModeler -database ctenella -pa 16 -xsmall -gff
+RepeatModeler -database ctenella -pa 16
+
+
+# run repeat masker
+RepeatMasker -pa 16 -xsmall -gff $assembly
 
 
 # cleanup env
