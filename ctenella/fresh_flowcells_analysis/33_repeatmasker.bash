@@ -33,6 +33,9 @@ assembly=/gpfs01/home/mbzlld/data/ctenella/ctenella_chagius_asm.fasta
 ## run repeatmodeler
 #RepeatModeler -database ctenella -threads 16
 
+# copied the intermediate files since it refuses do that at the final classification step
+#cp RM_1669300.ThuJul231534142026/consensi.fa ctenella-families.fa
+#cp RM_1669300.ThuJul231534142026/families.stk ctenella-families.stk
 
 # run repeat masker
 RepeatMasker -pa 16 -lib ctenella-families.fa -xsmall -gff $assembly
