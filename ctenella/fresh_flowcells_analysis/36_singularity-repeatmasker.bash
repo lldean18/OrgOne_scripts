@@ -17,7 +17,7 @@
 # setup env
 module load singularity/3.8.5
 #cd ~/software_bin/singularity
-#singularity build repeatmodeler.sif docker://pakorhon/repeatmodeler:latest
+#singularity build tetools.sif docker://dfam/tetools:latest
 mkdir -p /gpfs01/home/mbzlld/data/ctenella/repeatmodeler
 cd /gpfs01/home/mbzlld/data/ctenella/repeatmodeler
 WKDIR=/gpfs01/home/mbzlld/data/ctenella/repeatmodeler
@@ -28,13 +28,13 @@ assembly=ctenella_chagius_asm.fasta
 
 # build repeatmasker database
 echo "Running singularity contianer to build repeatmodeler database"
-singularity exec -B ${WKDIR}:${WKDIR} ~/software_bin/singularity/repeatmodeler.sif BuildDatabase -name ctenella $assembly
+singularity exec -B ${WKDIR}:${WKDIR} ~/software_bin/singularity/tetools.sif BuildDatabase -name ctenella $assembly
 
 
 
 # run repeatmodeler
 echo "Running singularity contianer to run repeatmodeler"
-singularity exec -B ${WKDIR}:${WKDIR} ~/software_bin/singularity/repeatmodeler.sif RepeatModeler -database ctenella -threads 16
+singularity exec -B ${WKDIR}:${WKDIR} ~/software_bin/singularity/tetools.sif RepeatModeler -database ctenella -threads 16
 
 
 ## run repeat masker
