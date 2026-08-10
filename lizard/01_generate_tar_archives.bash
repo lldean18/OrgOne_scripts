@@ -21,7 +21,7 @@ mkdir -p /gpfs01/home/mbzlld/data/OrgOne/lizard
 # 20260727_1507_3F_PBG20569_84abc30c/pod5 
 
 # generate md5sums
-md5sum /gpfs01/home/mbzlld/data/OrgOne/lizard/gallotia_intermedia_pod5s.tar.gz > /gpfs01/home/mbzlld/data/OrgOne/lizard_pod5s.md5
+md5sum /gpfs01/home/mbzlld/data/OrgOne/lizard/gallotia_intermedia_pod5s.tar.gz > /gpfs01/home/mbzlld/data/OrgOne/lizard/lizard_pod5s.md5
 
 # check the gzip integrity of the file
 gzip -t /gpfs01/home/mbzlld/data/OrgOne/lizard/gallotia_intermedia_pod5s.tar.gz
