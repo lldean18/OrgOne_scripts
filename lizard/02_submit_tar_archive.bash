@@ -18,7 +18,7 @@
 # for the tar archive of pod5s
 curl --upload-file /gpfs01/home/mbzlld/data/OrgOne/lizard/gallotia_intermedia_pod5s.tar.gz --user Webin-154:******** ftp://webin2.ebi.ac.uk
 
-## for the basecalled bam
-#curl --upload-file ?/?.bam --user Webin-154:******** ftp://webin2.ebi.ac.uk
+# for the basecalled bam
+curl --upload-file /share/deepseq/matt/Gallotia_intermedia/Gallotia_intermedia.sup.bam --user Webin-154:******** ftp://webin2.ebi.ac.uk
 
 
