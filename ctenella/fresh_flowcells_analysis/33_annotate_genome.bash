@@ -16,6 +16,13 @@
 # setup env for repeatmasker
 #conda create --name repeatmasker bioconda::repeatmasker
 conda activate repeatmasker
+mkdir -p /gpfs01/home/mbzlld/data/ctenella/repeatmodeler
+cd /gpfs01/home/mbzlld/data/ctenella/repeatmodeler
+
+# build repeatmasker database
+BuildDatabase -name ctenella 
+
+
 
 
 # setup env
